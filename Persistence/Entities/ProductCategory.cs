@@ -13,5 +13,8 @@ namespace Persistence.Entities
         public string CategoryName { get; set; }
         
         public ICollection<Product> Products { get; set; }
+        
+        public ICollection<ProductCategory> ChildrenCategories { get; set; }
+        public ProductCategory ParentCategory { get; set; }
     }
 }

@@ -15,22 +15,22 @@ namespace Persistence.Repositories
             _dbSet = dbSet;
         }
 
-        public IQueryable<T> Get()
+        public virtual IQueryable<T> Get()
         {
             return _dbSet.AsQueryable();
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _dbSet.Remove(entity);
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             _dbSet.Add(entity);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public virtual void AddRange(IEnumerable<T> entities)
         {
             _dbSet.AddRange(entities);
         }

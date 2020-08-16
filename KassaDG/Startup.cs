@@ -25,6 +25,13 @@ namespace KassaDG
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+
+            services.AddScoped<KassaDgDbContext, KassaDgDbContext>(x => new KassaDgDbContext());
+            services.AddScoped<AccountRepository, AccountRepository>();
+            services.AddScoped<IRepository<Account>, AccountRepository>(x => x.GetService<AccountRepository>());
+            services.AddScoped<IRepository<Order>, OrderRepository>();
+            services.AddScoped<IRepository<Product>, ProductRepository>();
+            services.AddScoped<IRepository<ProductCategory>, ProductCategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,11 +44,8 @@ namespace KassaDG
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -49,16 +53,6 @@ namespace KassaDG
             }
 
             app.UseRouting();
-
-            using (var db = new KassaDgDbContext())
-            {
-                var categoryRepository = new ProductCategoryRepository(db);
-                categoryRepository.Add(new ProductCategory
-                {
-                    CategoryName = "TestCategory"
-                });
-                categoryRepository.SaveChanges();
-            }
 
             app.UseEndpoints(endpoints =>
             {

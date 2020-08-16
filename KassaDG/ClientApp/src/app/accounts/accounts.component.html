@@ -1,0 +1,17 @@
+<p *ngIf="!accounts"><em>Loading...</em></p>
+
+<table *ngIf="accounts" aria-labelledby="tableLabel" class='table table-striped'>
+  <thead>
+  <tr>
+    <th>Naam</th>
+    <th>Saldo</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let account of accounts">
+    <td>{{ account.accountName }}</td>
+    <td>{{ formatMoney(account.balanceCents) }}</td>
+  </tr>
+  </tbody>
+</table>
+<button mat-button [routerLink]="['/create-account']">Add</button>
