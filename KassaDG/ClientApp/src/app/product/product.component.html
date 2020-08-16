@@ -1,0 +1,9 @@
+<mat-form-field>
+  <mat-label>Productnaam</mat-label>
+  <input matInput type="text" [(ngModel)]="productName"/>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Prijs per stuk</mat-label>
+  <input matInput type="number" [(ngModel)]="pricePerPiece"/>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="updateProduct()"></button>

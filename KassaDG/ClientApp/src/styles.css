@@ -17,3 +17,12 @@ code {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.table-row-action {
+  width: 15%;
+}
+
+.table-row-action > button {
+  float: right;
+}

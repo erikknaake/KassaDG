@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(KassaDgDbContext))]
-    [Migration("20200816102220_InitialMigration")]
+    [Migration("20200816133758_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,7 +123,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(128);
 
-                    b.Property<int?>("ParentCategoryCategoryId")
+                    b.Property<int?>("ParentCategoryId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("CategoryId");
@@ -131,7 +131,7 @@ namespace Persistence.Migrations
                     b.HasIndex("CategoryName")
                         .IsUnique();
 
-                    b.HasIndex("ParentCategoryCategoryId");
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("ProductCategories");
                 });
@@ -173,7 +173,7 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Persistence.Entities.ProductCategory", "ParentCategory")
                         .WithMany("ChildrenCategories")
-                        .HasForeignKey("ParentCategoryCategoryId");
+                        .HasForeignKey("ParentCategoryId");
                 });
 #pragma warning restore 612, 618
         }

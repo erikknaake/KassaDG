@@ -28,14 +28,14 @@ namespace Persistence.Migrations
                     CategoryId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CategoryName = table.Column<string>(maxLength: 128, nullable: false),
-                    ParentCategoryCategoryId = table.Column<int>(nullable: true)
+                    ParentCategoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductCategories", x => x.CategoryId);
                     table.ForeignKey(
-                        name: "FK_ProductCategories_ProductCategories_ParentCategoryCategoryId",
-                        column: x => x.ParentCategoryCategoryId,
+                        name: "FK_ProductCategories_ProductCategories_ParentCategoryId",
+                        column: x => x.ParentCategoryId,
                         principalTable: "ProductCategories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Restrict);
@@ -138,9 +138,9 @@ namespace Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductCategories_ParentCategoryCategoryId",
+                name: "IX_ProductCategories_ParentCategoryId",
                 table: "ProductCategories",
-                column: "ParentCategoryCategoryId");
+                column: "ParentCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProductCategoryId",

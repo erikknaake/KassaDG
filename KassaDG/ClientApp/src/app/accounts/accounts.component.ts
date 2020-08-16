@@ -21,6 +21,6 @@ export class AccountsComponent implements OnInit {
   }
 
   formatMoney(balanceCents: number): string {
-    return MoneyFormatter.Format(balanceCents);
+    return MoneyFormatter.format(balanceCents);
   }
 }

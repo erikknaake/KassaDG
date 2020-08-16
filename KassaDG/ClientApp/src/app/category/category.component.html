@@ -1,0 +1,22 @@
+<mat-accordion class="category-wrapper">
+  <mat-expansion-panel [expanded]="category.parentCategoryId == null">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{category.categoryName}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let categoryLine of category.childrenCategories">
+      <app-category [category]="categoryLine"></app-category>
+    </div>
+    <table>
+      <tr *ngFor="let product of category.products">
+        <td>{{product.productName}}</td>
+        <td>{{formatMoney(product.pricePerPieceCents)}}</td>
+      </tr>
+    </table>
+    <div class="expansion-actions">
+      <button mat-raised-button color="primary" (click)="navigateCreateCategory()">Voeg category toe</button>
+      <button mat-raised-button color="primary" [routerLink]="['/product']">Voeg product toe</button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

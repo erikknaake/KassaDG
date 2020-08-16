@@ -16,5 +16,6 @@ namespace Persistence.Entities
         
         public ICollection<ProductCategory> ChildrenCategories { get; set; }
         public ProductCategory ParentCategory { get; set; }
+        public int? ParentCategoryId { get; set; }
     }
 }

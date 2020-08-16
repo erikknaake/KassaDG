@@ -1,0 +1,11 @@
+<p *ngIf="!categories"><em>Loading...</em></p>
+
+<table *ngIf="categories" aria-labelledby="tableLabel" class='table table-striped'>
+  <tbody>
+  <tr *ngFor="let category of categories">
+    <app-category [category]="category"></app-category>
+  </tr>
+  </tbody>
+</table>
+<button mat-raised-button color="primary" [routerLink]="['/create-category']">Voeg category toe</button>
+<button mat-raised-button color="primary" [routerLink]="['/product']">Voeg product toe</button>

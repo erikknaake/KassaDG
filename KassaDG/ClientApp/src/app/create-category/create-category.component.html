@@ -1,0 +1,8 @@
+<p *ngIf="parent !== ''">Voeg categorie toe aan {{parent}}</p>
+<p *ngIf="parent === ''">Voeg nieuwe top level categorie toe</p>
+
+<mat-form-field>
+  <mat-label>Categorie naam</mat-label>
+  <input matInput type="text" [(ngModel)]="categoryName"/>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="addCategory()">Toevoegen</button>
