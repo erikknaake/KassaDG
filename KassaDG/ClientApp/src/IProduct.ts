@@ -10,6 +10,7 @@ export interface ICategory {
 export interface IProduct {
   productName: string;
   productId: number;
-  category: ICategory;
-  pricePerPieceCents: number
+  productCategory: ICategory;
+  productCategoryId: number;
+  pricePerPieceCents: number;
 }

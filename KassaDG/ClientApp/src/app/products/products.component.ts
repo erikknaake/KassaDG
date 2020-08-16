@@ -1,8 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IAccount} from "../../IAccount";
-import {ICategory, IProduct} from "../../IProduct";
-import {MoneyFormatter} from "../../MoneyFormatter";
+import {ICategory} from "../../IProduct";
 
 @Component({
   selector: 'app-products',

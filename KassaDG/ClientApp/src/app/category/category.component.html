@@ -8,15 +8,15 @@
     <div *ngFor="let categoryLine of category.childrenCategories">
       <app-category [category]="categoryLine"></app-category>
     </div>
-    <table>
+    <table aria-labelledby="tableLabel" class='table table-striped'>
       <tr *ngFor="let product of category.products">
         <td>{{product.productName}}</td>
         <td>{{formatMoney(product.pricePerPieceCents)}}</td>
       </tr>
     </table>
     <div class="expansion-actions">
-      <button mat-raised-button color="primary" (click)="navigateCreateCategory()">Voeg category toe</button>
-      <button mat-raised-button color="primary" [routerLink]="['/product']">Voeg product toe</button>
+      <button mat-raised-button color="primary" (click)="navigateProduct()">Voeg product toe</button>
+      <button mat-raised-button color="accent" (click)="navigateCreateCategory()">Voeg categorie toe</button>
     </div>
   </mat-expansion-panel>
 </mat-accordion>

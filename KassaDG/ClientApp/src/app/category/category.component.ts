@@ -24,7 +24,10 @@ export class CategoryComponent implements OnInit {
 
 
   navigateCreateCategory() {
-    //[routerLink]="['/create-category?id=' + category.categoryId + '&parent='+category.categoryName]
     this.router.navigate(['/create-category', {id: this.category.categoryId, parent: this.category.categoryName}]);
+  }
+
+  navigateProduct() {
+    this.router.navigate(['/product', {categoryId: this.category.categoryId, category: this.category.categoryName, isNew: true}]);
   }
 }
