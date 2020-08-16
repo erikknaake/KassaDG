@@ -3,6 +3,7 @@ namespace KassaDG.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Persistence.Repositories;
 
     [ApiController]
@@ -23,10 +24,18 @@ namespace KassaDG.Controllers
         }
 
         [HttpPut]
-        public void Add(T entity)
+        public StatusCodeResult Add(T entity)
         {
-            _repository.Add(entity);
-            _repository.SaveChanges();
+            try
+            {
+                _repository.Add(entity);
+                _repository.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return new StatusCodeResult(409);
+            }
+            return new OkResult();
         }
 
         [HttpDelete]

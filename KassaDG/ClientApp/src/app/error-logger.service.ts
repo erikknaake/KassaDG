@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Clipboard} from "ts-clipboard";
 
@@ -7,17 +7,26 @@ import {Clipboard} from "ts-clipboard";
 })
 export class ErrorLoggerService {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private _snackBar: MatSnackBar) {
+  }
 
   log(error: Error): void {
     console.log(error);
-    this.openSnackBar(`Er vond een error plaats: ${error.name}`, 'Copy error', error);
+    this.openSnackBarWithCopyAction(`Er vond een error plaats: ${error.name}`, 'Copy error', error);
   }
 
-  private openSnackBar(message: string, action: string, error: Error) {
-    this._snackBar.open(message,action, {
-    }).afterDismissed().subscribe(next => {
-      Clipboard.copy(`Error: ${error.name}\nMessage: ${error.message}`);
+  private openSnackBarWithCopyAction(message: string, action: string, error: Error) {
+    this.openSnackbar(message, action).afterDismissed().subscribe(() => {
+      let errorString: string = `Error: ${error.name}\nMessage: ${error.message}`;
+      const innerError: string = (<any>error).error
+      if (innerError != null) {
+        errorString += `\nInnerError: ${innerError}`;
+      }
+      Clipboard.copy(errorString);
     });
+  }
+
+  public openSnackbar(message: string, action: string) {
+    return this._snackBar.open(message, action, {})
   }
 }

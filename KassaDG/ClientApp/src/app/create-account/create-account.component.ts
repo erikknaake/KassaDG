@@ -28,6 +28,12 @@ export class CreateAccountComponent implements OnInit {
     };
     this.http.put(this.baseUrl + "account", account).subscribe(result => {
       this.router.navigateByUrl("accounts")
-    }, error => this.errorLogger.log(error));
+    }, error => {
+      if(error.status === 409) {
+        this.errorLogger.openSnackbar("Accountnamen moeten uniek zijn", "Ok");
+      } else {
+        this.errorLogger.log(error)
+      }
+    });
   }
 }

@@ -5,13 +5,17 @@
   <tr>
     <th>Naam</th>
     <th>Saldo</th>
+    <th class="table-row-action"></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let account of accounts">
     <td>{{ account.accountName }}</td>
     <td>{{ formatMoney(account.balanceCents) }}</td>
+    <td class="table-row-action">
+      <button mat-raised-button color="accent">Verwijder</button>
+    </td>
   </tr>
   </tbody>
 </table>
-<button mat-button [routerLink]="['/create-account']">Add</button>
+<button mat-raised-button color="primary" [routerLink]="['/create-account']">Add</button>

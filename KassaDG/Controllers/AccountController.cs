@@ -13,8 +13,8 @@ namespace KassaDG.Controllers
             _repository = repository;
         }
 
-        [HttpPost]
-        public void AddToBalance(int accountId, int amountCents)
+        [HttpPost("{accountId}")]
+        public void AddToBalance(int accountId, [FromBody]int amountCents)
         {
             var account = _repository.Get(accountId);
             account.BalanceCents += amountCents;
