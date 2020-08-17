@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>Weet je het zeker?</h2>
+<mat-dialog-content>{{confirmMessage}}</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="accent" (click)="dialogRef.close(true)">Ja</button>
+  <button mat-raised-button color="primary" (click)="dialogRef.close(false)">Nee</button>
+</mat-dialog-actions>

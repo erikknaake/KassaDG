@@ -4,6 +4,7 @@ import {MoneyFormatter} from "../../MoneyFormatter";
 import {IAccount} from "../../IAccount";
 import {ErrorLoggerService} from "../error-logger.service";
 import {Router} from "@angular/router";
+import {ConfirmDialogService} from "../confirm-dialog.service";
 
 @Component({
   selector: 'app-accounts',
@@ -17,7 +18,8 @@ export class AccountsComponent implements OnInit {
     private readonly http: HttpClient,
     @Inject('BASE_URL') private readonly baseUrl: string,
     private readonly errorLogger: ErrorLoggerService,
-    private readonly router: Router) {
+    private readonly router: Router,
+    private readonly confirmService: ConfirmDialogService) {
   }
 
   ngOnInit() {
@@ -30,9 +32,15 @@ export class AccountsComponent implements OnInit {
     return MoneyFormatter.format(balanceCents);
   }
 
-  deleteAccount(id: number) {
+  async deleteAccount(id: number) {
+    if(await this.confirmService.confirmDialog("Weet je zeker dat je het account wilt verwijderen?")) {
+      this.sendDeleteAccountCommand(id);
+    }
+  }
+
+  private sendDeleteAccountCommand(id: number) {
     this.http.delete(this.baseUrl + 'account/' + id).subscribe(next => {
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
         return this.router.navigateByUrl('/accounts');
       });
     }, error => {

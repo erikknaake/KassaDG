@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ErrorLoggerService} from "../error-logger.service";
 import {ProductsChangedObservableService} from "../products-changed-observable.service";
+import {ConfirmDialogService} from "../confirm-dialog.service";
 
 @Component({
   selector: 'app-category',
@@ -20,7 +21,8 @@ export class CategoryComponent implements OnInit {
               @Inject("BASE_URL") private readonly baseUrl: string,
               private readonly http: HttpClient,
               private readonly errorLogger: ErrorLoggerService,
-              private readonly productsChangedObservableService: ProductsChangedObservableService) { }
+              private readonly productsChangedObservableService: ProductsChangedObservableService,
+              private readonly confirmService: ConfirmDialogService) { }
 
   ngOnInit() {
   }
@@ -38,7 +40,13 @@ export class CategoryComponent implements OnInit {
     this.router.navigate(['/product', {categoryId: this.category.id, category: this.category.categoryName, isNew: true}]);
   }
 
-  deleteProduct(productId: number) {
+  async deleteProduct(productId: number) {
+    if(await this.confirmService.confirmDialog("Weet je zeker dat je het product wilt verwijderen?")) {
+      this.sendDeleteProductCommand(productId);
+    }
+  }
+
+  private sendDeleteProductCommand(productId: number) {
     this.http.delete(this.baseUrl + 'product/' + productId).subscribe(next => {
       this.productsChangedObservableService.notify();
     }, error => {

@@ -20,6 +20,8 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
+import { ConfimDialogComponent } from './confim-dialog/confim-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -31,13 +33,15 @@ import {MatIconModule} from "@angular/material/icon";
     ProductComponent,
     OrderComponent,
     CategoryComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    ConfimDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     MatButtonModule,
     MatSnackBarModule,
     MatExpansionModule,
+    MatDialogModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -55,6 +59,7 @@ import {MatIconModule} from "@angular/material/icon";
     MatIconModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfimDialogComponent]
 })
 export class AppModule { }
