@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit {
   productName: string;
   pricePerPiece: number;
   isNew: boolean;
+  amountInStock: number;
   private categoryId: number;
   private categoryName: string;
   private productId: number;
@@ -37,6 +38,7 @@ export class ProductComponent implements OnInit {
         this.productName = params['productName'];
         this.pricePerPiece = MoneyFormatter.toEuros(params['pricePerPiece']);
         this.productId = params['productId'];
+        this.amountInStock = params['amountInStock']
       }
     );
   }
@@ -46,7 +48,8 @@ export class ProductComponent implements OnInit {
       pricePerPieceCents: MoneyFormatter.toCents(this.pricePerPiece),
       productName: this.productName,
       productCategoryId: this.categoryId,
-      id: this.productId
+      id: this.productId,
+      amountInStock: this.amountInStock
     };
 
     this.http.post(this.baseUrl + 'product', product).subscribe(next => {
@@ -62,7 +65,8 @@ export class ProductComponent implements OnInit {
       pricePerPieceCents: MoneyFormatter.toCents(this.pricePerPiece),
       productName: this.productName,
       productCategoryId: this.categoryId,
-      id: this.productId
+      id: this.productId,
+      amountInStock: this.amountInStock
     };
 
     this.http.put(this.baseUrl + 'product', product).subscribe(next => {

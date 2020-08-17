@@ -9,14 +9,25 @@
       <app-category [category]="categoryLine"></app-category>
     </div>
     <table aria-labelledby="tableLabel" class='table table-striped'>
-      <tr *ngFor="let product of category.products">
-        <td>{{product.productName}}</td>
-        <td>{{formatMoney(product.pricePerPieceCents)}}</td>
-        <td class="actions">
-          <button mat-raised-button color="accent" (click)="navigateEditProduct(product)">Bewerk product <mat-icon>edit</mat-icon></button>
-          <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product <mat-icon>remove_circle_outline</mat-icon></button>
-        </td>
+      <thead>
+      <tr>
+        <th>Product</th>
+        <th>Prijs per stuk</th>
+        <th>Aantal in voorraad</th>
+        <th></th>
       </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of category.products">
+          <td>{{product.productName}}</td>
+          <td>{{formatMoney(product.pricePerPieceCents)}}</td>
+          <td>{{product.amountInStock}}</td>
+          <td class="actions">
+            <button mat-raised-button color="accent" (click)="navigateEditProduct(product)">Bewerk product <mat-icon>edit</mat-icon></button>
+            <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product <mat-icon>remove_circle_outline</mat-icon></button>
+          </td>
+        </tr>
+      </tbody>
     </table>
     <mat-divider></mat-divider>
     <div class="actions">

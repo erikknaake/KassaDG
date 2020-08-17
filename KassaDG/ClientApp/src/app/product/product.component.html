@@ -6,5 +6,9 @@
   <mat-label>Prijs per stuk</mat-label>
   <input matInput type="number" [(ngModel)]="pricePerPiece"/>
 </mat-form-field>
+<mat-form-field>
+  <mat-label>Aantal in voorraad</mat-label>
+  <input matInput type="number" [(ngModel)]="amountInStock">
+</mat-form-field>
 <button *ngIf="!isNew" mat-raised-button color="primary" (click)="updateProduct()">Update product</button>
 <button *ngIf="isNew" mat-raised-button color="primary" (click)="createProduct()">Voeg product toe</button>

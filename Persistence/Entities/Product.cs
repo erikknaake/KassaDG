@@ -19,5 +19,8 @@
         public int ProductCategoryId { get; set; }
         // [Required]
         public ProductCategory ProductCategory { get; set; }
+        
+        [Required]
+        public int AmountInStock { get; set; }
     }
 }

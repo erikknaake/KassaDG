@@ -37,7 +37,9 @@ export class CategoryComponent implements OnInit {
   }
 
   navigateCreateProduct() {
-    this.router.navigate(['/product', {categoryId: this.category.id, category: this.category.categoryName, isNew: true}]);
+    this.router.navigate(['/product', {categoryId: this.category.id,
+      category: this.category.categoryName,
+      isNew: true}]);
   }
 
   async deleteProduct(productId: number) {
@@ -61,7 +63,8 @@ export class CategoryComponent implements OnInit {
       isNew: false,
       productName: product.productName,
       pricePerPiece: product.pricePerPieceCents,
-      productId: product.id
+      productId: product.id,
+      amountInStock: product.amountInStock
     }]);
   }
 }

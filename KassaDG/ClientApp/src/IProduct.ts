@@ -13,4 +13,5 @@ export interface IProduct {
   productCategory?: ICategory;
   productCategoryId: number;
   pricePerPieceCents: number;
+  amountInStock: number;
 }
