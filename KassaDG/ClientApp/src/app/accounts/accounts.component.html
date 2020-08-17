@@ -9,9 +9,9 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let account of accounts" (click)="navigateAccount(account.id)">
-    <td>{{ account.accountName }}</td>
-    <td>{{ formatMoney(account.balanceCents) }}</td>
+  <tr *ngFor="let account of accounts">
+    <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
+    <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
     <td class="table-row-action">
       <button mat-raised-button color="accent" (click)="deleteAccount(account.id)">Verwijder <mat-icon>remove_circle_outline</mat-icon></button>
     </td>

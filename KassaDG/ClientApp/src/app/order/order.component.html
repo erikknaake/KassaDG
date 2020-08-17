@@ -10,6 +10,7 @@
           <th>Product</th>
           <th>Aantal</th>
           <th>Subtotaal</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,9 @@
         <td>
           {{calculateSubTotal(basketContentLine)}}
         </td>
+        <td>
+          <button mat-raised-button color="accent" (click)="removeProductFromBasket(basketContentLine.productId)"><mat-icon>remove_circle_outline</mat-icon></button>
+        </td>
       </tr>
       </tbody>
       <tfoot>
@@ -30,6 +34,7 @@
           <td></td>
           <td>Totaal:</td>
           <td>{{calculateTotal()}}</td>
+          <td></td>
         </tr>
       </tfoot>
     </table>

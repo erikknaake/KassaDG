@@ -93,6 +93,10 @@ export class OrderComponent implements OnInit {
       this.errorLogger.log(error);
     });
   }
+
+  removeProductFromBasket(productId: number) {
+    this.basket.removeProduct(productId);
+  }
 }
 
 interface IOrderPost {
