@@ -13,11 +13,5 @@ namespace KassaDG.Controllers
         {
             _repository = repository;
         }
-
-        [HttpGet("{id}")]
-        public ProductCategory Get([FromRoute]int id)
-        {
-            return _repository.Get().Single(x => x.Id == id);
-        }
     }
 }

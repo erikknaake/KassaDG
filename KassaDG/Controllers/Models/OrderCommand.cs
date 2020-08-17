@@ -6,6 +6,7 @@ namespace KassaDG.Controllers.Models
     {
         public int AccountId { get; set; }
         public IEnumerable<OrderCommandLine> OrderCommandLines { get; set; }
+        public int? Deposit { get; set; }
     }
 
     public class OrderCommandLine

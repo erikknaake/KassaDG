@@ -15,6 +15,7 @@ import {CommitingOrderService} from "../commiting-order.service";
 export class OrderComponent implements OnInit {
   account: IAccount = null;
   basketContents: IOrderAmount[] = [];
+  deposit: number;
 
   constructor(
     private readonly http: HttpClient,
@@ -81,7 +82,8 @@ export class OrderComponent implements OnInit {
     });
     const finalOrder: IFinalOrder = {
       orderCommandLines: order,
-      accountId: this.account.id
+      accountId: this.account.id,
+      deposit: MoneyFormatter.toCents(this.deposit)
     }
     this.http.post(this.baseUrl + 'order', finalOrder).subscribe(next => {
       this.commitingOrder.isCommitingOrder = true;
@@ -107,4 +109,5 @@ interface IOrderPost {
 interface IFinalOrder {
   orderCommandLines : IOrderPost[];
   accountId: number;
+  deposit?: number;
 }

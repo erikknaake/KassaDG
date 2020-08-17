@@ -3,43 +3,51 @@
   <p><b>Rekening: </b> {{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
 </div>
 <div class="order">
-  <div class="basket">
-    <table aria-labelledby="tableLabel" class='table table-striped'>
-      <thead>
+  <div class="order-left">
+    <div class="basket">
+      <table aria-labelledby="tableLabel" class='table table-striped'>
+        <thead>
         <tr>
           <th>Product</th>
           <th>Aantal</th>
           <th>Subtotaal</th>
           <th></th>
         </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let basketContentLine of basketContents">
-        <td>
-          {{basketContentLine.productName}}
-        </td>
-        <td>
-          {{basketContentLine.amount}}
-        </td>
-        <td>
-          {{calculateSubTotal(basketContentLine)}}
-        </td>
-        <td>
-          <button mat-raised-button color="accent" (click)="removeProductFromBasket(basketContentLine.productId)"><mat-icon>remove_circle_outline</mat-icon></button>
-        </td>
-      </tr>
-      </tbody>
-      <tfoot>
+        </thead>
+        <tbody>
+        <tr *ngFor="let basketContentLine of basketContents">
+          <td>
+            {{basketContentLine.productName}}
+          </td>
+          <td>
+            {{basketContentLine.amount}}
+          </td>
+          <td>
+            {{calculateSubTotal(basketContentLine)}}
+          </td>
+          <td>
+            <button mat-raised-button color="accent" (click)="removeProductFromBasket(basketContentLine.productId)"><mat-icon>remove_circle_outline</mat-icon></button>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
         <tr>
           <td></td>
           <td>Totaal:</td>
           <td>{{calculateTotal()}}</td>
           <td></td>
         </tr>
-      </tfoot>
-    </table>
-    <button mat-raised-button color="primary" (click)="order()">Afrekenen <mat-icon>check_circle_outline</mat-icon></button>
-    <button mat-raised-button color="warn" (click)="navigateAccounts()">Annuleren <mat-icon>cancel</mat-icon></button>
+        </tfoot>
+      </table>
+      <button mat-raised-button color="primary" (click)="order()">Afrekenen <mat-icon>check_circle_outline</mat-icon></button>
+      <button mat-raised-button color="warn" (click)="navigateAccounts()">Annuleren <mat-icon>cancel</mat-icon></button>
+    </div>
+    <div class="deposit">
+      <mat-form-field>
+        <mat-label>Storting</mat-label>
+        <input matInput type="number" [(ngModel)]="deposit">
+      </mat-form-field>
+    </div>
   </div>
   <app-products [isOrdering]="true"></app-products>
 </div>

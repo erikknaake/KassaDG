@@ -6,6 +6,7 @@ export interface IOrder {
   accountId: number;
   account: IAccount;
   orderDate: Date;
+  deposit?: number;
 }
 
 export interface IOrderLine {

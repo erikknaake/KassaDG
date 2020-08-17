@@ -48,6 +48,10 @@ namespace KassaDG.Controllers
             var user = FindUser(orderCommand.AccountId);
             var totalPrice = CalculateTotalPrice(orderCommand.OrderCommandLines);
             user.BalanceCents -= totalPrice;
+            if (orderCommand.Deposit != null)
+            {
+                user.BalanceCents += orderCommand.Deposit.Value;
+            }
         }
 
         private void RemoveProductsFromStock(OrderCommand orderCommand)
@@ -70,12 +74,13 @@ namespace KassaDG.Controllers
                 Account = FindUser(orderCommand.AccountId),
                 AccountId = orderCommand.AccountId,
                 OrderDate = DateTimeOffset.Now,
-                OrderLines = CreateOrderLines(orderCommand.OrderCommandLines)
+                Deposit = orderCommand.Deposit
             };
+            order.OrderLines = CreateOrderLines(orderCommand.OrderCommandLines, order);
             _orderRepository.Add(order);
         }
 
-        private ICollection<OrderLine> CreateOrderLines(IEnumerable<OrderCommandLine> orderCommandLines)
+        private ICollection<OrderLine> CreateOrderLines(IEnumerable<OrderCommandLine> orderCommandLines, Order order)
         {
             return orderCommandLines.Select(x =>
             {
@@ -84,7 +89,9 @@ namespace KassaDG.Controllers
                 {
                     Amount = x.Amount,
                     ProductName = product.ProductName,
-                    ProductPriceCents = product.PricePerPieceCents
+                    ProductPriceCents = product.PricePerPieceCents,
+                    Order = order,
+                    OrderId = order.Id
                 };
             }).ToList();
         }
@@ -93,7 +100,7 @@ namespace KassaDG.Controllers
         {
             return orderLines
                 .Select(x => x.Amount * FindProduct(x.Id).PricePerPieceCents)
-                .Aggregate((prev, cur) => prev + cur);
+                .Aggregate(0, (prev, cur) => prev + cur);
         }
 
         private Product FindProduct(int productId)

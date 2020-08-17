@@ -18,5 +18,7 @@ namespace Persistence.Entities
         public Account Account { get; set; }
         
         public ICollection<OrderLine> OrderLines { get; set; }
+        
+        public int? Deposit { get; set; }
     }
 }
