@@ -4,11 +4,13 @@ import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot} from '@angul
 
 import {OrderComponent} from "./app/order/order.component";
 import {ConfirmDialogService} from "./app/confirm-dialog.service";
+import {CommitingOrderService} from "./app/commiting-order.service";
 
 @Injectable()
 export class NavGuard implements CanDeactivate<OrderComponent> {
 
-  constructor(private readonly confirmDialog: ConfirmDialogService) {
+  constructor(private readonly confirmDialog: ConfirmDialogService,
+              private readonly commitingOrder: CommitingOrderService) {
   }
 
   private readonly _message = "Weet je zeker dat je de bestelling niet wil afronden. Gemaakte wijzigingen zullen niet worden opgeslagen";
@@ -24,6 +26,10 @@ export class NavGuard implements CanDeactivate<OrderComponent> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    return from(this.confirmDialog.confirmDialog(this._message));
+    if(!this.commitingOrder.isCommitingOrder) {
+      return from(this.confirmDialog.confirmDialog(this._message));
+    } else {
+      return true;
+    }
   }
 }

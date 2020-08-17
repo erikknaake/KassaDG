@@ -5,6 +5,7 @@ import {IAccount} from "../../IAccount";
 import {ErrorLoggerService} from "../error-logger.service";
 import {BasketService, IOrderAmount} from "../basket.service";
 import {MoneyFormatter} from "../../MoneyFormatter";
+import {CommitingOrderService} from "../commiting-order.service";
 
 @Component({
   selector: 'app-order',
@@ -21,7 +22,8 @@ export class OrderComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly errorLogger: ErrorLoggerService,
     private readonly basket: BasketService,
-    private readonly router: Router) {
+    private readonly router: Router,
+    private readonly commitingOrder: CommitingOrderService) {
   }
 
   ngOnInit() {
@@ -82,7 +84,10 @@ export class OrderComponent implements OnInit {
       accountId: this.account.id
     }
     this.http.post(this.baseUrl + 'order', finalOrder).subscribe(next => {
-      this.router.navigateByUrl('/accounts');
+      this.commitingOrder.isCommitingOrder = true;
+      this.router.navigateByUrl('/accounts').then(() => {
+        this.commitingOrder.isCommitingOrder = false;
+      });
       this.basket.clear();
     }, error => {
       this.errorLogger.log(error);
