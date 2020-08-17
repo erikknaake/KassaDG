@@ -53,7 +53,7 @@
           <mat-divider></mat-divider>
         </mat-card-content>
         <mat-card-actions [align]="'end'">
-          <button mat-raised-button color="primary" (click)="order()">Afrekenen
+          <button mat-raised-button color="primary" (click)="order()" [disabled]="busy">Afrekenen
             <mat-icon>check_circle_outline</mat-icon>
           </button>
           <button mat-raised-button color="warn" (click)="navigateAccounts()">Annuleren

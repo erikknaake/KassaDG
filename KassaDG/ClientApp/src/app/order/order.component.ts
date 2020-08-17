@@ -19,6 +19,7 @@ export class OrderComponent implements OnInit {
   account: IAccount = null;
   basketContents: IOrderAmount[] = [];
   deposit: number = 0.00;
+  busy: boolean = false;
 
   private dialogRef: MatDialogRef<NegativeCreditsDialogComponent>;
 
@@ -99,6 +100,7 @@ export class OrderComponent implements OnInit {
   }
 
   order() {
+    this.busy = true;
     const order: IOrderPost[] = this.basketContents.map(x => {
       return {
         id: x.productId,
@@ -113,10 +115,12 @@ export class OrderComponent implements OnInit {
     this.http.post(this.baseUrl + 'order', finalOrder).subscribe(next => {
       this.commitingOrder.isCommitingOrder = true;
       this.router.navigateByUrl('/accounts').then(() => {
+        this.busy = false;
         this.commitingOrder.isCommitingOrder = false;
       });
       this.basket.clear();
     }, error => {
+      this.busy = false;
       this.errorLogger.log(error);
     });
   }
