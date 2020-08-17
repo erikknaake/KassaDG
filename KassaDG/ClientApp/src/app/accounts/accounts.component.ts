@@ -12,7 +12,7 @@ import {ConfirmDialogService} from "../confirm-dialog.service";
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  accounts: IAccount[];
+  accounts: IAccount[] = [];
 
   constructor(
     private readonly http: HttpClient,
@@ -50,5 +50,15 @@ export class AccountsComponent implements OnInit {
 
   navigateAccount(id: number) {
     this.router.navigate(['/order', {accountId: id}]);
+  }
+
+  sortAccounts(accounts: IAccount[]): IAccount[] {
+    console.log('sorting accounts: ', accounts);
+    return accounts.sort((x, y) => {
+      if(x.accountName.toLowerCase() > y.accountName.toLowerCase()) {
+        return 1;
+      }
+      return -1;
+    });
   }
 }

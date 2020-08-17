@@ -80,4 +80,25 @@ export class CategoryComponent implements OnInit {
   removeProductFromBasket(product: IProduct) {
     this.basket.removeProduct(product.id);
   }
+
+  sortProducts(products: IProduct[]): IProduct[] {
+    return products.sort((x, y) => {
+      if(x.productName.toLowerCase() > y.productName.toLowerCase()) {
+        return 1;
+      }
+      return -1;
+    });
+  }
+
+  sortCategories(categories: ICategory[]): ICategory[] {
+    if(categories == null) {
+      return null;
+    }
+    return categories.sort((x, y) => {
+      if(x.categoryName.toLowerCase() > y.categoryName.toLowerCase()) {
+        return 1;
+      }
+      return -1;
+    });
+  }
 }

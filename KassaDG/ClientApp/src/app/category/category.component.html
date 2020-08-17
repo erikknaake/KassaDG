@@ -5,7 +5,7 @@
         {{category.categoryName}}
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div *ngFor="let categoryLine of category.childrenCategories">
+    <div *ngFor="let categoryLine of sortCategories(category.childrenCategories)">
       <app-category [category]="categoryLine" [isOrdering]="isOrdering"></app-category>
     </div>
     <table aria-labelledby="tableLabel" class='table table-striped'>
@@ -18,7 +18,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of category.products">
+        <tr *ngFor="let product of sortProducts(category.products)">
           <td>{{product.productName}}</td>
           <td>{{formatMoney(product.pricePerPieceCents)}}</td>
           <td>{{product.amountInStock}}</td>

@@ -28,6 +28,18 @@ export class ProductsComponent implements OnInit {
   }
 
   private processProducts(result: ICategory[]) {
-    this.categories = result.filter(x => x.parentCategoryId == null);
+    this.categories = ProductsComponent.sortCategories(result.filter(x => x.parentCategoryId == null));
+  }
+
+  private static sortCategories(categories: ICategory[]): ICategory[] {
+    if (categories == null) {
+      return null;
+    }
+    return categories.sort((x, y) => {
+      if (x.categoryName.toLowerCase() > y.categoryName.toLowerCase()) {
+        return 1;
+      }
+      return -1;
+    });
   }
 }
