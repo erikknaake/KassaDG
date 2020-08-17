@@ -20,8 +20,9 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
-import { ConfimDialogComponent } from './confim-dialog/confim-dialog.component';
+import { ConfirmDialogComponent } from './confim-dialog/confirm-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {NavGuard} from "../NavGaurd";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     OrderComponent,
     CategoryComponent,
     CreateCategoryComponent,
-    ConfimDialogComponent
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -50,7 +51,7 @@ import {MatDialogModule} from '@angular/material/dialog';
       {path: 'create-account', component: CreateAccountComponent},
       {path: 'products', component: ProductsComponent},
       {path: 'product', component: ProductComponent},
-      {path: 'order', component: OrderComponent},
+      {path: 'order', component: OrderComponent, canDeactivate: [NavGuard]},
       {path: 'create-category', component: CreateCategoryComponent},
     ]),
     BrowserAnimationsModule,
@@ -58,8 +59,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDividerModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [NavGuard],
   bootstrap: [AppComponent],
-  entryComponents: [ConfimDialogComponent]
+  entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }

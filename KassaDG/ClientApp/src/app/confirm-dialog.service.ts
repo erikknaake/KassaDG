@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {ConfimDialogComponent} from "./confim-dialog/confim-dialog.component";
+import {ConfirmDialogComponent} from "./confim-dialog/confirm-dialog.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfirmDialogService {
 
-  private dialogRef: MatDialogRef<ConfimDialogComponent>;
+  private dialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   constructor(private readonly dialog: MatDialog) { }
 
@@ -18,7 +18,7 @@ export class ConfirmDialogService {
    */
   public async confirmDialog(message: string): Promise<boolean> {
     return new Promise<boolean>(resolve => {
-      this.dialogRef = this.dialog.open(ConfimDialogComponent, {
+      this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
         disableClose: false
       });
 

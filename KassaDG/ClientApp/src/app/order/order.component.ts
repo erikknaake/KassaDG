@@ -12,7 +12,7 @@ import {MoneyFormatter} from "../../MoneyFormatter";
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  private account: IAccount;
+  account: IAccount = null;
   basketContents: IOrderAmount[] = [];
 
   constructor(
@@ -54,5 +54,9 @@ export class OrderComponent implements OnInit {
       .map(x => x.amount * x.pricePerPiece)
       .reduce((prev, cur) => prev + cur, 0)
     );
+  }
+
+  formatMoney(pricePerPieceCents: number): string {
+    return MoneyFormatter.format(pricePerPieceCents);
   }
 }

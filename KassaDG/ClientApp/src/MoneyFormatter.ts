@@ -12,7 +12,7 @@ export class MoneyFormatter {
     return MoneyFormatter.toCents(parseFloat(euros.replace(",", ".")));
   }
 
-  static toEuros(cents: number) {
+  static toEuros(cents: number): number {
     return cents / 100;
   }
 }
