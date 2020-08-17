@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, ActivationEnd, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {IAccount} from "../../IAccount";
 import {ErrorLoggerService} from "../error-logger.service";
@@ -25,6 +25,11 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.events.subscribe(next => {
+      if(next instanceof ActivationEnd) {
+        this.basket.clear();
+      }
+    });
     this.basket.subscribe((newBasket: IOrderAmount[]) => {
       this.onBasketChanged(newBasket);
     });
