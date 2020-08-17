@@ -24,6 +24,7 @@ import { ConfirmDialogComponent } from './confim-dialog/confirm-dialog.component
 import {MatDialogModule} from '@angular/material/dialog';
 import {NavGuard} from "../NavGaurd";
 import { NegativeCreditsDialogComponent } from './negative-credits-dialog/negative-credits-dialog.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NegativeCreditsDialogComponent } from './negative-credits-dialog/negati
     MatSnackBarModule,
     MatExpansionModule,
     MatDialogModule,
+    MatCardModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([

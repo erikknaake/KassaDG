@@ -18,7 +18,7 @@ import {NegativeCreditsDialogComponent} from "../negative-credits-dialog/negativ
 export class OrderComponent implements OnInit {
   account: IAccount = null;
   basketContents: IOrderAmount[] = [];
-  deposit: number;
+  deposit: number = 0.00;
 
   private dialogRef: MatDialogRef<NegativeCreditsDialogComponent>;
 

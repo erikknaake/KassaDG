@@ -1,21 +1,30 @@
 <p *ngIf="!accounts"><em>Loading...</em></p>
-
-<table *ngIf="accounts" aria-labelledby="tableLabel" class='table table-striped'>
-  <thead>
-  <tr>
-    <th>Naam</th>
-    <th>Saldo</th>
-    <th class="table-row-action"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let account of sortAccounts(accounts)">
-    <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
-    <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
-    <td class="table-row-action">
-      <button mat-raised-button color="accent" (click)="deleteAccount(account.id)">Verwijder <mat-icon>remove_circle_outline</mat-icon></button>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<button mat-raised-button color="primary" [routerLink]="['/create-account']">Voeg account toe <mat-icon>add_circle_outline</mat-icon></button>
+<mat-card>
+  <mat-card-content>
+    <table *ngIf="accounts" aria-labelledby="tableLabel" class='table table-striped'>
+      <thead>
+      <tr>
+        <th>Naam</th>
+        <th>Saldo</th>
+        <th class="table-row-action"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let account of sortAccounts(accounts)">
+        <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
+        <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
+        <td class="table-row-action">
+          <button mat-raised-button color="accent" (click)="deleteAccount(account.id)">Verwijder
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-actions [align]="'end'">
+    <button mat-raised-button color="primary" [routerLink]="['/create-account']">Voeg account toe
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
