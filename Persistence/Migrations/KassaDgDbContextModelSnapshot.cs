@@ -68,8 +68,8 @@ namespace Persistence.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ProductName")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProductPriceCents")
                         .HasColumnType("INTEGER");
@@ -77,8 +77,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderLines");
                 });
@@ -151,12 +149,6 @@ namespace Persistence.Migrations
                     b.HasOne("Persistence.Entities.Order", "Order")
                         .WithMany("OrderLines")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Persistence.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

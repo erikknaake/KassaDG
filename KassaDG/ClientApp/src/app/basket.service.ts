@@ -39,6 +39,11 @@ export class BasketService {
     this.basketChanged();
   }
 
+  clear() {
+    this.basket = [];
+    this.basketChanged();
+  }
+
   subscribe(basketChangedFunction) {
     this.subscribers.push(basketChangedFunction);
   }

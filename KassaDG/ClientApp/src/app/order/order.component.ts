@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {IAccount} from "../../IAccount";
 import {ErrorLoggerService} from "../error-logger.service";
@@ -20,7 +20,8 @@ export class OrderComponent implements OnInit {
     @Inject("BASE_URL") private readonly baseUrl: string,
     private readonly route: ActivatedRoute,
     private readonly errorLogger: ErrorLoggerService,
-    private readonly basket: BasketService) {
+    private readonly basket: BasketService,
+    private readonly router: Router) {
   }
 
   ngOnInit() {
@@ -59,4 +60,37 @@ export class OrderComponent implements OnInit {
   formatMoney(pricePerPieceCents: number): string {
     return MoneyFormatter.format(pricePerPieceCents);
   }
+
+  navigateAccounts() {
+    this.router.navigateByUrl('/accounts');
+  }
+
+  order() {
+    const order: IOrderPost[] = this.basketContents.map(x => {
+      return {
+        id: x.productId,
+        amount: x.amount
+      }
+    });
+    const finalOrder: IFinalOrder = {
+      orderCommandLines: order,
+      accountId: this.account.id
+    }
+    this.http.post(this.baseUrl + 'order', finalOrder).subscribe(next => {
+      this.router.navigateByUrl('/accounts');
+      this.basket.clear();
+    }, error => {
+      this.errorLogger.log(error);
+    });
+  }
+}
+
+interface IOrderPost {
+  id: number;
+  amount: number;
+}
+
+interface IFinalOrder {
+  orderCommandLines : IOrderPost[];
+  accountId: number;
 }

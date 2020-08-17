@@ -69,7 +69,8 @@ namespace Persistence.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductName = table.Column<string>(maxLength: 128, nullable: false),
                     PricePerPieceCents = table.Column<int>(nullable: false),
-                    ProductCategoryId = table.Column<int>(nullable: false)
+                    ProductCategoryId = table.Column<int>(nullable: false),
+                    AmountInStock = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,7 +90,7 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false),
+                    ProductName = table.Column<string>(nullable: true),
                     ProductPriceCents = table.Column<int>(nullable: false),
                     Amount = table.Column<int>(nullable: false)
                 },
@@ -100,12 +101,6 @@ namespace Persistence.Migrations
                         name: "FK_OrderLines_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderLines_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -120,11 +115,6 @@ namespace Persistence.Migrations
                 name: "IX_OrderLines_OrderId",
                 table: "OrderLines",
                 column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderLines_ProductId",
-                table: "OrderLines",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_AccountId",
@@ -160,16 +150,16 @@ namespace Persistence.Migrations
                 name: "OrderLines");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");
+
+            migrationBuilder.DropTable(
+                name: "Accounts");
         }
     }
 }

@@ -33,8 +33,8 @@
         </tr>
       </tfoot>
     </table>
-    <button mat-raised-button color="primary">Afrekenen <mat-icon>check_circle_outline</mat-icon></button>
-    <button mat-raised-button color="warn">Annuleren <mat-icon>cancel</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="order()">Afrekenen <mat-icon>check_circle_outline</mat-icon></button>
+    <button mat-raised-button color="warn" (click)="navigateAccounts()">Annuleren <mat-icon>cancel</mat-icon></button>
   </div>
   <app-products [isOrdering]="true"></app-products>
 </div>

@@ -11,6 +11,8 @@ export class NavGuard implements CanDeactivate<OrderComponent> {
   constructor(private readonly confirmDialog: ConfirmDialogService) {
   }
 
+  private readonly _message = "Weet je zeker dat je de bestelling niet wil afronden. Gemaakte wijzigingen zullen niet worden opgeslagen";
+
   /**
    * Prevent the routes from changing
    * @param component
@@ -22,6 +24,6 @@ export class NavGuard implements CanDeactivate<OrderComponent> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    return from(this.confirmDialog.confirmDialog("Weet je zeker dat je de bestelling niet wil afronden. Gemaakte wijzigingen zullen niet worden opgeslagen"));
+    return from(this.confirmDialog.confirmDialog(this._message));
   }
 }
