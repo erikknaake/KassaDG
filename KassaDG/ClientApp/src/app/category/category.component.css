@@ -1,3 +1,12 @@
 .expansion-actions {
   margin-top: 2%;
 }
+
+.actions {
+  float: right;
+  padding: 12px;
+}
+
+.actions button {
+  margin-left: 2px;
+}

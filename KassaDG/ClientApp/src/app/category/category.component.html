@@ -12,14 +12,18 @@
       <tr *ngFor="let product of category.products">
         <td>{{product.productName}}</td>
         <td>{{formatMoney(product.pricePerPieceCents)}}</td>
-        <td>
-          <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product</button>
+        <td class="actions">
+          <button mat-raised-button color="accent">Bewerk product <mat-icon>edit</mat-icon></button>
+          <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product <mat-icon>remove_circle_outline</mat-icon></button>
         </td>
       </tr>
     </table>
-    <div class="expansion-actions">
-      <button mat-raised-button color="primary" (click)="navigateProduct()">Voeg product toe</button>
-      <button mat-raised-button color="accent" (click)="navigateCreateCategory()">Voeg categorie toe</button>
+    <mat-divider></mat-divider>
+    <div class="actions">
+      <div class="expansion-actions">
+        <button mat-raised-button  color="primary" (click)="navigateProduct()">Voeg product toe <mat-icon>add_circle_outline</mat-icon></button>
+        <button mat-raised-button color="accent" (click)="navigateCreateCategory()">Voeg categorie toe <mat-icon>add_circle_outline</mat-icon></button>
+      </div>
     </div>
   </mat-expansion-panel>
 </mat-accordion>

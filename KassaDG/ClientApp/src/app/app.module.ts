@@ -18,6 +18,8 @@ import {OrderComponent} from "./order/order.component";
 import { CategoryComponent } from './category/category.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDividerModule} from "@angular/material/divider";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
       {path: 'create-category', component: CreateCategoryComponent},
     ]),
     BrowserAnimationsModule,
-    MatInputModule
+    MatInputModule,
+    MatDividerModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
