@@ -1,1 +1,17 @@
-<p>order works!</p>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Aantal</th>
+        <th>Subtotaal</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let basketContentLine of basketContents">
+      <app-orderline [orderLine]="basketContentLine"></app-orderline>
+    </tr>
+    </tbody>
+  </table>
+  <app-products [isOrdering]="true"></app-products>
+</div>

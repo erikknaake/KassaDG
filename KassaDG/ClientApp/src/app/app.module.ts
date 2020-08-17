@@ -22,6 +22,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import { ConfimDialogComponent } from './confim-dialog/confim-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { OrderlineComponent } from './orderline/orderline.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     OrderComponent,
     CategoryComponent,
     CreateCategoryComponent,
-    ConfimDialogComponent
+    ConfimDialogComponent,
+    OrderlineComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

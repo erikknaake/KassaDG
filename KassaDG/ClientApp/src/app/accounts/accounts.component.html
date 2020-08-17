@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let account of accounts">
+  <tr *ngFor="let account of accounts" (click)="navigateAccount(account.id)">
     <td>{{ account.accountName }}</td>
     <td>{{ formatMoney(account.balanceCents) }}</td>
     <td class="table-row-action">

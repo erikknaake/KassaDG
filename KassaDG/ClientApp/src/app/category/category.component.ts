@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {ErrorLoggerService} from "../error-logger.service";
 import {ProductsChangedObservableService} from "../products-changed-observable.service";
 import {ConfirmDialogService} from "../confirm-dialog.service";
+import {BasketService} from "../basket.service";
 
 @Component({
   selector: 'app-category',
@@ -17,12 +18,16 @@ export class CategoryComponent implements OnInit {
   @Input()
   category: ICategory;
 
+  @Input()
+  isOrdering: boolean;
+
   constructor(private readonly router: Router,
               @Inject("BASE_URL") private readonly baseUrl: string,
               private readonly http: HttpClient,
               private readonly errorLogger: ErrorLoggerService,
               private readonly productsChangedObservableService: ProductsChangedObservableService,
-              private readonly confirmService: ConfirmDialogService) { }
+              private readonly confirmService: ConfirmDialogService,
+              private readonly basket: BasketService) { }
 
   ngOnInit() {
   }
@@ -66,5 +71,13 @@ export class CategoryComponent implements OnInit {
       productId: product.id,
       amountInStock: product.amountInStock
     }]);
+  }
+
+  addProductFromBasket(product: IProduct) {
+    this.basket.addProduct(product.productName, product.id, product.pricePerPieceCents);
+  }
+
+  removeProductFromBasket(product: IProduct) {
+    this.basket.removeProduct(product.id);
   }
 }

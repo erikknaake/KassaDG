@@ -4,17 +4,24 @@ namespace KassaDG.Controllers
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Persistence.Entities;
     using Persistence.Repositories;
 
     [ApiController]
     [Route("[controller]")]
-    public abstract class BaseController<T>: ControllerBase
+    public abstract class BaseController<T>: ControllerBase where T : IBaseEntity
     {
         protected readonly IRepository<T> Repository;
 
         protected BaseController(IRepository<T> repository)
         {
             Repository = repository;
+        }
+        
+        [HttpGet("{id}")]
+        public T Get(int id)
+        {
+            return Repository.Get().Single(x => x.Id == id);
         }
         
         [HttpGet]

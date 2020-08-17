@@ -6,7 +6,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngFor="let categoryLine of category.childrenCategories">
-      <app-category [category]="categoryLine"></app-category>
+      <app-category [category]="categoryLine" [isOrdering]="isOrdering"></app-category>
     </div>
     <table aria-labelledby="tableLabel" class='table table-striped'>
       <thead>
@@ -22,16 +22,22 @@
           <td>{{product.productName}}</td>
           <td>{{formatMoney(product.pricePerPieceCents)}}</td>
           <td>{{product.amountInStock}}</td>
-          <td class="actions">
-            <button mat-raised-button color="accent" (click)="navigateEditProduct(product)">Bewerk product <mat-icon>edit</mat-icon></button>
-            <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product <mat-icon>remove_circle_outline</mat-icon></button>
+          <td>
+            <div *ngIf="!isOrdering" class="actions">
+              <button mat-raised-button color="accent" (click)="navigateEditProduct(product)">Bewerk product <mat-icon>edit</mat-icon></button>
+              <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product <mat-icon>remove_circle_outline</mat-icon></button>
+            </div>
+            <div *ngIf="isOrdering">
+              <button mat-raised-button color="primary" (click)="addProductFromBasket(product)">Toevoegen <mat-icon>add_circle_outline</mat-icon></button>
+              <button mat-raised-button color="accent" (click)="removeProductFromBasket(product)">Verwijderen <mat-icon>remove_circle_outline</mat-icon></button>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
     <mat-divider></mat-divider>
     <div class="actions">
-      <div class="expansion-actions">
+      <div *ngIf="!isOrdering" class="expansion-actions">
         <button mat-raised-button  color="primary" (click)="navigateCreateProduct()">Voeg product toe <mat-icon>add_circle_outline</mat-icon></button>
         <button mat-raised-button color="accent" (click)="navigateCreateCategory()">Voeg categorie toe <mat-icon>add_circle_outline</mat-icon></button>
       </div>

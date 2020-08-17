@@ -3,7 +3,7 @@
 <table *ngIf="categories" aria-labelledby="tableLabel" class='table table-striped'>
   <tbody>
   <tr *ngFor="let category of categories">
-    <app-category [category]="category"></app-category>
+    <app-category [category]="category" [isOrdering]="isOrdering"></app-category>
   </tr>
   </tbody>
 </table>

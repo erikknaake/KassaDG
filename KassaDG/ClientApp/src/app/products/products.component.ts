@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ICategory} from "../../IProduct";
 import {ProductsChangedObservableService} from "../products-changed-observable.service";
@@ -10,6 +10,9 @@ import {ProductsChangedObservableService} from "../products-changed-observable.s
 })
 export class ProductsComponent implements OnInit {
   categories: ICategory[];
+
+  @Input()
+  isOrdering: boolean
 
   constructor(
     private readonly http: HttpClient,

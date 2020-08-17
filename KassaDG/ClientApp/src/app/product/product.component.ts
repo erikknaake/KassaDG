@@ -31,7 +31,6 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
-        console.log('params: ', params);
         this.categoryId = params['categoryId'];
         this.categoryName = params['category'];
         this.isNew = params['isNew'] === 'true';

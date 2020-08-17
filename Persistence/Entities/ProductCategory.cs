@@ -3,7 +3,7 @@ namespace Persistence.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class ProductCategory
+    public class ProductCategory : IBaseEntity
     {
         [Key]
         public int Id { get; set; }

@@ -3,7 +3,7 @@ namespace Persistence.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Account
+    public class Account : IBaseEntity
     {
         [Key]
         public int Id { get; set; }

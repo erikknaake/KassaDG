@@ -47,4 +47,8 @@ export class AccountsComponent implements OnInit {
       this.errorLogger.log(error);
     });
   }
+
+  navigateAccount(id: number) {
+    this.router.navigate(['/order', {accountId: id}]);
+  }
 }

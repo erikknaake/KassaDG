@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Product
+    public class Product : IBaseEntity
     {
         [Key]
         public int Id { get; set; }

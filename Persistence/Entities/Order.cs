@@ -4,7 +4,7 @@ namespace Persistence.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Order
+    public class Order : IBaseEntity
     {
         [Key]
         public int Id { get; set; }

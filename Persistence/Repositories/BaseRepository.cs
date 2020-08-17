@@ -2,16 +2,16 @@ namespace Persistence.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Entities;
     using Microsoft.EntityFrameworkCore;
 
-    public class BaseRepository<T> : IRepository<T> where T : class
+    public class BaseRepository<T> : IRepository<T> where T : class, IBaseEntity
     {
-        private readonly KassaDgDbContext _dbContext;
-        private DbSet<T> _dbSet;
+        private readonly DbSet<T> _dbSet;
 
         public BaseRepository(KassaDgDbContext dbContext, DbSet<T> dbSet)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
             _dbSet = dbSet;
         }
 
@@ -38,9 +38,9 @@ namespace Persistence.Repositories
 
         public void SaveChanges()
         {
-            _dbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
 
-        public KassaDgDbContext DbContext => _dbContext;
+        public KassaDgDbContext DbContext { get; }
     }
 }
