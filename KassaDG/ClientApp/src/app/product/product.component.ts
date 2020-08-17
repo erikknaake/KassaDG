@@ -1,9 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ICategory, IProduct} from "../../IProduct";
+import {IProduct} from "../../IProduct";
 import {HttpClient} from "@angular/common/http";
 import {ErrorLoggerService} from "../error-logger.service";
 import {MoneyFormatter} from "../../MoneyFormatter";
+import {ProductsComponent} from "../products/products.component";
+import {ProductsChangedObservableService} from "../products-changed-observable.service";
 
 @Component({
   selector: 'app-product',
@@ -42,24 +44,15 @@ export class ProductComponent implements OnInit {
     const product: IProduct = {
       pricePerPieceCents: MoneyFormatter.toCents(this.pricePerPiece),
       productName: this.productName,
-      productCategory: await this.getCategory(),
       productCategoryId: this.categoryId,
-      productId: 0
+      id: 0
     };
 
     this.http.put(this.baseUrl + 'product', product).subscribe(next => {
-        this.router.navigateByUrl('products');
+        this.router.navigateByUrl('/products');
       },
       error => {
         this.errorHandler.log(error);
       })
-  }
-
-  private async getCategory(): Promise<ICategory> {
-    return new Promise<ICategory>(resolve => {
-      this.http.get(this.baseUrl + 'productCategory/' + this.categoryId).toPromise().then((x: ICategory) => {
-        resolve(x);
-      });
-    });
   }
 }

@@ -6,10 +6,10 @@ namespace Persistence.Repositories
 
     public class BaseRepository<T> : IRepository<T> where T : class
     {
-        private readonly DbContext _dbContext;
+        private readonly KassaDgDbContext _dbContext;
         private DbSet<T> _dbSet;
 
-        public BaseRepository(DbContext dbContext, DbSet<T> dbSet)
+        public BaseRepository(KassaDgDbContext dbContext, DbSet<T> dbSet)
         {
             _dbContext = dbContext;
             _dbSet = dbSet;
@@ -20,8 +20,9 @@ namespace Persistence.Repositories
             return _dbSet.AsQueryable();
         }
 
-        public virtual void Delete(T entity)
+        public virtual void Delete(int id)
         {
+            var entity = _dbSet.Find(id);
             _dbSet.Remove(entity);
         }
 
@@ -39,5 +40,7 @@ namespace Persistence.Repositories
         {
             _dbContext.SaveChanges();
         }
+
+        public KassaDgDbContext DbContext => _dbContext;
     }
 }

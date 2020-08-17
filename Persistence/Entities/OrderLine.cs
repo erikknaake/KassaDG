@@ -5,7 +5,7 @@ namespace Persistence.Entities
     public class OrderLine
     {
         [Key]
-        public int OrderLineId { get; set; }
+        public int Id { get; set; }
         
         [Required]
         public int OrderId { get; set; }

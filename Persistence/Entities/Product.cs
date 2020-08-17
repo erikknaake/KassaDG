@@ -6,7 +6,7 @@
     public class Product
     {
         [Key]
-        public int ProductId { get; set; }
+        public int Id { get; set; }
         
         [Required]
         [MaxLength(128)]
@@ -17,7 +17,7 @@
         
         [Required]
         public int ProductCategoryId { get; set; }
-        [Required]
+        // [Required]
         public ProductCategory ProductCategory { get; set; }
     }
 }

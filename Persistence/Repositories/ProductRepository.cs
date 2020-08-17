@@ -1,7 +1,6 @@
 namespace Persistence.Repositories
 {
     using Entities;
-    using Microsoft.EntityFrameworkCore;
 
     public class ProductRepository : BaseRepository<Product>
     {
@@ -10,13 +9,6 @@ namespace Persistence.Repositories
         public ProductRepository(KassaDgDbContext kassaDgDbContext) : base(kassaDgDbContext, kassaDgDbContext.Products)
         {
             _kassaDgDbContext = kassaDgDbContext;
-        }
-
-        public override void Add(Product entity)
-        {
-            _kassaDgDbContext.Products.Add(entity);
-            _kassaDgDbContext.Entry(entity.ProductCategory).State = EntityState.Unchanged;
-            _kassaDgDbContext.SaveChanges();
         }
     }
 }

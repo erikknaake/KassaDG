@@ -1,6 +1,6 @@
 export interface ICategory {
   categoryName: string;
-  categoryId: number;
+  id: number;
   childrenCategories: ICategory[];
   parentCategoryId?: number;
   parentCategory?: ICategory;
@@ -9,8 +9,8 @@ export interface ICategory {
 
 export interface IProduct {
   productName: string;
-  productId: number;
-  productCategory: ICategory;
+  id: number;
+  productCategory?: ICategory;
   productCategoryId: number;
   pricePerPieceCents: number;
 }

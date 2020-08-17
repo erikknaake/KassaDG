@@ -6,9 +6,11 @@ namespace Persistence.Repositories
     public interface IRepository<T>
     {
         IQueryable<T> Get();
-        void Delete(T entity);
+        void Delete(int id);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
         void SaveChanges();
+        
+        KassaDgDbContext DbContext { get; }
     }
 }

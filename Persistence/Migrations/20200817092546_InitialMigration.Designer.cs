@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(KassaDgDbContext))]
-    [Migration("20200816133758_InitialMigration")]
+    [Migration("20200817092546_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Entities.Account", b =>
                 {
-                    b.Property<int>("AccountId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -31,7 +31,7 @@ namespace Persistence.Migrations
                     b.Property<int>("BalanceCents")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AccountName")
                         .IsUnique();
@@ -41,7 +41,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Entities.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -51,7 +51,7 @@ namespace Persistence.Migrations
                     b.Property<DateTimeOffset>("OrderDate")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
@@ -60,7 +60,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Entities.OrderLine", b =>
                 {
-                    b.Property<int>("OrderLineId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -76,7 +76,7 @@ namespace Persistence.Migrations
                     b.Property<int>("ProductPriceCents")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("OrderLineId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
@@ -87,7 +87,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Entities.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -102,7 +102,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(128);
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductCategoryId");
 
@@ -114,7 +114,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Entities.ProductCategory", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -126,7 +126,7 @@ namespace Persistence.Migrations
                     b.Property<int?>("ParentCategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryName")
                         .IsUnique();

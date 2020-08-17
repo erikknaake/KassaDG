@@ -12,6 +12,9 @@
       <tr *ngFor="let product of category.products">
         <td>{{product.productName}}</td>
         <td>{{formatMoney(product.pricePerPieceCents)}}</td>
+        <td>
+          <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product</button>
+        </td>
       </tr>
     </table>
     <div class="expansion-actions">

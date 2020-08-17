@@ -11,7 +11,7 @@ namespace Persistence.Repositories
 
         public Account Get(int accountId)
         {
-            return Get().SingleOrDefault(x => x.AccountId == accountId);
+            return Get().SingleOrDefault(x => x.Id == accountId);
         }
     }
 }

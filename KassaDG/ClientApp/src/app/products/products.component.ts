@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ICategory} from "../../IProduct";
+import {ProductsChangedObservableService} from "../products-changed-observable.service";
 
 @Component({
   selector: 'app-products',
@@ -10,13 +11,17 @@ import {ICategory} from "../../IProduct";
 export class ProductsComponent implements OnInit {
   categories: ICategory[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<ICategory[]>(baseUrl + 'productcategory').subscribe(result => {
-      this.processProducts(result);
-    }, error => console.error(error));
+  constructor(
+    private readonly http: HttpClient,
+    @Inject('BASE_URL') private readonly baseUrl: string,
+    private readonly productsChangedObservableService: ProductsChangedObservableService) {
+    productsChangedObservableService.subscribe(() => {this.ngOnInit()});
   }
 
   ngOnInit() {
+    this.http.get<ICategory[]>(this.baseUrl + 'productcategory').subscribe(result => {
+      this.processProducts(result);
+    }, error => console.error(error));
   }
 
   private processProducts(result: ICategory[]) {

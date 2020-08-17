@@ -32,7 +32,7 @@ export class CreateCategoryComponent implements OnInit {
   addCategory() {
     const category: ICategory = {
       categoryName: this.categoryName,
-      categoryId: 0,
+      id: 0,
       childrenCategories: [],
       parentCategoryId: Number(this.parentId),
       parentCategory: null,

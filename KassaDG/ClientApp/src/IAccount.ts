@@ -1,5 +1,5 @@
 export interface IAccount {
-  accountId?: number,
+  id?: number,
   accountName: string,
   balanceCents: number
 }

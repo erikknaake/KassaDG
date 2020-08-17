@@ -10,17 +10,17 @@ namespace KassaDG.Controllers
     [Route("[controller]")]
     public abstract class BaseController<T>: ControllerBase
     {
-        private readonly IRepository<T> _repository;
+        protected readonly IRepository<T> Repository;
 
         protected BaseController(IRepository<T> repository)
         {
-            _repository = repository;
+            Repository = repository;
         }
         
         [HttpGet]
         public IEnumerable<T> Get()
         {
-            return _repository.Get().ToList();
+            return Repository.Get().ToList();
         }
 
         [HttpPut]
@@ -28,8 +28,8 @@ namespace KassaDG.Controllers
         {
             try
             {
-                _repository.Add(entity);
-                _repository.SaveChanges();
+                Repository.Add(entity);
+                Repository.SaveChanges();
             }
             catch (DbUpdateException)
             {
@@ -38,11 +38,11 @@ namespace KassaDG.Controllers
             return new OkResult();
         }
 
-        [HttpDelete]
-        public void Delete(T entity)
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            _repository.Delete(entity);
-            _repository.SaveChanges();
+            Repository.Delete(id);
+            Repository.SaveChanges();
         }
     }
 }

@@ -11,33 +11,33 @@ namespace Persistence.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    AccountId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AccountName = table.Column<string>(nullable: false),
                     BalanceCents = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.AccountId);
+                    table.PrimaryKey("PK_Accounts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ProductCategories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CategoryName = table.Column<string>(maxLength: 128, nullable: false),
                     ParentCategoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategories", x => x.CategoryId);
+                    table.PrimaryKey("PK_ProductCategories", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProductCategories_ProductCategories_ParentCategoryId",
                         column: x => x.ParentCategoryId,
                         principalTable: "ProductCategories",
-                        principalColumn: "CategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -45,19 +45,19 @@ namespace Persistence.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderDate = table.Column<DateTimeOffset>(nullable: false),
                     AccountId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Orders_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
-                        principalColumn: "AccountId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -65,7 +65,7 @@ namespace Persistence.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductName = table.Column<string>(maxLength: 128, nullable: false),
                     PricePerPieceCents = table.Column<int>(nullable: false),
@@ -73,12 +73,12 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Products_ProductCategories_ProductCategoryId",
                         column: x => x.ProductCategoryId,
                         principalTable: "ProductCategories",
-                        principalColumn: "CategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -86,7 +86,7 @@ namespace Persistence.Migrations
                 name: "OrderLines",
                 columns: table => new
                 {
-                    OrderLineId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderId = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
@@ -95,18 +95,18 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderLines", x => x.OrderLineId);
+                    table.PrimaryKey("PK_OrderLines", x => x.Id);
                     table.ForeignKey(
                         name: "FK_OrderLines_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "OrderId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderLines_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "ProductId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

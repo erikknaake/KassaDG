@@ -6,7 +6,7 @@ namespace Persistence.Entities
     public class ProductCategory
     {
         [Key]
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         
         [Required]
         [MaxLength(128)]
