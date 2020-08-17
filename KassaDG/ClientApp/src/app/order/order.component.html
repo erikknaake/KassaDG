@@ -1,17 +1,35 @@
-<div>
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Aantal</th>
-        <th>Subtotaal</th>
+<div class="order">
+  <div class="basket">
+    <table aria-labelledby="tableLabel" class='table table-striped'>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Aantal</th>
+          <th>Subtotaal</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let basketContentLine of basketContents">
+        <td>
+          {{basketContentLine.productName}}
+        </td>
+        <td>
+          {{basketContentLine.amount}}
+        </td>
+        <td>
+          {{calculateSubTotal(basketContentLine)}}
+        </td>
       </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let basketContentLine of basketContents">
-      <app-orderline [orderLine]="basketContentLine"></app-orderline>
-    </tr>
-    </tbody>
-  </table>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>Totaal:</td>
+          <td>{{calculateTotal()}}</td>
+        </tr>
+      </tfoot>
+    </table>
+    <button mat-raised-button color="primary">Afrekenen</button>
+  </div>
   <app-products [isOrdering]="true"></app-products>
 </div>
