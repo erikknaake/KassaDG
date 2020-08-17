@@ -23,7 +23,7 @@
           <td>{{formatMoney(product.pricePerPieceCents)}}</td>
           <td>{{product.amountInStock}}</td>
           <td>
-            <div *ngIf="!isOrdering" class="actions">
+            <div *ngIf="!isOrdering" class="right">
               <button mat-raised-button color="accent" (click)="navigateEditProduct(product)">Bewerk product <mat-icon>edit</mat-icon></button>
               <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product <mat-icon>remove_circle_outline</mat-icon></button>
             </div>
