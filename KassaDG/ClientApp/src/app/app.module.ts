@@ -23,6 +23,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { ConfirmDialogComponent } from './confim-dialog/confirm-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {NavGuard} from "../NavGaurd";
+import { NegativeCreditsDialogComponent } from './negative-credits-dialog/negative-credits-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {NavGuard} from "../NavGaurd";
     OrderComponent,
     CategoryComponent,
     CreateCategoryComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NegativeCreditsDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -61,6 +63,9 @@ import {NavGuard} from "../NavGaurd";
   ],
   providers: [NavGuard],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [
+    ConfirmDialogComponent,
+    NegativeCreditsDialogComponent
+  ]
 })
 export class AppModule { }

@@ -6,6 +6,9 @@ import {ErrorLoggerService} from "../error-logger.service";
 import {BasketService, IOrderAmount} from "../basket.service";
 import {MoneyFormatter} from "../../MoneyFormatter";
 import {CommitingOrderService} from "../commiting-order.service";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../confim-dialog/confirm-dialog.component";
+import {NegativeCreditsDialogComponent} from "../negative-credits-dialog/negative-credits-dialog.component";
 
 @Component({
   selector: 'app-order',
@@ -17,6 +20,8 @@ export class OrderComponent implements OnInit {
   basketContents: IOrderAmount[] = [];
   deposit: number;
 
+  private dialogRef: MatDialogRef<NegativeCreditsDialogComponent>;
+
   constructor(
     private readonly http: HttpClient,
     @Inject("BASE_URL") private readonly baseUrl: string,
@@ -24,7 +29,8 @@ export class OrderComponent implements OnInit {
     private readonly errorLogger: ErrorLoggerService,
     private readonly basket: BasketService,
     private readonly router: Router,
-    private readonly commitingOrder: CommitingOrderService) {
+    private readonly commitingOrder: CommitingOrderService,
+    private readonly dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -45,8 +51,27 @@ export class OrderComponent implements OnInit {
   private fetchAccount(id: number) {
     this.http.get<IAccount>(this.baseUrl + 'account/' + id).subscribe(next => {
       this.account = next;
+      if(this.account.balanceCents < 0) {
+        this.warnNegativeCredits();
+      }
     }, error => {
       this.errorLogger.log(error)
+    });
+  }
+
+  private warnNegativeCredits() {
+    this.dialogRef = this.dialog.open(NegativeCreditsDialogComponent, {
+      disableClose: false
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      this.dialogRef = null;
+      if(!result) {
+        this.commitingOrder.isCommitingOrder = true;
+        this.router.navigateByUrl('/accounts').then(() => {
+          this.commitingOrder.isCommitingOrder = false;
+        });
+      }
     });
   }
 
