@@ -1,6 +1,6 @@
 export class MoneyFormatter {
   public static format(cents: number): string {
-    const money: number = cents / 100;
+    const money: number = MoneyFormatter.toEuros(cents);
     return `€ ${money.toFixed(2)}`;
   }
 
@@ -10,5 +10,9 @@ export class MoneyFormatter {
 
   public static stringToCents(euros: string): number {
     return MoneyFormatter.toCents(parseFloat(euros.replace(",", ".")));
+  }
+
+  static toEuros(cents: number) {
+    return cents / 100;
   }
 }

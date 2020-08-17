@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {ICategory} from "../../IProduct";
+import {ICategory, IProduct} from "../../IProduct";
 import {MoneyFormatter} from "../../MoneyFormatter";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
     this.router.navigate(['/create-category', {id: this.category.id, parent: this.category.categoryName}]);
   }
 
-  navigateProduct() {
+  navigateCreateProduct() {
     this.router.navigate(['/product', {categoryId: this.category.id, category: this.category.categoryName, isNew: true}]);
   }
 
@@ -52,5 +52,16 @@ export class CategoryComponent implements OnInit {
     }, error => {
       this.errorLogger.log(error);
     });
+  }
+
+  navigateEditProduct(product: IProduct) {
+    this.router.navigate(['/product', {
+      categoryId: this.category.id,
+      category: this.category.categoryName,
+      isNew: false,
+      productName: product.productName,
+      pricePerPiece: product.pricePerPieceCents,
+      productId: product.id
+    }]);
   }
 }

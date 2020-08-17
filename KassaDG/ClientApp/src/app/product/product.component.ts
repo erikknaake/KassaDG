@@ -18,6 +18,7 @@ export class ProductComponent implements OnInit {
   isNew: boolean;
   private categoryId: number;
   private categoryName: string;
+  private productId: number;
 
   constructor(@Inject("BASE_URL") private readonly baseUrl: string,
               private readonly http: HttpClient,
@@ -29,23 +30,39 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
+        console.log('params: ', params);
         this.categoryId = params['categoryId'];
         this.categoryName = params['category'];
-        this.isNew = params['isNew'];
+        this.isNew = params['isNew'] === 'true';
+        this.productName = params['productName'];
+        this.pricePerPiece = MoneyFormatter.toEuros(params['pricePerPiece']);
+        this.productId = params['productId'];
       }
     );
   }
 
   updateProduct() {
-
-  }
-
-  async createProduct() {
     const product: IProduct = {
       pricePerPieceCents: MoneyFormatter.toCents(this.pricePerPiece),
       productName: this.productName,
       productCategoryId: this.categoryId,
-      id: 0
+      id: this.productId
+    };
+
+    this.http.post(this.baseUrl + 'product', product).subscribe(next => {
+        this.router.navigateByUrl('/products');
+      },
+      error => {
+        this.errorHandler.log(error);
+      });
+  }
+
+  createProduct() {
+    const product: IProduct = {
+      pricePerPieceCents: MoneyFormatter.toCents(this.pricePerPiece),
+      productName: this.productName,
+      productCategoryId: this.categoryId,
+      id: this.productId
     };
 
     this.http.put(this.baseUrl + 'product', product).subscribe(next => {
@@ -53,6 +70,6 @@ export class ProductComponent implements OnInit {
       },
       error => {
         this.errorHandler.log(error);
-      })
+      });
   }
 }
