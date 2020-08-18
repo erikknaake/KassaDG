@@ -39,6 +39,7 @@ namespace Persistence.Repositories
         public void SaveChanges()
         {
             DbContext.SaveChanges();
+            DbContext.Backup();
         }
 
         public KassaDgDbContext DbContext { get; }

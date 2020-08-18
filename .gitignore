@@ -5,3 +5,10 @@ riderModule.iml
 /_ReSharper.Caches/
 .idea
 **/*.db
+**/credentials.json
+**/*.db.bak
+**/*.token.json
+**/*.token.json/
+**/*.token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
+KassaDG/token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
+

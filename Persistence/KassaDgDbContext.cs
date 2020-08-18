@@ -1,18 +1,22 @@
 namespace Persistence
 {
+    using DriveSync;
     using Entities;
     using Microsoft.EntityFrameworkCore;
 
     public class KassaDgDbContext : DbContext
     {
+        private readonly Backup _backup = new Backup();
+        private readonly string _dbFile = "../Persistence/KassaDG.db";
+        
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=../Persistence/KassaDG.db");
+            => options.UseSqlite("Data Source=" + _dbFile);
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -27,6 +31,11 @@ namespace Persistence
             builder.Entity<Account>()
                 .HasIndex(u => u.AccountName)
                 .IsUnique();
+        }
+
+        public void Backup()
+        {
+            _backup.BackupFile(_dbFile);
         }
     }
 }
