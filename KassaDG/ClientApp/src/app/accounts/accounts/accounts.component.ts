@@ -5,6 +5,7 @@ import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service";
 import {ErrorLoggerService} from "../../error-logger.service";
 import {IAccount} from "../../../IAccount";
 import {MoneyFormatter} from "../../../MoneyFormatter";
+import distance from "jaro-winkler";
 
 @Component({
   selector: 'app-accounts',
@@ -76,7 +77,9 @@ export class AccountsComponent implements OnInit {
     }
   }
   private applySearch(search: string) {
-    this.shownAccounts = this.allAccounts.filter(x => x.accountName.toLowerCase().startsWith(search));
+    const allWeights: number[] = this.allAccounts.map(x => distance(x.accountName, search, {caseSensitive: false})).sort();
+    const weightTarget: number = allWeights[Math.round(allWeights.length * 0.6)];
+    this.shownAccounts = this.allAccounts.filter(x => distance(x.accountName, search, {caseSensitive: false}) >= weightTarget);
   }
 
 }
