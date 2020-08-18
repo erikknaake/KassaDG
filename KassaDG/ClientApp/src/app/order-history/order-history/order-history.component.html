@@ -11,29 +11,33 @@
       <tr>
         <th>Datum</th>
         <th>Bedrag</th>
+        <th>Storting</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let order of orders" (click)="navigateOrderHistoryItem(order)">
         <td>{{order.orderDate | date:'short'}}</td>
         <td>{{formatMoney(calculateOrderSpent(order.orderLines))}}</td>
+        <td>{{formatMoney(order.deposit)}}</td>
       </tr>
       </tbody>
       <tfoot>
       <tr>
+        <td></td>
         <td>Totaal uitgaven</td>
         <td>{{calculateTotalSpent()}}</td>
       </tr>
       <tr>
+        <td></td>
         <td>Totaal gestort</td>
         <td>{{calculateTotalDeposit()}}</td>
       </tr>
       <tr>
+        <td></td>
         <td>Saldo</td>
         <td>{{formatMoney(account?.balanceCents)}}</td>
       </tr>
       </tfoot>
     </table>
   </div>
-
 </div>
