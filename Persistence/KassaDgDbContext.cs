@@ -1,5 +1,7 @@
 namespace Persistence
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using DriveSync;
     using Entities;
     using Microsoft.EntityFrameworkCore;
@@ -35,7 +37,9 @@ namespace Persistence
 
         public void Backup()
         {
-            _backup.BackupFile(_dbFile);
+            Task.Factory.StartNew(() => { 
+                _backup.BackupFile(_dbFile);
+            });
         }
     }
 }

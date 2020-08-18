@@ -1,5 +1,8 @@
 namespace DriveSync
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.IO;
     using System.Threading;
     using Google.Apis.Auth.OAuth2;
@@ -16,11 +19,12 @@ namespace DriveSync
         public void UploadFile(string filePath)
         {
             var service = GetDriveService();
-            
+
             var fileMetadata = new File
             {
                 Name = "KassaDG.db.bak",
-                MimeType = "application/x-sqlite3"
+                MimeType = "application/x-sqlite3",
+                Parents = new List<string> {"1-X42GIQ-dnDz43uaFyhQpRMm8LpAtPip"}
             };
             FilesResource.CreateMediaUpload request;
             using (var stream = new FileStream(filePath,
@@ -29,7 +33,14 @@ namespace DriveSync
                 request = service.Files.Create(
                     fileMetadata, stream, "application/x-sqlite3");
                 request.Fields = "id";
-                request.Upload();
+                try
+                {
+                    request.Upload();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Exception occured while uploading to drive: {e.Message}\n{e.StackTrace}\n{e.InnerException?.Message}\n{e.InnerException?.StackTrace}");
+                }
             }
         }
 
