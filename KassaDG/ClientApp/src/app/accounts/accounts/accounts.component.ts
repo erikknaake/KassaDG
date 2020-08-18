@@ -12,7 +12,9 @@ import {MoneyFormatter} from "../../../MoneyFormatter";
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  accounts: IAccount[] = [];
+  allAccounts: IAccount[] = [];
+  shownAccounts: IAccount[] = [];
+  search: string;
 
   constructor(
     private readonly http: HttpClient,
@@ -24,7 +26,8 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<IAccount[]>(this.baseUrl + 'account').subscribe(result => {
-      this.accounts = result;
+      this.allAccounts = result;
+      this.shownAccounts = result;
     }, error => console.error(error));
   }
 
@@ -64,4 +67,16 @@ export class AccountsComponent implements OnInit {
   navigateAccountHistory(id: number) {
     this.router.navigate(['/order-history', {accountId: id}]);
   }
+
+  searchChanged(search: string) {
+    if(search === '') {
+      this.shownAccounts = this.allAccounts;
+    } else {
+      this.applySearch(search);
+    }
+  }
+  private applySearch(search: string) {
+    this.shownAccounts = this.allAccounts.filter(x => x.accountName.toLowerCase().startsWith(search));
+  }
+
 }

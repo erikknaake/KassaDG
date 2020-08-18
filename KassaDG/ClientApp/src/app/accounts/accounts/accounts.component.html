@@ -1,7 +1,11 @@
-<p *ngIf="!accounts"><em>Loading...</em></p>
+<p *ngIf="!shownAccounts"><em>Loading...</em></p>
 <mat-card>
   <mat-card-content>
-    <table *ngIf="accounts" aria-labelledby="tableLabel" class='table table-striped'>
+    <mat-form-field>
+      <mat-label>Zoeken</mat-label>
+      <input matInput type="text" (ngModelChange)="searchChanged($event)" [(ngModel)]="search">
+    </mat-form-field>
+    <table *ngIf="shownAccounts" aria-labelledby="tableLabel" class='table table-striped'>
       <thead>
       <tr>
         <th>Naam</th>
@@ -10,7 +14,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let account of sortAccounts(accounts)">
+      <tr *ngFor="let account of sortAccounts(shownAccounts)">
         <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
         <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
         <td class="small-td">
