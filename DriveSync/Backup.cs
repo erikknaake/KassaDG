@@ -1,13 +1,15 @@
 namespace DriveSync
 {
+    using Microsoft.Extensions.Configuration;
+
     public class Backup
     {
         private BackupFileToDrive _backupFileToDrive;
         private FileCopy _fileCopy;
         
-        public Backup()
+        public Backup(IConfiguration configuration)
         {
-            _backupFileToDrive = new BackupFileToDrive();
+            _backupFileToDrive = new BackupFileToDrive(configuration);
             _fileCopy = new FileCopy();
         }
 

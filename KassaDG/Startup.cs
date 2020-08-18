@@ -29,12 +29,12 @@ namespace KassaDG
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
-            services.AddScoped<KassaDgDbContext, KassaDgDbContext>(x => new KassaDgDbContext());
-            services.AddScoped<AccountRepository, AccountRepository>();
-            services.AddScoped<IRepository<Account>, AccountRepository>(x => x.GetService<AccountRepository>());
-            services.AddScoped<IRepository<Order>, OrderRepository>();
-            services.AddScoped<IRepository<Product>, ProductRepository>();
-            services.AddScoped<IRepository<ProductCategory>, ProductCategoryRepository>();
+            services.AddSingleton(x => new KassaDgDbContext(Configuration));
+            services.AddSingleton<AccountRepository, AccountRepository>();
+            services.AddSingleton<IRepository<Account>, AccountRepository>(x => x.GetService<AccountRepository>());
+            services.AddSingleton<IRepository<Order>, OrderRepository>();
+            services.AddSingleton<IRepository<Product>, ProductRepository>();
+            services.AddSingleton<IRepository<ProductCategory>, ProductCategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

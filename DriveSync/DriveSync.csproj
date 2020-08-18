@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <PackageReference Include="Google.Apis.Drive.v3" Version="1.49.0.2030" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.7" />
     </ItemGroup>
 
 </Project>

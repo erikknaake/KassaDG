@@ -2,36 +2,47 @@ namespace DriveSync
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Specialized;
     using System.IO;
     using System.Threading;
     using Google.Apis.Auth.OAuth2;
     using Google.Apis.Drive.v3;
     using Google.Apis.Services;
     using Google.Apis.Util.Store;
+    using Microsoft.Extensions.Configuration;
     using File = Google.Apis.Drive.v3.Data.File;
 
     public class BackupFileToDrive
     {
         static string[] Scopes = { DriveService.Scope.DriveFile };
         static string ApplicationName = "KassaDG";
+        
+        private readonly string _googleDriveFolderId;
 
+        public BackupFileToDrive(IConfiguration configuration)
+        {
+            #if DEBUG
+                        _googleDriveFolderId = configuration["DevGoogleDriveUrl"];
+            #else
+                        _googleDriveFolderId = configuration["ProdGoogleDriveUrl"];
+            #endif
+        }
+        
         public void UploadFile(string filePath)
         {
             var service = GetDriveService();
-
+            const string mimeType = "application/x-sqlite3";
             var fileMetadata = new File
             {
                 Name = "KassaDG.db.bak",
-                MimeType = "application/x-sqlite3",
-                Parents = new List<string> {"1-X42GIQ-dnDz43uaFyhQpRMm8LpAtPip"}
+                MimeType = mimeType,
+                Parents = new List<string> {_googleDriveFolderId}
             };
             FilesResource.CreateMediaUpload request;
             using (var stream = new FileStream(filePath,
                 FileMode.Open))
             {
                 request = service.Files.Create(
-                    fileMetadata, stream, "application/x-sqlite3");
+                    fileMetadata, stream, mimeType);
                 request.Fields = "id";
                 try
                 {
