@@ -1,6 +1,5 @@
-<div class="split-header">
+<div>
   <h3>Afrekenen</h3>
-  <p><b>Rekening: </b> {{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
 </div>
 <div class="order">
   <div class="order-left">
@@ -50,6 +49,7 @@
               <input matInput type="number" [(ngModel)]="deposit">
             </mat-form-field>
           </div>
+          <p>{{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
           <mat-divider></mat-divider>
         </mat-card-content>
         <mat-card-actions [align]="'end'">

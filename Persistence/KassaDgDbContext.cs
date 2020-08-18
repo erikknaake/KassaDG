@@ -1,5 +1,6 @@
 namespace Persistence
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using DriveSync;
     using Entities;
@@ -10,9 +11,13 @@ namespace Persistence
     {
         private readonly Backup _backup;
         private readonly string _dbFile = "../Persistence/KassaDG.db";
-        private int _backupCounter;
         private readonly int _backupCountRollover;
 
+        public KassaDgDbContext()
+        {
+            
+        }
+        
         public KassaDgDbContext(IConfiguration configuration)
         {
             _backupCountRollover = int.Parse(configuration["BackupCountRollover"]);
@@ -24,7 +29,8 @@ namespace Persistence
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
-
+        public DbSet<BackupCounter> BackupCounters { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=" + _dbFile);
 
@@ -45,7 +51,13 @@ namespace Persistence
 
         public void Backup()
         {
-            if (_backupCounter % _backupCountRollover == 0)
+            var backupCounter = BackupCounters.AsQueryable().SingleOrDefault();
+            if (backupCounter == null)
+            {
+                backupCounter = new BackupCounter();
+                BackupCounters.Add(backupCounter);
+            }
+            if (backupCounter.Counter % _backupCountRollover == 0)
             {
                 Task.Factory.StartNew(() =>
                 {
@@ -53,7 +65,8 @@ namespace Persistence
                 });
             }
 
-            _backupCounter++;
+            backupCounter.Counter++;
+            SaveChanges();
         }
     }
 }
