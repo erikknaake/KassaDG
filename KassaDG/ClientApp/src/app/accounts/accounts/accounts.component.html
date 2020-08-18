@@ -15,7 +15,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let account of shownAccounts">
-        <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
+        <td class="account-td" (click)="navigateAccount(account.id)">{{ account.accountName }} <mat-chip-list *ngIf="account.balanceCents < 0"><mat-chip color="warn" selected>Saldo negatief</mat-chip></mat-chip-list></td>
         <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
         <td class="small-td">
           <div class="right">
