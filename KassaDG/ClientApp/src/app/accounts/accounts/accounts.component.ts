@@ -27,8 +27,8 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<IAccount[]>(this.baseUrl + 'account').subscribe(result => {
-      this.allAccounts = result;
-      this.shownAccounts = result;
+      this.allAccounts = this.sortAccounts(result);
+      this.shownAccounts = this.allAccounts;
     }, error => console.error(error));
   }
 
@@ -37,7 +37,7 @@ export class AccountsComponent implements OnInit {
   }
 
   async deleteAccount(id: number) {
-    if(await this.confirmService.confirmDialog("Weet je zeker dat je het account wilt verwijderen?")) {
+    if (await this.confirmService.confirmDialog("Weet je zeker dat je het account wilt verwijderen?")) {
       this.sendDeleteAccountCommand(id);
     }
   }
@@ -58,7 +58,7 @@ export class AccountsComponent implements OnInit {
 
   sortAccounts(accounts: IAccount[]): IAccount[] {
     return accounts.sort((x, y) => {
-      if(x.accountName.toLowerCase() > y.accountName.toLowerCase()) {
+      if (x.accountName.toLowerCase() > y.accountName.toLowerCase()) {
         return 1;
       }
       return -1;
@@ -70,16 +70,31 @@ export class AccountsComponent implements OnInit {
   }
 
   searchChanged(search: string) {
-    if(search === '') {
-      this.shownAccounts = this.allAccounts;
-    } else {
-      this.applySearch(search);
+    console.log('search: ', search);
+    if(search.length === 0) {
+      console.log('resetting');
+      this.resetSearch();
     }
+    this.applySearch(search);
   }
+
+  private resetSearch() {
+    this.shownAccounts = this.sortAccounts(this.allAccounts);
+  }
+
   private applySearch(search: string) {
-    const allWeights: number[] = this.allAccounts.map(x => distance(x.accountName, search, {caseSensitive: false})).sort();
-    const weightTarget: number = allWeights[Math.round(allWeights.length * 0.6)];
-    this.shownAccounts = this.allAccounts.filter(x => distance(x.accountName, search, {caseSensitive: false}) >= weightTarget);
+    this.shownAccounts = [];
+    const allWeights: number[] = [];
+    this.allAccounts.forEach(x => {
+        allWeights.push(distance(x.accountName, search, {caseSensitive: false}));
+    });
+
+    const weightTarget: number = allWeights.sort()[Math.round(allWeights.length * 0.7)];
+    this.allAccounts.forEach(x => {
+        if (distance(x.accountName, search, {caseSensitive: false}) >= weightTarget) {
+          this.shownAccounts.push(x);
+        }
+    });
   }
 
 }

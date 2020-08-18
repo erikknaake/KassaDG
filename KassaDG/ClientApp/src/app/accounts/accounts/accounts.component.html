@@ -14,7 +14,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let account of sortAccounts(shownAccounts)">
+      <tr *ngFor="let account of shownAccounts">
         <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
         <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
         <td class="small-td">
