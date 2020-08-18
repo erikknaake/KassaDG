@@ -69,9 +69,9 @@ export class OrderHistoryComponent implements OnInit {
   private static orderOrdersByDate(orders: IOrder[]): IOrder[] {
     return orders.sort((x, y) => {
       if(x.orderDate > y.orderDate) {
-        return 1;
+        return -1;
       }
-      return 0;
+      return 1;
     });
   }
 
