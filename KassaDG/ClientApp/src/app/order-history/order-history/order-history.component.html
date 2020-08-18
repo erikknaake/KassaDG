@@ -1,0 +1,39 @@
+<p *ngIf="!account || !orders"><em>Loading...</em></p>
+
+<div *ngIf="account && orders">
+  <div class="split-header">
+    <h2>Bestelgeschiedenis</h2>
+    <p>{{account?.accountName}}</p>
+  </div>
+  <div>
+    <table aria-labelledby="tableLabel" class='table table-striped'>
+      <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Bedrag</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders" (click)="navigateOrderHistoryItem(order)">
+        <td>{{order.orderDate | date:'short'}}</td>
+        <td>{{formatMoney(calculateOrderSpent(order.orderLines))}}</td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td>Totaal uitgaven</td>
+        <td>{{calculateTotalSpent()}}</td>
+      </tr>
+      <tr>
+        <td>Totaal gestort</td>
+        <td>{{calculateTotalDeposit()}}</td>
+      </tr>
+      <tr>
+        <td>Saldo</td>
+        <td>{{formatMoney(account?.balanceCents)}}</td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
+</div>

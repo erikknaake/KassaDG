@@ -1,12 +1,12 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {ICategory, IProduct} from "../../IProduct";
-import {MoneyFormatter} from "../../MoneyFormatter";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ErrorLoggerService} from "../error-logger.service";
 import {ProductsChangedObservableService} from "../products-changed-observable.service";
-import {ConfirmDialogService} from "../confirm-dialog.service";
 import {BasketService} from "../basket.service";
+import {ICategory, IProduct} from "../../../IProduct";
+import {ErrorLoggerService} from "../../error-logger.service";
+import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service";
+import {MoneyFormatter} from "../../../MoneyFormatter";
 
 @Component({
   selector: 'app-category',

@@ -6,17 +6,22 @@
       <tr>
         <th>Naam</th>
         <th>Saldo</th>
-        <th class="table-row-action"></th>
+        <th class="small-td"></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let account of sortAccounts(accounts)">
         <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
         <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
-        <td class="table-row-action">
-          <button mat-raised-button color="accent" (click)="deleteAccount(account.id)">Verwijder
-            <mat-icon>remove_circle_outline</mat-icon>
-          </button>
+        <td class="small-td">
+          <div class="right">
+            <button mat-raised-button color="accent" (click)="navigateAccountHistory(account.id)">Geschiedenis
+              <mat-icon>history</mat-icon>
+            </button>
+            <button mat-raised-button color="warn" (click)="deleteAccount(account.id)">Verwijder
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+          </div>
         </td>
       </tr>
       </tbody>

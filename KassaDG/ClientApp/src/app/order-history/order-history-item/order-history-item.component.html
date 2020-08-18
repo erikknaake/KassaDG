@@ -1,0 +1,30 @@
+<p *ngIf="!order"><em>Loading...</em></p>
+
+<table *ngIf="order" aria-labelledby="tableLabel" class='table table-striped'>
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th>Aantal</th>
+    <th>Subtotaal</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let orderLine of order?.orderLines">
+    <td>{{orderLine.productName}}</td>
+    <td>{{orderLine.amount}}</td>
+    <td>{{getSubTotal(orderLine)}}</td>
+  </tr>
+  <tr>
+    <td>Storting</td>
+    <td></td>
+    <td>{{formatMoney(order?.deposit)}}</td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td></td>
+    <td>Totaal</td>
+    <td>{{calculateTotal()}}</td>
+  </tr>
+  </tfoot>
+</table>

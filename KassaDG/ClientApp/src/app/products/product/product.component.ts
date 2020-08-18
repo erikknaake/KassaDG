@@ -1,11 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {IProduct} from "../../IProduct";
 import {HttpClient} from "@angular/common/http";
-import {ErrorLoggerService} from "../error-logger.service";
-import {MoneyFormatter} from "../../MoneyFormatter";
-import {ProductsComponent} from "../products/products.component";
-import {ProductsChangedObservableService} from "../products-changed-observable.service";
+import {ErrorLoggerService} from "../../error-logger.service";
+import {MoneyFormatter} from "../../../MoneyFormatter";
+import {IProduct} from "../../../IProduct";
 
 @Component({
   selector: 'app-product',

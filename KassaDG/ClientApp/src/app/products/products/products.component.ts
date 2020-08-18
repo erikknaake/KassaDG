@@ -1,7 +1,7 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ICategory} from "../../IProduct";
 import {ProductsChangedObservableService} from "../products-changed-observable.service";
+import {ICategory} from "../../../IProduct";
 
 @Component({
   selector: 'app-products',

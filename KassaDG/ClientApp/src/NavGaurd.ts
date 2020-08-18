@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {from, Observable} from 'rxjs';
 import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot} from '@angular/router';
-
-import {OrderComponent} from "./app/order/order.component";
-import {ConfirmDialogService} from "./app/confirm-dialog.service";
-import {CommitingOrderService} from "./app/commiting-order.service";
+import {OrderComponent} from "./app/products/order/order.component";
+import {ConfirmDialogService} from "./app/dialogs/confirm-dialog.service";
+import {CommitingOrderService} from "./app/products/commiting-order.service";
 
 @Injectable()
 export class NavGuard implements CanDeactivate<OrderComponent> {

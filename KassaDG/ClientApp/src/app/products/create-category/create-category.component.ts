@@ -1,9 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ICategory} from "../../IProduct";
-import {ErrorLoggerService} from "../error-logger.service";
-
+import {ErrorLoggerService} from "../../error-logger.service";
+import {ICategory} from "../../../IProduct";
 @Component({
   selector: 'app-create-category',
   templateUrl: './create-category.component.html',

@@ -13,16 +13,13 @@ namespace KassaDG.Controllers
     {
         private readonly IRepository<Account> _accountRepository;
         private readonly IRepository<Product> _productRepository;
-        private readonly IRepository<Order> _orderRepository;
 
         public OrderController(IRepository<Order> repository,
             IRepository<Account> accountRepository,
-            IRepository<Product> productRepository,
-            IRepository<Order> orderRepository) : base(repository)
+            IRepository<Product> productRepository) : base(repository)
         {
             _accountRepository = accountRepository;
             _productRepository = productRepository;
-            _orderRepository = orderRepository;
         }
 
         [HttpPost]
@@ -43,6 +40,11 @@ namespace KassaDG.Controllers
             return Ok();
         }
 
+        [HttpGet("accounts/{id}")]
+        public IEnumerable<Order> GetAccountOrders(int id)
+        {
+            return Repository.Get().Where(x => x.AccountId == id).ToList();
+        }
         private void SubtractFundsFromAccount(OrderCommand orderCommand)
         {
             var user = FindUser(orderCommand.AccountId);
@@ -77,7 +79,7 @@ namespace KassaDG.Controllers
                 Deposit = orderCommand.Deposit
             };
             order.OrderLines = CreateOrderLines(orderCommand.OrderCommandLines, order);
-            _orderRepository.Add(order);
+            Repository.Add(order);
         }
 
         private ICollection<OrderLine> CreateOrderLines(IEnumerable<OrderCommandLine> orderCommandLines, Order order)

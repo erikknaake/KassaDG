@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {MoneyFormatter} from "../../MoneyFormatter";
-import {IAccount} from "../../IAccount";
-import {ErrorLoggerService} from "../error-logger.service";
 import {Router} from "@angular/router";
-import {ConfirmDialogService} from "../confirm-dialog.service";
+import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service";
+import {ErrorLoggerService} from "../../error-logger.service";
+import {IAccount} from "../../../IAccount";
+import {MoneyFormatter} from "../../../MoneyFormatter";
 
 @Component({
   selector: 'app-accounts',
@@ -53,12 +53,15 @@ export class AccountsComponent implements OnInit {
   }
 
   sortAccounts(accounts: IAccount[]): IAccount[] {
-    console.log('sorting accounts: ', accounts);
     return accounts.sort((x, y) => {
       if(x.accountName.toLowerCase() > y.accountName.toLowerCase()) {
         return 1;
       }
       return -1;
     });
+  }
+
+  navigateAccountHistory(id: number) {
+    this.router.navigate(['/order-history', {accountId: id}]);
   }
 }

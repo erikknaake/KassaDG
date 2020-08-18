@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IAccount} from "../../IAccount";
 import {Router} from "@angular/router";
-import {ErrorLoggerService} from "../error-logger.service";
+import {ErrorLoggerService} from "../../error-logger.service";
+import {IAccount} from "../../../IAccount";
 
 @Component({
   selector: 'app-create-account',
