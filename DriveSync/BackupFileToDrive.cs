@@ -20,11 +20,7 @@ namespace DriveSync
 
         public BackupFileToDrive(IConfiguration configuration)
         {
-            #if DEBUG
-                        _googleDriveFolderId = configuration["DevGoogleDriveUrl"];
-            #else
-                        _googleDriveFolderId = configuration["ProdGoogleDriveUrl"];
-            #endif
+            _googleDriveFolderId = configuration["GoogleDriveUrl"];
         }
         
         public void UploadFile(string filePath)
