@@ -1,5 +1,7 @@
-<mat-form-field>
-  <mat-label>Naam</mat-label>
-  <input matInput type="text" [(ngModel)]="name"/>
-</mat-form-field>
-<button mat-raised-button color="primary" (click)="createAccount()">Aanmaken</button>
+<form>
+  <mat-form-field>
+    <mat-label>Naam</mat-label>
+    <input matInput autofocus type="text" [(ngModel)]="name" name="name"/>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="createAccount()">Aanmaken</button>
+</form>

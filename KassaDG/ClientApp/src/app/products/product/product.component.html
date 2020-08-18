@@ -1,14 +1,16 @@
+<form>
 <mat-form-field>
   <mat-label>Productnaam</mat-label>
-  <input matInput type="text" [(ngModel)]="productName"/>
+  <input autofocus matInput type="text" [(ngModel)]="productName" name="productName"/>
 </mat-form-field>
 <mat-form-field>
   <mat-label>Prijs per stuk</mat-label>
-  <input matInput type="number" [(ngModel)]="pricePerPiece"/>
+  <input matInput type="number" [(ngModel)]="pricePerPiece" name="pricePerPiece"/>
 </mat-form-field>
 <mat-form-field>
   <mat-label>Aantal in voorraad</mat-label>
-  <input matInput type="number" [(ngModel)]="amountInStock">
+  <input matInput type="number" [(ngModel)]="amountInStock" name="amountInStock">
 </mat-form-field>
 <button *ngIf="!isNew" mat-raised-button color="primary" (click)="updateProduct()">Update product</button>
 <button *ngIf="isNew" mat-raised-button color="primary" (click)="createProduct()">Voeg product toe</button>
+</form>
