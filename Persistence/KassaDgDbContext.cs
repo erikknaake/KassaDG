@@ -11,9 +11,11 @@ namespace Persistence
         private readonly Backup _backup;
         private readonly string _dbFile = "../Persistence/KassaDG.db";
         private int _backupCounter;
+        private readonly int _backupCountRollover;
 
         public KassaDgDbContext(IConfiguration configuration)
         {
+            _backupCountRollover = int.Parse(configuration["BackupCountRollover"]);
             _backup = new Backup(configuration);
         }
         
@@ -43,7 +45,7 @@ namespace Persistence
 
         public void Backup()
         {
-            if (_backupCounter % 10 == 0)
+            if (_backupCounter % _backupCountRollover == 0)
             {
                 Task.Factory.StartNew(() =>
                 {
