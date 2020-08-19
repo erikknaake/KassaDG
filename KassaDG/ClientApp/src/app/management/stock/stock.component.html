@@ -1,4 +1,6 @@
-<mat-card>
+<app-loading *ngIf="!stock"></app-loading>
+
+<mat-card *ngIf="stock">
   <mat-card-header>
     <mat-card-title>Voorraad</mat-card-title>
   </mat-card-header>

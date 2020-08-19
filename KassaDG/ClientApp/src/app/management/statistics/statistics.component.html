@@ -1,4 +1,6 @@
-<mat-card>
+<app-loading *ngIf="!totalSpent"></app-loading>
+
+<mat-card *ngIf="totalSpent">
   <mat-card-header>
     <mat-card-title>Statistieken</mat-card-title>
   </mat-card-header>
@@ -29,6 +31,8 @@
       <thead>
       <tr>
         <th>Overzicht per product</th>
+        <th></th>
+        <th></th>
       </tr>
       <tr>
         <th>Product</th>

@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class StockComponent implements OnInit {
 
-  stock: IProduct[] = [];
+  stock: IProduct[];
 
   constructor(@Inject("BASE_URL") private readonly baseUrl: string,
               private readonly http: HttpClient,
