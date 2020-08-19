@@ -3,6 +3,7 @@ namespace KassaDG.Controllers
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Models;
     using Persistence.Entities;
     using Persistence.Repositories;
 
@@ -27,6 +28,19 @@ namespace KassaDG.Controllers
             }
 
             return new OkResult();
+        }
+
+        [HttpPost("updateStock")]
+        public void UpdateStock(UpdateStockCommand updateStockCommand)
+        {
+            foreach (var updateStockCommandLine in updateStockCommand.StockToUpdate)
+            {
+                Repository
+                        .Get()
+                        .Single(x => x.Id == updateStockCommandLine.ProductId)
+                        .AmountInStock = updateStockCommandLine.NewAmount;
+            }
+            Repository.SaveChanges();
         }
     }
 }

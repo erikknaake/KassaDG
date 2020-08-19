@@ -1,12 +1,24 @@
-<ul class="navbar-nav flex-grow">
-  <li class="nav-item" [routerLinkActive]="['link-active']">
-    <a class="nav-link" [routerLink]="['/manage-accounts']">
-      Beheer Accounts
-    </a>
-  </li>
-  <li class="nav-item" [routerLinkActive]="['link-active']">
-    <a class="nav-link" [routerLink]="['/products']">
-      Beheer Producten
-    </a>
-  </li>
-</ul>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Beheer</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ul class="navbar-nav flex-grow">
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/manage-accounts']">
+          Beheer Accounts
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/products']">
+          Beheer Producten
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/stock']">
+          Beheer Voorraad
+        </a>
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>

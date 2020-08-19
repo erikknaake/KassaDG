@@ -92,7 +92,7 @@ export class AccountsComponent implements OnInit {
   }
 
   searchChanged(search: string) {
-    if (search == null || search === '' || search.lenght == 0) {
+    if (search == null || search === '' || search.length == 0) {
       this.resetSearch();
     }
     this.applySearch(search);

@@ -34,6 +34,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { ManagementComponent } from './management/management.component';
 import {ManageAccountsComponent} from "./accounts/manage-accounts/manage-accounts.component";
+import {StockComponent} from "./management/stock/stock.component";
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {ManageAccountsComponent} from "./accounts/manage-accounts/manage-account
     OrderHistoryItemComponent,
     LoadingComponent,
     ManageAccountsComponent,
-    ManagementComponent
+    ManagementComponent,
+    StockComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -75,6 +77,7 @@ import {ManageAccountsComponent} from "./accounts/manage-accounts/manage-account
       {path: 'create-category', component: CreateCategoryComponent},
       {path: 'order-history', component: OrderHistoryComponent},
       {path: 'order-history-item', component: OrderHistoryItemComponent},
+      {path: 'stock', component: StockComponent},
     ]),
     BrowserAnimationsModule,
     MatInputModule,
