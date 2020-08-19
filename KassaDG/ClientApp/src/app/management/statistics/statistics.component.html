@@ -1,6 +1,6 @@
-<app-loading *ngIf="!totalSpent"></app-loading>
+<app-loading *ngIf="totalSpent === undefined"></app-loading>
 
-<mat-card *ngIf="totalSpent">
+<mat-card *ngIf="totalSpent !== undefined">
   <mat-card-header>
     <mat-card-title>Statistieken</mat-card-title>
   </mat-card-header>
