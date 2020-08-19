@@ -22,8 +22,10 @@ export class StatisticsComponent implements OnInit {
   constructor(@Inject("BASE_URL") private readonly baseUrl: string,
               private readonly http: HttpClient,
               private readonly errorLogger: ErrorLoggerService) {
+
     const currentDate: Date = new Date();
     this.endDate = new FormControl(currentDate);
+
     const pastDate: Date = new Date();
     pastDate.setDate(pastDate.getDate() - 7);
     this.startDate = new FormControl(pastDate);
@@ -43,7 +45,6 @@ export class StatisticsComponent implements OnInit {
   }
 
   private processOrders(orders: IOrder[]) {
-    console.log('orders: ', orders);
     this.totalDeposit = StatisticsComponent.calculateTotalDeposit(orders);
     this.productStatistics = StatisticsComponent.calculateStatisticsPerProduct(orders);
     this.totalSpent = StatisticsComponent.calculateTotalSpent(this.productStatistics);

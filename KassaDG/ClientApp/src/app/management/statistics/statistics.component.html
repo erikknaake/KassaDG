@@ -48,13 +48,13 @@
   <mat-card-actions>
     <mat-form-field>
       <mat-label>Start datum</mat-label>
-      <input matInput [matDatepicker]="startDatePicker" [value]="startDate.value">
+      <input matInput [matDatepicker]="startDatePicker" [formControl]="startDate">
       <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #startDatePicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Eind datum</mat-label>
-      <input matInput [matDatepicker]="endDatePicker" [value]="endDate.value">
+      <input matInput [matDatepicker]="endDatePicker" [formControl]="endDate">
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
     </mat-form-field>
