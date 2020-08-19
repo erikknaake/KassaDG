@@ -15,8 +15,13 @@
       </thead>
       <tbody>
       <tr *ngFor="let account of shownAccounts">
-        <td class="account-td" (click)="navigateAccount(account.id)">{{ account.accountName }} <mat-chip-list *ngIf="account.balanceCents < 0"><mat-chip color="warn" selected>Saldo negatief</mat-chip></mat-chip-list></td>
-        <td (click)="navigateAccount(account.id)">{{ formatMoney(account.balanceCents) }}</td>
+        <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
+        <td class="balance-td" (click)="navigateAccount(account.id)">
+          <mat-chip-list>
+            <mat-chip [color]="account.balanceCents < 0 ? 'warn' : 'primary'"
+                      selected>{{ formatMoney(account.balanceCents) }}</mat-chip>
+          </mat-chip-list>
+        </td>
         <td class="small-td">
           <div class="right">
             <button mat-raised-button color="accent" (click)="navigateAccountHistory(account.id)">Geschiedenis
