@@ -41,9 +41,15 @@ namespace KassaDG.Controllers
         }
 
         [HttpGet("accounts/{id}")]
-        public IEnumerable<Order> GetAccountOrders(int id)
+        public OrderHistoryResponse GetAccountOrders(int id, int page, int pageSize)
         {
-            return Repository.Get().Where(x => x.AccountId == id).ToList();
+            var orders = Repository.Get().Where(x => x.AccountId == id).ToList().OrderByDescending(x => x.OrderDate).ToList();
+            var response = new OrderHistoryResponse
+            {
+                TotalItems = orders.Count(),
+                Orders = orders.Skip(page * pageSize).Take(pageSize).ToList()
+            };
+            return response;
         }
         private void SubtractFundsFromAccount(OrderCommand orderCommand)
         {

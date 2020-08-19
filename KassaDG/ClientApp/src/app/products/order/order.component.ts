@@ -8,6 +8,7 @@ import {NegativeCreditsDialogComponent} from "../../dialogs/negative-credits-dia
 import {ErrorLoggerService} from "../../error-logger.service";
 import {IAccount} from "../../../IAccount";
 import {MoneyFormatter} from "../../../MoneyFormatter";
+import {IProduct} from "../../../IProduct";
 
 @Component({
   selector: 'app-order',
@@ -126,6 +127,10 @@ export class OrderComponent implements OnInit {
 
   removeProductFromBasket(productId: number) {
     this.basket.removeProduct(productId);
+  }
+
+  addProductToBasket(productId: number) {
+    this.basket.addProductAlreadyInBasket(productId);
   }
 }
 

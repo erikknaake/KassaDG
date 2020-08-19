@@ -26,10 +26,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-content: end;
 }
 
-/*.table-row-action > button {*/
-/*  float: right;*/
-/*}*/
-
 .right {
   float: right;
 }
@@ -48,4 +44,8 @@ table .action
 }
 table .content {
   width: 100%
+}
+
+.table td, .table th {
+  vertical-align: inherit !important;
 }

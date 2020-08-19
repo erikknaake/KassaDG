@@ -73,7 +73,7 @@ export class CategoryComponent implements OnInit {
     }]);
   }
 
-  addProductFromBasket(product: IProduct) {
+  addProductToBasket(product: IProduct) {
     this.basket.addProduct(product.productName, product.id, product.pricePerPieceCents);
   }
 

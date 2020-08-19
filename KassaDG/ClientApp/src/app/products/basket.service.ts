@@ -51,6 +51,10 @@ export class BasketService {
   private basketChanged() {
     this.subscribers.forEach(x => x(this.basket));
   }
+
+  addProductAlreadyInBasket(productId: number) {
+    this.basket.filter(x => x.productId === productId)[0].amount++;
+  }
 }
 
 type basketChangedFunction = (orderAmounts: IOrderAmount[]) => void;

@@ -26,7 +26,10 @@
               <td>
                 {{calculateSubTotal(basketContentLine)}}
               </td>
-              <td>
+              <td class="table-row-action">
+                <button mat-raised-button color="primary" (click)="addProductToBasket(basketContentLine.productId)">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
                 <button mat-raised-button color="accent" (click)="removeProductFromBasket(basketContentLine.productId)">
                   <mat-icon>remove_circle_outline</mat-icon>
                 </button>
@@ -49,7 +52,7 @@
               <input matInput type="number" [(ngModel)]="deposit">
             </mat-form-field>
           </div>
-          <p>{{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
+          <p><b>Rekening: </b>{{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
           <mat-divider></mat-divider>
         </mat-card-content>
         <mat-card-actions [align]="'end'">

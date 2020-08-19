@@ -38,13 +38,19 @@
         </td>
       </tr>
       </tbody>
+      <tfoot>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>
+          <button mat-raised-button color="primary" [routerLink]="['/create-account']">Voeg account toe
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tfoot>
     </table>
   </mat-card-content>
-  <mat-card-actions [align]="'end'">
-    <button mat-raised-button color="primary" [routerLink]="['/create-account']">Voeg account toe
-      <mat-icon>add_circle_outline</mat-icon>
-    </button>
-  </mat-card-actions>
 </mat-card>
 <mat-checkbox [(ngModel)]="showDeleteAccount">
   Toon verwijder accounts

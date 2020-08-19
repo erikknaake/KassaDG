@@ -28,7 +28,7 @@
               <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Verwijder product <mat-icon>remove_circle_outline</mat-icon></button>
             </div>
             <div *ngIf="isOrdering">
-              <button mat-raised-button color="primary" (click)="addProductFromBasket(product)">Toevoegen <mat-icon>add_circle_outline</mat-icon></button>
+              <button mat-raised-button color="primary" (click)="addProductToBasket(product)">Toevoegen <mat-icon>add_circle_outline</mat-icon></button>
               <button mat-raised-button color="accent" (click)="removeProductFromBasket(product)">Verwijderen <mat-icon>remove_circle_outline</mat-icon></button>
             </div>
           </td>

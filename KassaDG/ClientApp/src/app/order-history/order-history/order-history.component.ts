@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {IAccount} from "../../../IAccount";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {ErrorLoggerService} from "../../error-logger.service";
 import {IOrder, IOrderLine} from "../../../IOrder";
 import {MoneyFormatter} from "../../../MoneyFormatter";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-order-history',
@@ -14,6 +15,9 @@ import {MoneyFormatter} from "../../../MoneyFormatter";
 export class OrderHistoryComponent implements OnInit {
   account: IAccount;
   orders: IOrder[] = [];
+  totalHistoryItems: number;
+  pageSize: number = 10;
+  pageIndex: number = 0;
 
   constructor(private readonly route: ActivatedRoute,
               private readonly http: HttpClient,
@@ -38,8 +42,9 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   private fetchOrders(accountId: number) {
-    this.http.get<IOrder[]>(this.baseUrl + 'order/accounts/' + accountId).subscribe(next => {
-      this.orders = OrderHistoryComponent.orderOrdersByDate(next);
+    this.http.get<IOrderResponse>(this.baseUrl + 'order/accounts/' + accountId + '?pageSize=' + this.pageSize + '&page=' + this.pageIndex).subscribe(next => {
+      this.orders = OrderHistoryComponent.orderOrdersByDate(next.orders);
+      this.totalHistoryItems = next.totalItems;
     }, error => {
       this.errorLogger.log(error);
     });
@@ -68,7 +73,7 @@ export class OrderHistoryComponent implements OnInit {
 
   private static orderOrdersByDate(orders: IOrder[]): IOrder[] {
     return orders.sort((x, y) => {
-      if(x.orderDate > y.orderDate) {
+      if (x.orderDate > y.orderDate) {
         return -1;
       }
       return 1;
@@ -78,4 +83,15 @@ export class OrderHistoryComponent implements OnInit {
   navigateOrderHistoryItem(order: IOrder) {
     this.router.navigate(['/order-history-item', {orderId: order.id}]);
   }
+
+  onPageEvent($event: PageEvent) {
+    this.pageIndex = $event.pageIndex;
+    this.pageSize = $event.pageSize;
+    this.fetchOrders(this.account.id);
+  }
+}
+
+interface IOrderResponse {
+  orders: IOrder[];
+  totalItems: number;
 }
