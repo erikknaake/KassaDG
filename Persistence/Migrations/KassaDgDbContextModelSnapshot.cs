@@ -62,7 +62,7 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AccountId")
+                    b.Property<int?>("AccountId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Deposit")
@@ -162,8 +162,7 @@ namespace Persistence.Migrations
                     b.HasOne("Persistence.Entities.Account", "Account")
                         .WithMany("Orders")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("Persistence.Entities.OrderLine", b =>

@@ -14,11 +14,25 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     AccountName = table.Column<string>(nullable: false),
-                    BalanceCents = table.Column<int>(nullable: false)
+                    BalanceCents = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BackupCounters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Counter = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BackupCounters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,7 +62,8 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderDate = table.Column<DateTimeOffset>(nullable: false),
-                    AccountId = table.Column<int>(nullable: false)
+                    AccountId = table.Column<int>(nullable: true),
+                    Deposit = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,7 +73,7 @@ namespace Persistence.Migrations
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,6 +161,9 @@ namespace Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BackupCounters");
+
             migrationBuilder.DropTable(
                 name: "OrderLines");
 

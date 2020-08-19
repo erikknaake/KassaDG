@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(KassaDgDbContext))]
-    [Migration("20200818212250_backupCounter")]
-    partial class backupCounter
+    [Migration("20200819172718_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,11 @@ namespace Persistence.Migrations
 
                     b.Property<int>("BalanceCents")
                         .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(true);
 
                     b.HasKey("Id");
 
@@ -59,7 +64,7 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AccountId")
+                    b.Property<int?>("AccountId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Deposit")
@@ -159,8 +164,7 @@ namespace Persistence.Migrations
                     b.HasOne("Persistence.Entities.Account", "Account")
                         .WithMany("Orders")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("Persistence.Entities.OrderLine", b =>

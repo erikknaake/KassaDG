@@ -11,10 +11,8 @@ namespace Persistence.Entities
         
         [Required]
         public DateTimeOffset OrderDate { get; set; }
-
-        [Required]
-        public int AccountId { get; set; }
-        [Required]
+        
+        public int? AccountId { get; set; }
         public Account Account { get; set; }
         
         public ICollection<OrderLine> OrderLines { get; set; }

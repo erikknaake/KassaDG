@@ -50,6 +50,11 @@ namespace Persistence
             builder.Entity<Account>()
                 .Property(x => x.IsActive)
                 .HasDefaultValue(true);
+
+            builder.Entity<Order>()
+                .HasOne(x => x.Account)
+                .WithMany(x => x.Orders)
+                .OnDelete(DeleteBehavior.SetNull);
         }
 
         public void Backup()
