@@ -53,3 +53,7 @@ table .content {
 .mat-raised-button {
   margin-left: 2px !important;
 }
+
+.container {
+  max-width: 80%;
+}
