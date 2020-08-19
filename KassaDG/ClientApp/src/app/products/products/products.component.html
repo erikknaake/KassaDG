@@ -1,5 +1,4 @@
-<p *ngIf="!categories"><em>Loading...</em></p>
-
+<app-loading *ngIf="!categories"></app-loading>
 <table *ngIf="categories" aria-labelledby="tableLabel" class='table table-striped'>
   <tbody>
   <tr *ngFor="let category of categories">

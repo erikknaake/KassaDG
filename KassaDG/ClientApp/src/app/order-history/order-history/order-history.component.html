@@ -1,5 +1,4 @@
-<p *ngIf="!account || !orders"><em>Loading...</em></p>
-
+<app-loading *ngIf="!account || !orders"></app-loading>
 <div *ngIf="account && orders">
   <div class="split-header">
     <h2>Bestelgeschiedenis</h2>

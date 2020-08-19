@@ -29,6 +29,8 @@ import {OrderHistoryComponent} from "./order-history/order-history/order-history
 import {OrderHistoryItemComponent} from "./order-history/order-history-item/order-history-item.component";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { LoadingComponent } from './loading/loading.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     ConfirmDialogComponent,
     NegativeCreditsDialogComponent,
     OrderHistoryComponent,
-    OrderHistoryItemComponent
+    OrderHistoryItemComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -71,7 +74,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatDividerModule,
     MatIconModule,
     MatChipsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   providers: [NavGuard],
   bootstrap: [AppComponent],

@@ -1,5 +1,4 @@
-<p *ngIf="!order"><em>Loading...</em></p>
-
+<app-loading *ngIf="!order"></app-loading>
 <table *ngIf="order" aria-labelledby="tableLabel" class='table table-striped'>
   <thead>
   <tr>

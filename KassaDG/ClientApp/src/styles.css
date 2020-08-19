@@ -39,3 +39,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex-direction: row;
   justify-content: space-between;
 }
+
+table .action
+{
+  width:auto;
+  text-align:right;
+  white-space: nowrap
+}
+table .content {
+  width: 100%
+}

@@ -1,4 +1,4 @@
-<p *ngIf="!shownAccounts"><em>Loading...</em></p>
+<app-loading *ngIf="!shownAccounts"></app-loading>
 <mat-card>
   <mat-card-content>
     <mat-form-field class="search">
@@ -12,21 +12,21 @@
     <table *ngIf="shownAccounts" aria-labelledby="tableLabel" class='table table-striped'>
       <thead>
       <tr>
-        <th>Naam</th>
+        <th class="content">Naam</th>
         <th>Saldo</th>
-        <th class="small-td"></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let account of shownAccounts">
-        <td (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
-        <td class="balance-td" (click)="navigateAccount(account.id)">
+        <td class="content" (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
+        <td class="action" (click)="navigateAccount(account.id)">
           <mat-chip-list>
             <mat-chip [color]="account.balanceCents < 0 ? 'warn' : 'primary'"
                       selected>{{ formatMoney(account.balanceCents) }}</mat-chip>
           </mat-chip-list>
         </td>
-        <td class="small-td">
+        <td class="action">
           <div class="right">
             <button mat-raised-button color="accent" (click)="navigateAccountHistory(account.id)">Geschiedenis
               <mat-icon>history</mat-icon>
