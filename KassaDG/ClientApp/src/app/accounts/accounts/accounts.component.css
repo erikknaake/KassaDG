@@ -8,3 +8,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.search {
+  width: 100%;
+}

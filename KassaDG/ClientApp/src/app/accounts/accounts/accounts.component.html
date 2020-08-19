@@ -1,9 +1,13 @@
 <p *ngIf="!shownAccounts"><em>Loading...</em></p>
 <mat-card>
   <mat-card-content>
-    <mat-form-field>
+    <mat-form-field class="search">
       <mat-label>Zoeken</mat-label>
       <input matInput autofocus type="text" (ngModelChange)="searchChanged($event)" [(ngModel)]="search">
+      <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''; resetSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon matSuffix *ngIf="!search">search</mat-icon>
     </mat-form-field>
     <table *ngIf="shownAccounts" aria-labelledby="tableLabel" class='table table-striped'>
       <thead>
