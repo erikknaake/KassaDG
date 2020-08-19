@@ -49,3 +49,7 @@ table .content {
 .table td, .table th {
   vertical-align: inherit !important;
 }
+
+.mat-raised-button {
+  margin-left: 2px !important;
+}
