@@ -35,6 +35,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import { ManagementComponent } from './management/management.component';
 import {ManageAccountsComponent} from "./accounts/manage-accounts/manage-accounts.component";
 import {StockComponent} from "./management/stock/stock.component";
+import {StatisticsComponent} from "./management/statistics/statistics.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import {StockComponent} from "./management/stock/stock.component";
     LoadingComponent,
     ManageAccountsComponent,
     ManagementComponent,
-    StockComponent
+    StockComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -65,6 +69,7 @@ import {StockComponent} from "./management/stock/stock.component";
     MatCardModule,
     HttpClientModule,
     FormsModule,
+    MatNativeDateModule,
     RouterModule.forRoot([
       {path: '', component: AccountsComponent, pathMatch: 'full'},
       {path: 'accounts', component: AccountsComponent},
@@ -78,6 +83,7 @@ import {StockComponent} from "./management/stock/stock.component";
       {path: 'order-history', component: OrderHistoryComponent},
       {path: 'order-history-item', component: OrderHistoryItemComponent},
       {path: 'stock', component: StockComponent},
+      {path: 'statistics', component: StatisticsComponent},
     ]),
     BrowserAnimationsModule,
     MatInputModule,
@@ -86,7 +92,8 @@ import {StockComponent} from "./management/stock/stock.component";
     MatChipsModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDatepickerModule
   ],
   providers: [NavGuard],
   bootstrap: [AppComponent],

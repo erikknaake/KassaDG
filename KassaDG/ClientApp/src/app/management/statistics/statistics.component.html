@@ -1,0 +1,63 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Statistieken</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table aria-labelledby="tableLabel" class='table table-striped'>
+      <thead>
+      <tr>
+        <th>Overzicht</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Totaal uitgegeven:</td>
+        <td>{{formatMoney(totalSpent)}}</td>
+      </tr>
+      <tr>
+        <td>Totaal gestort:</td>
+        <td>{{formatMoney(totalDeposit)}}</td>
+      </tr>
+      <tr>
+        <td>Saldo:</td>
+        <td>{{formatMoney(totalDeposit - totalSpent)}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table aria-labelledby="tableLabel" class='table table-striped'>
+      <thead>
+      <tr>
+        <th>Overzicht per product</th>
+      </tr>
+      <tr>
+        <th>Product</th>
+        <th>Totaal aantal besteld</th>
+        <th>Totaal omzet</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let productStatisticItem of productStatistics">
+        <td>{{productStatisticItem.productName}}</td>
+        <td>{{productStatisticItem.totalOrders}}</td>
+        <td>{{formatMoney(productStatisticItem.totalSpent)}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-form-field>
+      <mat-label>Start datum</mat-label>
+      <input matInput [matDatepicker]="startDatePicker" [value]="startDate.value">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Eind datum</mat-label>
+      <input matInput [matDatepicker]="endDatePicker" [value]="endDate.value">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" (click)="fetchStatistics()">Filter</button>
+  </mat-card-actions>
+</mat-card>

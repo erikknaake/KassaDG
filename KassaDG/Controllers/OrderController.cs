@@ -1,6 +1,7 @@
 namespace KassaDG.Controllers
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,16 @@ namespace KassaDG.Controllers
             return Ok();
         }
 
+        [HttpGet("statistics")]
+        public IEnumerable<Order> Statistics(DateTimeOffset startDate, DateTimeOffset endDate)
+        {
+            return Repository
+                .Get()
+                .ToList()
+                .Where(x => x.OrderDate <= endDate && x.OrderDate >= startDate)
+                .ToList();
+        }
+        
         [HttpGet("accounts/{id}")]
         public OrderHistoryResponse GetAccountOrders(int id, int page, int pageSize)
         {
