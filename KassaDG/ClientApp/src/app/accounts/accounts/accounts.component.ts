@@ -65,14 +65,24 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  sortAccountsBySearchRelevance(accounts: IAccount[], search: string): IAccount[] {
+    return accounts.sort((x, y) => {
+      if (
+        x.accountName.toLowerCase().indexOf(search.toLowerCase()) < 0 ||
+        distance(x.accountName, search, {caseSensitive: false}) <
+        distance(y.accountName, search, {caseSensitive: false})) {
+        return 1;
+      }
+      return -1;
+    });
+  }
+
   navigateAccountHistory(id: number) {
     this.router.navigate(['/order-history', {accountId: id}]);
   }
 
   searchChanged(search: string) {
-    console.log('search: ', search);
-    if(search.length === 0) {
-      console.log('resetting');
+    if (search.length === 0) {
       this.resetSearch();
     }
     this.applySearch(search);
@@ -83,18 +93,7 @@ export class AccountsComponent implements OnInit {
   }
 
   private applySearch(search: string) {
-    this.shownAccounts = [];
-    const allWeights: number[] = [];
-    this.allAccounts.forEach(x => {
-        allWeights.push(distance(x.accountName, search, {caseSensitive: false}));
-    });
-
-    const weightTarget: number = allWeights.sort()[Math.round(allWeights.length * 0.7)];
-    this.allAccounts.forEach(x => {
-        if (distance(x.accountName, search, {caseSensitive: false}) >= weightTarget) {
-          this.shownAccounts.push(x);
-        }
-    });
+    this.shownAccounts = this.sortAccountsBySearchRelevance(this.allAccounts, search);
   }
 
 }
