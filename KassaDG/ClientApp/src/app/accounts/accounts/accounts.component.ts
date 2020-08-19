@@ -16,6 +16,7 @@ export class AccountsComponent implements OnInit {
   allAccounts: IAccount[] = [];
   shownAccounts: IAccount[] = [];
   search: string;
+  showDeleteAccount: boolean;
 
   constructor(
     private readonly http: HttpClient,

@@ -27,7 +27,7 @@
             <button mat-raised-button color="accent" (click)="navigateAccountHistory(account.id)">Geschiedenis
               <mat-icon>history</mat-icon>
             </button>
-            <button mat-raised-button color="warn" (click)="deleteAccount(account.id)">Verwijder
+            <button *ngIf="showDeleteAccount" mat-raised-button color="warn" (click)="deleteAccount(account.id)">Verwijder
               <mat-icon>remove_circle_outline</mat-icon>
             </button>
           </div>
@@ -42,3 +42,6 @@
     </button>
   </mat-card-actions>
 </mat-card>
+<mat-checkbox [(ngModel)]="showDeleteAccount">
+  Toon verwijder accounts
+</mat-checkbox>

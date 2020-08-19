@@ -28,6 +28,7 @@ import {NegativeCreditsDialogComponent} from "./dialogs/negative-credits-dialog/
 import {OrderHistoryComponent} from "./order-history/order-history/order-history.component";
 import {OrderHistoryItemComponent} from "./order-history/order-history-item/order-history-item.component";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -45,32 +46,33 @@ import {MatChipsModule} from "@angular/material/chips";
     OrderHistoryComponent,
     OrderHistoryItemComponent
   ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-        MatButtonModule,
-        MatSnackBarModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatCardModule,
-        HttpClientModule,
-        FormsModule,
-        RouterModule.forRoot([
-            {path: '', component: AccountsComponent, pathMatch: 'full'},
-            {path: 'accounts', component: AccountsComponent},
-            {path: 'create-account', component: CreateAccountComponent},
-            {path: 'products', component: ProductsComponent},
-            {path: 'product', component: ProductComponent},
-            {path: 'order', component: OrderComponent, canDeactivate: [NavGuard]},
-            {path: 'create-category', component: CreateCategoryComponent},
-            {path: 'order-history', component: OrderHistoryComponent},
-            {path: 'order-history-item', component: OrderHistoryItemComponent},
-        ]),
-        BrowserAnimationsModule,
-        MatInputModule,
-        MatDividerModule,
-        MatIconModule,
-        MatChipsModule
-    ],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    MatButtonModule,
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatDialogModule,
+    MatCardModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot([
+      {path: '', component: AccountsComponent, pathMatch: 'full'},
+      {path: 'accounts', component: AccountsComponent},
+      {path: 'create-account', component: CreateAccountComponent},
+      {path: 'products', component: ProductsComponent},
+      {path: 'product', component: ProductComponent},
+      {path: 'order', component: OrderComponent, canDeactivate: [NavGuard]},
+      {path: 'create-category', component: CreateCategoryComponent},
+      {path: 'order-history', component: OrderHistoryComponent},
+      {path: 'order-history-item', component: OrderHistoryItemComponent},
+    ]),
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatDividerModule,
+    MatIconModule,
+    MatChipsModule,
+    MatCheckboxModule
+  ],
   providers: [NavGuard],
   bootstrap: [AppComponent],
   entryComponents: [
