@@ -12,3 +12,8 @@
 .search {
   width: 100%;
 }
+
+tr.disabled {
+  background-color: #454d55 !important;
+  color: #ddd;
+}

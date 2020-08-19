@@ -32,6 +32,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { LoadingComponent } from './loading/loading.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { ManagementComponent } from './management/management.component';
+import {ManageAccountsComponent} from "./accounts/manage-accounts/manage-accounts.component";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     NegativeCreditsDialogComponent,
     OrderHistoryComponent,
     OrderHistoryItemComponent,
-    LoadingComponent
+    LoadingComponent,
+    ManageAccountsComponent,
+    ManagementComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -63,6 +67,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
       {path: '', component: AccountsComponent, pathMatch: 'full'},
       {path: 'accounts', component: AccountsComponent},
       {path: 'create-account', component: CreateAccountComponent},
+      {path: 'management', component: ManagementComponent},
+      {path: 'manage-accounts', component: ManageAccountsComponent},
       {path: 'products', component: ProductsComponent},
       {path: 'product', component: ProductComponent},
       {path: 'order', component: OrderComponent, canDeactivate: [NavGuard]},

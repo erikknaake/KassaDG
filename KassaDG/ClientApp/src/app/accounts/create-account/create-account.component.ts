@@ -24,7 +24,8 @@ export class CreateAccountComponent implements OnInit {
   createAccount() {
     const account: IAccount = {
       accountName: this.name,
-      balanceCents: 0
+      balanceCents: 0,
+      isActive: true
     };
     this.http.put(this.baseUrl + "account", account).subscribe(result => {
       this.router.navigateByUrl("accounts")

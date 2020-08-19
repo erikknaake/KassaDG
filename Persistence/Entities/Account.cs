@@ -15,5 +15,7 @@ namespace Persistence.Entities
         public int BalanceCents { get; set; }
         
         public ICollection<Order> Orders { get; set; }
+        
+        public bool IsActive { get; set; }
     }
 }

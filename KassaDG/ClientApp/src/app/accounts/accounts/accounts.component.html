@@ -18,9 +18,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let account of shownAccounts">
-        <td class="content" (click)="navigateAccount(account.id)">{{ account.accountName }}</td>
-        <td class="action" (click)="navigateAccount(account.id)">
+      <tr *ngFor="let account of shownAccounts" class="{{!account.isActive ? 'disabled' : ''}}">
+        <td class="content" (click)="navigateAccount(account)">{{ account.accountName }}</td>
+        <td class="action" (click)="navigateAccount(account)">
           <mat-chip-list>
             <mat-chip [color]="account.balanceCents < 0 ? 'warn' : 'primary'"
                       selected>{{ formatMoney(account.balanceCents) }}</mat-chip>
@@ -31,14 +31,23 @@
             <button mat-raised-button color="accent" (click)="navigateAccountHistory(account.id)">Geschiedenis
               <mat-icon>history</mat-icon>
             </button>
-            <button *ngIf="showDeleteAccount" mat-raised-button color="warn" (click)="deleteAccount(account.id)">Verwijder
+            <button *ngIf="isManaging && account.isActive" mat-raised-button color="warn"
+                    (click)="deActivateAccount(account)">Deactiveer
+              <mat-icon>lock</mat-icon>
+            </button>
+            <button *ngIf="isManaging && !account.isActive" mat-raised-button color="primary"
+                    (click)="activateAccount(account)">Activeer
+              <mat-icon>lock_open</mat-icon>
+            </button>
+            <button *ngIf="isManaging" mat-raised-button color="warn" (click)="deleteAccount(account.id)">
+              Verwijder
               <mat-icon>remove_circle_outline</mat-icon>
             </button>
           </div>
         </td>
       </tr>
       </tbody>
-      <tfoot>
+      <tfoot *ngIf="isManaging">
       <tr>
         <td></td>
         <td></td>
@@ -52,6 +61,3 @@
     </table>
   </mat-card-content>
 </mat-card>
-<mat-checkbox [(ngModel)]="showDeleteAccount">
-  Toon verwijder accounts
-</mat-checkbox>

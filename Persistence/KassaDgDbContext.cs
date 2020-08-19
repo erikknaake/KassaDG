@@ -47,6 +47,9 @@ namespace Persistence
             builder.Entity<Account>()
                 .HasIndex(u => u.AccountName)
                 .IsUnique();
+            builder.Entity<Account>()
+                .Property(x => x.IsActive)
+                .HasDefaultValue(true);
         }
 
         public void Backup()

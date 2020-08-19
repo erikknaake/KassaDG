@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service";
@@ -16,7 +16,9 @@ export class AccountsComponent implements OnInit {
   allAccounts: IAccount[] = [];
   shownAccounts: IAccount[] = [];
   search: string;
-  showDeleteAccount: boolean;
+
+  @Input()
+  isManaging: boolean = false;
 
   constructor(
     private readonly http: HttpClient,
@@ -28,6 +30,9 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<IAccount[]>(this.baseUrl + 'account').subscribe(result => {
+      if(!this.isManaging) {
+        result = result.filter(x => x.isActive);
+      }
       this.allAccounts = this.sortAccounts(result);
       this.shownAccounts = this.allAccounts;
     }, error => console.error(error));
@@ -53,8 +58,12 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  navigateAccount(id: number) {
-    this.router.navigate(['/order', {accountId: id}]);
+  navigateAccount(account: IAccount) {
+    if (account.isActive && !this.isManaging) {
+      this.router.navigate(['/order', {accountId: account.id}]);
+    } else if (!this.isManaging) {
+      this.errorLogger.openSnackbar('Dit account is gedeactiveerd', 'Ok');
+    }
   }
 
   sortAccounts(accounts: IAccount[]): IAccount[] {
@@ -69,9 +78,9 @@ export class AccountsComponent implements OnInit {
   sortAccountsBySearchRelevance(accounts: IAccount[], search: string): IAccount[] {
     return accounts.sort((x, y) => {
       if (
-        x.accountName.toLowerCase().indexOf(search.toLowerCase()) < 0 ||
-        distance(x.accountName, search, {caseSensitive: false}) <
-        distance(y.accountName, search, {caseSensitive: false})) {
+        (x.accountName.toLowerCase().indexOf(search.toLowerCase()) < 0 ||
+          distance(x.accountName, search, {caseSensitive: false}) <
+          distance(y.accountName, search, {caseSensitive: false}))) {
         return 1;
       }
       return -1;
@@ -83,7 +92,7 @@ export class AccountsComponent implements OnInit {
   }
 
   searchChanged(search: string) {
-    if (search.length === 0) {
+    if (search == null || search === '' || search.lenght == 0) {
       this.resetSearch();
     }
     this.applySearch(search);
@@ -97,4 +106,19 @@ export class AccountsComponent implements OnInit {
     this.shownAccounts = this.sortAccountsBySearchRelevance(this.allAccounts, search);
   }
 
+  deActivateAccount(account: IAccount) {
+    this.http.post(this.baseUrl + 'account/' + account.id + '/disable', {}).subscribe(next => {
+      account.isActive = false;
+    }, error => {
+      this.errorLogger.log(error);
+    })
+  }
+
+  activateAccount(account: IAccount) {
+    this.http.post(this.baseUrl + 'account/' + account.id + '/enable', {}).subscribe(next => {
+      account.isActive = true;
+    }, error => {
+      this.errorLogger.log(error);
+    })
+  }
 }
