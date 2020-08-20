@@ -1,0 +1,13 @@
+Bundle KassaDG/KassaDG/bin/Release/netcoreapp3.1/linux-x64/publish with KassaDG/KassaDG/bin/Release/netcoreapp3.1/linux-x64/Persistence into an archive
+
+Extract the archive on target computer in ~/.KassaDG_linux-64 so that publish and Persistence directory are the next level in ~/.KassaDG_linux-64
+Make sure the Persistence/KassaDG.db sqlite database is in the state you want
+Make sure the files publish/credentials.json and appsettings.json are present
+In appsettings.json you can edit the target GoogleDrive folder and the number of transactions between each backup
+
+Copy the launcher (KassaDG_desktop_launcher.sh) to ~/Dekstop
+The launcher depends on ps, grep, command and either google-chrome or /usr/bin/google-chrome-stable
+
+The first time a backup is pushed to google drive the authentication flow must be completed, choose a google account, login. Make sure the folder with the folderId set in appsettings.json is present in this google account
+
+Or just run the setup.sh script when all files are present in the correct folder. The setup also depends on chmod.
