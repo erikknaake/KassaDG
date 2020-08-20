@@ -43,4 +43,26 @@ describe('Create product', () => {
             .should('contain', '10');
         cy.url().should('include', '/products')
     });
+    
+    describe('delete product', () => {
+        beforeEach(() => {
+            cy.visit('/products');
+            cy.get('mat-expansion-panel mat-expansion-panel').click();
+            cy.get('mat-expansion-panel mat-expansion-panel').contains('Verwijder product').click();
+        });
+
+        it('Does not delete product after prompt', () => {
+            cy.contains('Nee').click();
+            cy.get('app-category mat-expansion-panel mat-expansion-panel tbody>tr')
+                .eq(0)
+                .should('contain', 'productInNestedCategory')
+                .should('contain', '0.8')
+                .should('contain', '10');
+        });
+        
+        it('Deletes product after prompt', () => {
+            cy.contains('Ja').click();
+            cy.get('app-category mat-expansion-panel mat-expansion-panel tbody>tr').should('not.exist');
+        });
+    });
 })
