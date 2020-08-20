@@ -14,5 +14,6 @@ KassaDG/token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
 
 KassaDG/appsettings.json
 KassaDG/appsettings.Development.json
+**/node_modules
 
 
