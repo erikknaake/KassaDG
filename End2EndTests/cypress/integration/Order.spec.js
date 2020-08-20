@@ -128,5 +128,22 @@ describe('Order', () => {
             cy.contains('Annuleer').click();
             cy.url().should('include', '/account')
         });
+        
+        it('Searches user', () => {
+            cy.visit('/');
+            cy.get('#mat-input-0')
+                .type('seed');
+
+            cy.get('tbody>tr')
+                .eq(0)
+                .should('contain', 'seedAccount');
+
+            cy.get('#mat-input-0')
+                .type('{selectall}negative');
+
+            cy.get('tbody>tr')
+                .eq(0)
+                .should('contain', 'negativeAccount');
+        });
     });
 });
