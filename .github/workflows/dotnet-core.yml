@@ -30,9 +30,9 @@ jobs:
     - name: SetupSettingsFile
       run: echo "$APP_SETTINGS" > KassaDG/bin/Release/netcoreapp3.1/appsettings.json && mkdir KassaDG/bin/Release/netcoreapp3.1/token.json && echo "$DRIVE_TOKEN" > KassaDG/bin/Release/netcoreapp3.1/token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
       shell: bash
-        env:
-          APP_SETTINGS: ${{secrets.APP_SETTINGS}}
-          DRIVE_TOKEN: ${{secretes.DRIVE_TOKEN}}
+      env:
+        APP_SETTINGS: ${{secrets.APP_SETTINGS}}
+        DRIVE_TOKEN: ${{secretes.DRIVE_TOKEN}}
     - name: StartUpServer
       run: chmod +x KassaDG/bin/Release/netcoreapp3.1/KassaDG && ./KassaDG/bin/Release/netcoreapp3.1/KassaDG &
     - name: End2EndTest
