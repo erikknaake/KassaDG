@@ -34,5 +34,5 @@ jobs:
         wait-on: 'http://localhost:5000'
         wait-on-timeout: 60
       env:
-      CLEAN_DB: '../Persistence/KassaDG.db.clean'
-      TARGET_DB: '../Persistence/KassaDG.db'
+        CLEAN_DB: '../Persistence/KassaDG.db.clean'
+        TARGET_DB: '../Persistence/KassaDG.db'
