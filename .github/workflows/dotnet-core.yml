@@ -32,5 +32,5 @@ jobs:
       with: '../KassaDG/bin/Release/netcoreapp3.1/KassaDG'
       wait-on: 'http://localhost:5000'
       env:
-      CLEAN_DB='../Persistence/KassaDG.db.clean'
-      TARGET_DB='../Persistence/KassaDG.db'
+      CLEAN_DB: '../Persistence/KassaDG.db.clean'
+      TARGET_DB: '../Persistence/KassaDG.db'
