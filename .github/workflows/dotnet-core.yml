@@ -27,6 +27,8 @@ jobs:
       run: dotnet tool install --global dotnet-ef
     - name: SetupCleanDb
       run: cd Persistence && dotnet ef database update && cp KassaDG.db KassaDG.db.clean
+    - name: SetupSettingsFile
+      run: echo ${APP_SETTINGS} > KassaDG/bin/Release/netcoreapp3.1/appsettings.json && mkdir KassaDG/bin/Release/netcoreapp3.1/token.json && echo ${DRIVE_TOKEN} > Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
     - name: StartUpServer
       run: chmod +x KassaDG/bin/Release/netcoreapp3.1/KassaDG && ./KassaDG/bin/Release/netcoreapp3.1/KassaDG &
     - name: End2EndTest
