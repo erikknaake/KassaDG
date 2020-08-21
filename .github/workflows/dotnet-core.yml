@@ -29,7 +29,8 @@ jobs:
       run: cd Persistence && dotnet ef database update && cp KassaDG.db KassaDG.db.clean && cd ../End2EndTests
     - name: End2EndTest
       uses: cypress-io/github-action@v2
-      with: '../KassaDG/bin/Release/netcoreapp3.1/KassaDG'
+      with: 
+        start: '../KassaDG/bin/Release/netcoreapp3.1/KassaDG'
       wait-on: 'http://localhost:5000'
       env:
       CLEAN_DB: '../Persistence/KassaDG.db.clean'
