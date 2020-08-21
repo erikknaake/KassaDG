@@ -31,7 +31,8 @@ jobs:
       uses: cypress-io/github-action@v2
       with: 
         start: '../KassaDG/bin/Release/netcoreapp3.1/KassaDG'
-      wait-on: 'http://localhost:5000'
+        wait-on: 'http://localhost:5000'
+        wait-on-timeout: 60
       env:
       CLEAN_DB: '../Persistence/KassaDG.db.clean'
       TARGET_DB: '../Persistence/KassaDG.db'
