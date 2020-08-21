@@ -38,7 +38,7 @@ jobs:
     - name: End2EndTest
       uses: cypress-io/github-action@v2
       with:
-        start: 'chmod +x KassaDG/bin/Release/netcoreapp3.1/KassaDG && ./KassaDG/bin/Release/netcoreapp3.1/KassaDG'
+        start: 'chmod +x ../KassaDG/bin/Release/netcoreapp3.1/KassaDG && ../KassaDG/bin/Release/netcoreapp3.1/KassaDG'
         browser: chrome
         working-directory: 'End2EndTests'
         wait-on: 'http://localhost:5000'
