@@ -28,7 +28,7 @@ jobs:
     - name: SetupCleanDb
       run: cd Persistence && dotnet ef database update && cp KassaDG.db KassaDG.db.clean
     - name: SetupSettingsFile
-      run: echo ${{secrets.APP_SETTINGS}} > KassaDG/bin/Release/netcoreapp3.1/appsettings.json && mkdir KassaDG/bin/Release/netcoreapp3.1/token.json && echo ${{secrets.DRIVE_TOKEN}} > KassaDG/bin/Release/netcoreapp3.1/token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user && cat KassaDG/bin/Release/netcoreapp3.1/appsettings.json && cat KassaDG/bin/Release/netcoreapp3.1/token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
+      run: echo ${{secrets.APP_SETTINGS}} > KassaDG/bin/Release/netcoreapp3.1/appsettings.json && mkdir KassaDG/bin/Release/netcoreapp3.1/token.json && echo ${{secrets.DRIVE_TOKEN}} > KassaDG/bin/Release/netcoreapp3.1/token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
     - name: StartUpServer
       run: chmod +x KassaDG/bin/Release/netcoreapp3.1/KassaDG && ./KassaDG/bin/Release/netcoreapp3.1/KassaDG &
     - name: End2EndTest
@@ -36,7 +36,6 @@ jobs:
       with:
         browser: chrome
         working-directory: 'End2EndTests'
-#        start: 'ls -a ../KassaDG/bin/Release/netcoreapp3.1 && ../KassaDG/bin/Release/netcoreapp3.1/KassaDG'
         wait-on: 'http://localhost:5000'
         wait-on-timeout: 60
       env:
