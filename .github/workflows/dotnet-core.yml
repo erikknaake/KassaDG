@@ -32,7 +32,7 @@ jobs:
       shell: bash
       env:
         APP_SETTINGS: ${{secrets.APP_SETTINGS}}
-        DRIVE_TOKEN: ${{secretes.DRIVE_TOKEN}}
+        DRIVE_TOKEN: ${{secrets.DRIVE_TOKEN}}
     - name: StartUpServer
       run: chmod +x KassaDG/bin/Release/netcoreapp3.1/KassaDG && ./KassaDG/bin/Release/netcoreapp3.1/KassaDG &
     - name: End2EndTest
