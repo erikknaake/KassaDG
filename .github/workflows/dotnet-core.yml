@@ -26,10 +26,11 @@ jobs:
     - name: SetupEF
       run: dotnet tool install --global dotnet-ef
     - name: SetupCleanDb
-      run: cd Persistence && dotnet ef database update && cp KassaDG.db KassaDG.db.clean && cd ../End2EndTests
+      run: cd Persistence && dotnet ef database update && cp KassaDG.db KassaDG.db.clean
     - name: End2EndTest
       uses: cypress-io/github-action@v2
-      with: 
+      with:
+        working-directory: 'End2EndTests'
         start: '../KassaDG/bin/Release/netcoreapp3.1/KassaDG'
         wait-on: 'http://localhost:5000'
         wait-on-timeout: 60
