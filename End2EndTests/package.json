@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "e2e:debug": "cypress open --env CLEAN_DB=../Persistence/KassaDG.db.clean,TARGET_DB=../Persistence/KassaDG.db",
+    "e2e:release": "cypress open --env CLEAN_DB=../Persistence/KassaDG.db.clean,TARGET_DB=../KassaDG/bin/Release/netcoreapp3.1/linux-x64/Persistence/KassaDG.db",
+    "e2e:staging": "cypress open --env CLEAN_DB=~/.KassaDG_linux-x64/Persistence/KassaDG.db.clean,TARGET_DB=~/.KassaDG_linux-x64/Persistence/KassaDG.db"
   },
   "author": "",
   "license": "ISC",

@@ -25,7 +25,8 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('cleanDb', () => {
-    cy.exec("cp ~/.KassaDG_linux-x64/Persistence/KassaDG.clean.db ~/.KassaDG_linux-x64/Persistence/KassaDG.db");
+    // cy.exec("cp ~/.KassaDG_linux-x64/Persistence/KassaDG.clean.db ~/.KassaDG_linux-x64/Persistence/KassaDG.db");
+    cy.exec("cp " + Cypress.env("CLEAN_DB") + " " + Cypress.env("TARGET_DB"));
 });
 
 Cypress.Commands.add('setupAccount', () => {

@@ -4,9 +4,8 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .idea
-**/*.db
+**/*.db*
 **/credentials.json
-**/*.db.bak
 **/*.token.json
 **/*.token.json/
 **/*.token.json/Google.Apis.Auth.OAuth2.Responses.TokenResponse-user
@@ -16,4 +15,5 @@ KassaDG/appsettings.json
 KassaDG/appsettings.Development.json
 **/node_modules
 
-
+**/*.mp4
+**/*.zip
