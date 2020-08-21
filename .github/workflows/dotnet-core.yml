@@ -27,6 +27,8 @@ jobs:
       run: dotnet tool install --global dotnet-ef
     - name: SetupCleanDb
       run: cd Persistence && dotnet ef database update && cp KassaDG.db KassaDG.db.clean
+    - name: SetupExecutable
+      run: ls -a KassaDG/bin/Release/netcoreapp3.1 && chmod +x KassaDG/bin/Release/netcoreapp3.1/KassaDG
     - name: End2EndTest
       uses: cypress-io/github-action@v2
       with:
