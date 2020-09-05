@@ -34,9 +34,11 @@ jobs:
         APP_SETTINGS: ${{secrets.APP_SETTINGS}}
         DRIVE_TOKEN: ${{secrets.DRIVE_TOKEN}}
     - name: MarkServerExecutable
-      run: chmod +x KassaDG/bin/Release/netcoreapp3.1/KassaDG
-    - name: AddServerToPath
-      run: 'echo "::add-path::./KassaDG/bin/Release/netcoreapp3.1"'
+      run: |
+        mkdir -p $GITHUB_WORKSPACE/bin
+        echo "::add-path::$GITHUB_WORKSPACE/bin"
+        cp KassaDG/bin/Release/netcoreapp3.1/KassaDG $GITHUB_WORKSPACE/bin
+        chmod +x $GITHUB_WORKSPACE/bin/app/KassaDG
     - name: End2EndTest
       uses: cypress-io/github-action@v2
       with:

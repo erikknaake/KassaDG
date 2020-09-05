@@ -5,7 +5,7 @@ export class MoneyFormatter {
   }
 
   public static toCents(euros: number): number {
-    return euros * 100;
+    return Math.round(euros * 100);
   }
 
   public static stringToCents(euros: string): number {
