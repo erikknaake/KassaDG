@@ -17,7 +17,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let basketContentLine of basketContents">
-              <td>
+              <td class="conserve-width">
                 {{basketContentLine.productName}}
               </td>
               <td>
@@ -52,7 +52,7 @@
               <input matInput type="number" [(ngModel)]="deposit">
             </mat-form-field>
           </div>
-          <p><b>Rekening: </b>{{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
+          <p class="conserve-width-medium"><b>Rekening: </b>{{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
           <mat-divider></mat-divider>
         </mat-card-content>
         <mat-card-actions [align]="'end'">

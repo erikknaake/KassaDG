@@ -55,5 +55,14 @@ table .content {
 }
 
 .container {
-  max-width: 80%;
+  max-width: 95%;
+}
+
+
+.conserve-width {
+  max-width: 150px;
+}
+
+.conserve-width-medium {
+  max-width: 250px;
 }

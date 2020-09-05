@@ -3,3 +3,11 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.order-left {
+  position: fixed;
+}
+
+app-products {
+  margin-left: 38%;
+}

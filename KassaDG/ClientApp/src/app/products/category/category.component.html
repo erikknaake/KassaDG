@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let product of sortProducts(category.products)">
-          <td>{{product.productName}}</td>
+          <td class="conserve-width-medium">{{product.productName}}</td>
           <td>{{formatMoney(product.pricePerPieceCents)}}</td>
           <td>{{product.amountInStock}}</td>
           <td>
