@@ -46,7 +46,7 @@ export class StatisticsComponent implements OnInit {
 
   private processOrders(orders: IOrder[]) {
     this.totalDeposit = StatisticsComponent.calculateTotalDeposit(orders);
-    this.productStatistics = StatisticsComponent.calculateStatisticsPerProduct(orders);
+    this.productStatistics = StatisticsComponent.calculateStatisticsPerProduct(orders).sort((x, y) => x.productName > y.productName ? 1 : -1);
     this.totalSpent = StatisticsComponent.calculateTotalSpent(this.productStatistics);
   }
 
