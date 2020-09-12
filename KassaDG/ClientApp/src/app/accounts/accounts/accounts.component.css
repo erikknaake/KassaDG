@@ -17,3 +17,7 @@ tr.disabled {
   background-color: #454d55 !important;
   color: #ddd;
 }
+
+td.content:hover {
+  cursor: pointer;
+}
