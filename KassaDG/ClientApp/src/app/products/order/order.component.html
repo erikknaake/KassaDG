@@ -26,13 +26,15 @@
               <td>
                 {{calculateSubTotal(basketContentLine)}}
               </td>
-              <td class="table-row-action">
+              <td>
+                <div class="table-row-action">
                 <button mat-raised-button color="primary" (click)="addProductToBasket(basketContentLine.productId)">
                   <mat-icon>add_circle_outline</mat-icon>
                 </button>
                 <button mat-raised-button color="accent" (click)="removeProductFromBasket(basketContentLine.productId)">
                   <mat-icon>remove_circle_outline</mat-icon>
                 </button>
+                </div>
               </td>
             </tr>
             </tbody>

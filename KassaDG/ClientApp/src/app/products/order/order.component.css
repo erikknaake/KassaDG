@@ -11,12 +11,17 @@
 
 .products-in-basket > thead, .products-in-basket > tbody, .products-in-basket > tfoot {
   display: block;
+  width: 100%;
 }
 
 .products-in-basket > tbody {
   max-height: 350px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.products-in-basket td, .products-in-basket th {
+  width: 25%;
 }
 
 app-products {
