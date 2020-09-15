@@ -11,3 +11,12 @@
 .actions button {
   margin-left: 2px;
 }
+
+.product-table th, .product-table td {
+    width: 175px;
+}
+
+.product-table td:last-of-type, .product-table th:last-of-type {
+  /*width: 60%;*/
+  width: 405px;
+}
