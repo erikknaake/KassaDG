@@ -5,6 +5,7 @@
 .actions {
   float: right;
   padding: 12px;
+  min-width: 360px;
 }
 
 .actions button {

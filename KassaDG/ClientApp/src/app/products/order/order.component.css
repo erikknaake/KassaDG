@@ -6,6 +6,17 @@
 
 .order-left {
   position: fixed;
+
+}
+
+.products-in-basket > thead, .products-in-basket > tbody, .products-in-basket > tfoot {
+  display: block;
+}
+
+.products-in-basket > tbody {
+  max-height: 350px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 app-products {

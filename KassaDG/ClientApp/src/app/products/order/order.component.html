@@ -6,7 +6,7 @@
     <div class="basket">
       <mat-card>
         <mat-card-content>
-          <table aria-labelledby="tableLabel" class='table table-striped'>
+          <table aria-labelledby="tableLabel" class='table table-striped products-in-basket'>
             <thead>
             <tr>
               <th>Product</th>
@@ -52,7 +52,8 @@
               <input matInput type="number" [(ngModel)]="deposit">
             </mat-form-field>
           </div>
-          <p class="conserve-width-medium"><b>Rekening: </b>{{account?.accountName}} ({{formatMoney(account?.balanceCents)}})</p>
+          <p class="conserve-width-medium"><b>Rekening: </b>{{account?.accountName}}
+            ({{formatMoney(account?.balanceCents)}})</p>
           <mat-divider></mat-divider>
         </mat-card-content>
         <mat-card-actions [align]="'end'">
