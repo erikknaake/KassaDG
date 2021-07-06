@@ -20,16 +20,15 @@ jobs:
           restore-keys: |
             docker-netcore-cache-
       - name: Build Docker image
-        run: >
-          docker-compose build
-      - name: Start Application
-        run: docker-compose up -f docker-compose.yml -d
+        run: docker-compose build
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          start: docker-compose up -d
           working-directory: End2EndTests
           browser: chrome
-          wait-on: 'http://localhost:5000'
+          wait-on: 'http://localhost:5002'
+          wait-on-timeout: 120
           record: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
