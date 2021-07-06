@@ -38,6 +38,7 @@ import {StockComponent} from "./management/stock/stock.component";
 import {StatisticsComponent} from "./management/statistics/statistics.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chip.component";
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     ManagementComponent,
     StockComponent,
     StatisticsComponent,
+    BalanceChipComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

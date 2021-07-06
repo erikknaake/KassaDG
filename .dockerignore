@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+**/KassaDG.db
+**/node_modules/
+**/dist/
+**/.idea/
+**/.git/
+**/.github/
+**/*.example
+**/*.sh

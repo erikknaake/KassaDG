@@ -38,10 +38,6 @@ export class AccountsComponent implements OnInit {
     }, error => console.error(error));
   }
 
-  formatMoney(balanceCents: number): string {
-    return MoneyFormatter.format(balanceCents);
-  }
-
   async deleteAccount(id: number) {
     if (await this.confirmService.confirmDialog("Weet je zeker dat je het account wilt verwijderen?")) {
       this.sendDeleteAccountCommand(id);

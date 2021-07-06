@@ -1,0 +1,2 @@
+<mat-chip [color]="balanceCents < 0 ? 'warn' : balanceCents < 500 ? 'accent' : 'primary'"
+          selected>{{ formatMoney(balanceCents) }}</mat-chip>

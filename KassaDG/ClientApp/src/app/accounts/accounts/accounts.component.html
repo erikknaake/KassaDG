@@ -22,8 +22,7 @@
         <td class="content" (click)="navigateAccount(account)">{{ account.accountName }}</td>
         <td class="action" (click)="navigateAccount(account)">
           <mat-chip-list>
-            <mat-chip [color]="account.balanceCents < 0 ? 'warn' : 'primary'"
-                      selected>{{ formatMoney(account.balanceCents) }}</mat-chip>
+            <app-balance-chip [balanceCents]="account.balanceCents"></app-balance-chip>
           </mat-chip-list>
         </td>
         <td class="action">

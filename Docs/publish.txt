@@ -1,4 +1,4 @@
 To publish the application navigate to KassaDG/KassaDG.
-Make sure dotnet ef is installed and registed in your ~/.bashrc
+Make sure dotnet ef is installed and registered in your ~/.bashrc
 run ./publish.sh
 The output will be in the ./bin folder and in a newly create zip in .
