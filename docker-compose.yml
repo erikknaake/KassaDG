@@ -5,5 +5,8 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+    volumes:
+      - ./Persistence/KassaDG.db:/Persistence/KassaDG.db
+      - ./Persistence/KassaDG.db.clean:/Persistence/KassaDG.db.clean
     ports:
     - 5002:80

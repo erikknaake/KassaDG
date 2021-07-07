@@ -18,16 +18,11 @@ COPY KassaDG ./KassaDG
 WORKDIR /app/KassaDG
 RUN dotnet publish "KassaDG.csproj" -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true -r linux-musl-x64 --no-restore
 
-WORKDIR /app/Persistence
-COPY Persistence/KassaDG.db.clean ./KassaDG.db
-#RUN dotnet-ef database update
 
 FROM alpine:3.9.6
 RUN apk add --update libstdc++ libintl
 ENV ASPNETCORE_URLS=http://+:80  
 ENV DATABASE_CAN_BE_RESET=true
 COPY --from=builder /app/KassaDG/bin/Release/netcoreapp3.1/linux-musl-x64/publish/ ./
-COPY --from=builder /app/Persistence/KassaDG.db ./Persistence/KassaDG.db
-COPY --from=builder /app/Persistence/KassaDG.db ./Persistence/KassaDG.db.clean
 EXPOSE 80
 CMD ["./KassaDG"]
