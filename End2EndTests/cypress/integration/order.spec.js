@@ -5,7 +5,7 @@ describe('Order', () => {
         cy.setupProducts();
     });
 
-    it('Prompt wether or not to leace and leave order page in progress', () => {
+    it('Prompt wether or not to leave and leave order page in progress', () => {
         cy.visit('/');
         cy.get('tbody>tr').eq(0).click();
         cy.contains('Beheer').click();
@@ -13,7 +13,7 @@ describe('Order', () => {
         cy.url().should('include', '/management')
     });
 
-    it('Prompt wether or not to leace and not leave order page in progress', () => {
+    it('Prompt wether or not to leave and not leave order page in progress', () => {
         cy.visit('/');
         cy.get('tbody>tr').eq(0).click();
         cy.contains('Beheer').click();

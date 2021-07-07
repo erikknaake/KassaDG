@@ -26,7 +26,11 @@
 
 Cypress.Commands.add('cleanDb', () => {
     // cy.exec("cp ~/.KassaDG_linux-x64/Persistence/KassaDG.clean.db ~/.KassaDG_linux-x64/Persistence/KassaDG.db");
-    cy.exec("cp " + Cypress.env("CLEAN_DB") + " " + Cypress.env("TARGET_DB"));
+    let copyCommand = 'cp ';
+    if(Cypress.env("CI")) {
+        copyCommand = 'sudo ' + copyCommand;
+    }
+    cy.exec(copyCommand + Cypress.env("CLEAN_DB") + " " + Cypress.env("TARGET_DB"));
 });
 
 Cypress.Commands.add('setupAccount', () => {
