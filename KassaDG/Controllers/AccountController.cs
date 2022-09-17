@@ -27,6 +27,14 @@ namespace KassaDG.Controllers
             Repository.SaveChanges();
         }
 
+        [HttpPut("{id}/name")]
+        public void ChangeName(int id, String name)
+        {
+            var account = FindAccountById(id);
+            account.AccountName = name;
+            Repository.SaveChanges();
+        }
+
         private Account FindAccountById(int id)
         {
             return Repository.Get().Single(x => x.Id == id);
