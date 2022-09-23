@@ -11,24 +11,24 @@ namespace KassaDG.Controllers
         {
         }
 
-        [HttpPost("{id}/enable")]
-        public void Enable(int id)
+        [HttpPost("{id:int}/enable")]
+        public void Enable([FromUri] int id)
         {
             var account = FindAccountById(id);
             account.IsActive = true;
             Repository.SaveChanges();
         }
         
-        [HttpPost("{id}/disable")]
-        public void Disable(int id)
+        [HttpPost("{id:int}/disable")]
+        public void Disable([FromRoute] int id)
         {
             var account = FindAccountById(id);
             account.IsActive = false;
             Repository.SaveChanges();
         }
 
-        [HttpPut("{id}/name")]
-        public void ChangeName(int id, String name)
+        [HttpPut("{id:int}/name")]
+        public void ChangeName([FromRoute] int id, [FromBody] String name)
         {
             var account = FindAccountById(id);
             account.AccountName = name;
