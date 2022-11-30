@@ -1,3 +1,5 @@
+using System;
+
 namespace KassaDG
 {
     using Microsoft.AspNetCore.Builder;
@@ -23,6 +25,14 @@ namespace KassaDG
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader().AllowCredentials().AllowAnyMethod().WithOrigins(Configuration["AllowedOrigins"].Split(";"));
+                });
+            });
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -46,6 +56,7 @@ namespace KassaDG
                 context.Database.Migrate();
             }
             
+            app.UseMiddleware<ErrorLoggingMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,12 +66,13 @@ namespace KassaDG
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+            // app.UseStaticFiles();
+            // if (!env.IsDevelopment())
+            // {
+            //     app.UseSpaStaticFiles();
+            // }
 
+            app.UseCors();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -70,18 +82,18 @@ namespace KassaDG
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            // app.UseSpa(spa =>
+            // {
+            //     // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //     // see https://go.microsoft.com/fwlink/?linkid=864501
+            //
+            //     spa.Options.SourcePath = "ClientApp";
+            //
+            //     if (env.IsDevelopment())
+            //     {
+            //         spa.UseAngularCliServer(npmScript: "start");
+            //     }
+            // });
         }
     }
 }

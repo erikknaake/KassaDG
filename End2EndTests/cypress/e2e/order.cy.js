@@ -40,6 +40,7 @@ describe('Order', () => {
                 .click();
 
             cy.get('mat-expansion-panel mat-expansion-panel')
+                .first()
                 .click();
 
             cy.get('mat-expansion-panel')

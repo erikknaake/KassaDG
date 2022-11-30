@@ -13,8 +13,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "progress": false,
-            "extractCss": true,
+            "progress": true,
+
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -24,13 +24,20 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -41,7 +48,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
+
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -53,9 +60,17 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "KassaDG:build"
+            "browserTarget": "KassaDG:build:development"
           },
           "configurations": {
+            "development": {
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": true
+            },
             "production": {
               "browserTarget": "KassaDG:build:production"
             }
@@ -75,8 +90,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -147,5 +161,8 @@
       }
     }
   },
-  "defaultProject": "KassaDG"
+  "defaultProject": "KassaDG",
+  "cli": {
+    "analytics": false
+  }
 }

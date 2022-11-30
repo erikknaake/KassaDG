@@ -1,2 +1,6 @@
-<mat-chip [color]="balanceCents < 0 ? 'warn' : balanceCents < 500 ? 'accent' : 'primary'"
-          selected>{{ formatMoney(balanceCents) }}</mat-chip>
+<mat-chip
+  class="balance"
+  [ngClass]="{'balance--negative': balanceCents < 0, 'balance--low': balanceCents < 500}"
+>
+  {{ formatMoney(balanceCents) }}
+</mat-chip>

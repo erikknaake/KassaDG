@@ -4,7 +4,7 @@
     <mat-form-field class="search">
       <mat-label>Zoeken</mat-label>
       <input matInput autofocus type="text" (ngModelChange)="searchChanged($event)" [(ngModel)]="search">
-      <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''; resetSearch()">
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''; resetSearch()">
         <mat-icon>close</mat-icon>
       </button>
       <mat-icon matSuffix *ngIf="!search">search</mat-icon>

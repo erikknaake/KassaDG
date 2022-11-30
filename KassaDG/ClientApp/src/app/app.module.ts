@@ -39,6 +39,7 @@ import {StatisticsComponent} from "./management/statistics/statistics.component"
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chip.component";
+import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chi
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatLegacyChipsModule
   ],
   providers: [NavGuard],
   bootstrap: [AppComponent],

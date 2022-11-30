@@ -1,10 +1,16 @@
-@import '~@angular/material/_theming.scss';
+@use 'src/variables' as vars;
 
-@include mat-core();
+.balance {
+  background-color: vars.$primary !important;
 
-$primary: mat-palette($mat-green,800);
-$accent: mat-palette($mat-amber, 600);
-$warning: mat-palette($mat-red);
-$theme: mat-light-theme($primary, $accent, $warning);
+  color: vars.$light-primary-text !important;
 
-@include angular-material-theme($theme);
+  &--low {
+    background-color: vars.$danger !important;
+    color: vars.$dark-primary-text !important;
+  }
+
+  &--negative {
+    background-color: vars.$warn !important;
+  }
+}

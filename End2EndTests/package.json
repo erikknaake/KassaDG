@@ -5,13 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "e2e:debug": "cypress open --env CLEAN_DB=../Persistence/KassaDG.db.clean,TARGET_DB=../Persistence/KassaDG.db",
-    "e2e:release": "cypress open --env CLEAN_DB=../Persistence/KassaDG.db.clean,TARGET_DB=../Persistence/KassaDG.db",
-    "e2e:staging": "cypress open --env CLEAN_DB=~/.KassaDG_linux-x64/Persistence/KassaDG.db.clean,TARGET_DB=~/.KassaDG_linux-x64/Persistence/KassaDG.db"
+    "e2e": "cypress open"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^5.6.0"
+    "cypress": "^11.2.0"
   }
 }

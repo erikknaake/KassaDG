@@ -1,15 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Entities;
+using Persistence.Repositories;
+
 namespace KassaDG.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Persistence.Entities;
-    using Persistence.Repositories;
-
     [ApiController]
     [Route("[controller]")]
-    public abstract class BaseController<T>: ControllerBase where T : IBaseEntity
+    public abstract class BaseController<T> : ControllerBase where T : IBaseEntity
     {
         protected readonly IRepository<T> Repository;
 
@@ -17,13 +18,13 @@ namespace KassaDG.Controllers
         {
             Repository = repository;
         }
-        
+
         [HttpGet("{id}")]
         public T Get(int id)
         {
             return Repository.Get().Single(x => x.Id == id);
         }
-        
+
         [HttpGet]
         public IEnumerable<T> Get()
         {
@@ -38,10 +39,17 @@ namespace KassaDG.Controllers
                 Repository.Add(entity);
                 Repository.SaveChanges();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
+#if DEBUG
+                // TODO: get a proper logger
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Exception occured. Returning 409: {e.Message}\n{e.InnerException?.Message}");
+                Console.ResetColor();
+#endif
                 return new StatusCodeResult(409);
             }
+
             return new OkResult();
         }
 

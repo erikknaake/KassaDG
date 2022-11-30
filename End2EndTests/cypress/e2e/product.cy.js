@@ -20,7 +20,7 @@ describe('Create product', () => {
         cy.get('mat-expansion-panel').contains('Voeg categorie toe').click();
         cy.get('input[name="categoryName"]')
             .type('nestedCategory');
-        cy.contains('Toevoegen').click();
+        cy.get('button:visible').contains('Toevoegen').click();
         cy.get('app-category mat-expansion-panel mat-expansion-panel mat-panel-title').should('contain', 'nestedCategory');
         cy.url().should('include', '/products');
     });
