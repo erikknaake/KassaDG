@@ -1,4 +1,5 @@
 using System;
+using Microsoft.OpenApi.Models;
 
 namespace KassaDG
 {
@@ -45,6 +46,11 @@ namespace KassaDG
             services.AddScoped<IRepository<Order>, OrderRepository>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
             services.AddScoped<IRepository<ProductCategory>, ProductCategoryRepository>();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "KassaDG", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +100,12 @@ namespace KassaDG
             //         spa.UseAngularCliServer(npmScript: "start");
             //     }
             // });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "KassaDG v1");
+            });
         }
     }
 }
