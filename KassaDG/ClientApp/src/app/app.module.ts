@@ -13,7 +13,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
-import {MatDialogModule} from '@angular/material/dialog';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 import {NavGuard} from "../NavGaurd";
 import {MatCardModule} from '@angular/material/card';
 import {AccountsComponent} from "./accounts/accounts/accounts.component";
@@ -27,19 +27,18 @@ import {ConfirmDialogComponent} from "./dialogs/confim-dialog/confirm-dialog.com
 import {NegativeCreditsDialogComponent} from "./dialogs/negative-credits-dialog/negative-credits-dialog.component";
 import {OrderHistoryComponent} from "./order-history/order-history/order-history.component";
 import {OrderHistoryItemComponent} from "./order-history/order-history-item/order-history-item.component";
-import {MatChipsModule} from "@angular/material/chips";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import { LoadingComponent } from './loading/loading.component';
+import {LoadingComponent} from './loading/loading.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatPaginatorModule} from "@angular/material/paginator";
-import { ManagementComponent } from './management/management.component';
+import {ManagementComponent} from './management/management.component';
 import {ManageAccountsComponent} from "./accounts/manage-accounts/manage-accounts.component";
 import {StockComponent} from "./management/stock/stock.component";
 import {StatisticsComponent} from "./management/statistics/statistics.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chip.component";
-import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -98,13 +97,15 @@ import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
     MatPaginatorModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    MatLegacyChipsModule
+    MatChipsModule
   ],
-  providers: [NavGuard],
+  providers: [NavGuard,
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false, }}],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmDialogComponent,
     NegativeCreditsDialogComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+}

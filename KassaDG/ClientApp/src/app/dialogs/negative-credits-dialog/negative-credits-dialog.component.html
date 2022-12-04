@@ -3,6 +3,6 @@
   <p>De gebruiker heeft een negatief saldo</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button color="warn" (click)="dialogRef.close(true)">Ga door</button>
-  <button mat-raised-button color="primary" (click)="dialogRef.close(false)">Annuleer</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">Ga door</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="false">Annuleer</button>
 </mat-dialog-actions>

@@ -1,5 +1,6 @@
 @use 'variables' as vars;
 @use '@angular/material' as mat;
+@import '@angular/cdk/overlay-prebuilt.css';
 
 $primary-palette: (
   50 : #e8eaf6,

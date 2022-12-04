@@ -18,12 +18,7 @@ export class ConfirmDialogService {
    */
   public async confirmDialog(message: string): Promise<boolean> {
     return new Promise<boolean>(resolve => {
-      this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        disableClose: false,
-        hasBackdrop: true,
-      });
-
-      this.dialogRef.componentInstance.confirmMessage = message;
+      this.dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {confirmMessage: message}});
 
       this.dialogRef.afterClosed().subscribe(result => {
         this.dialogRef = null;

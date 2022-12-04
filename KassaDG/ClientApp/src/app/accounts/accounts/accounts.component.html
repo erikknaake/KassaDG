@@ -1,5 +1,5 @@
 <app-loading *ngIf="!shownAccounts"></app-loading>
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-content>
     <mat-form-field class="search">
       <mat-label>Zoeken</mat-label>
@@ -21,9 +21,9 @@
       <tr *ngFor="let account of shownAccounts" class="{{!account.isActive ? 'disabled' : ''}}">
         <td class="content" (click)="navigateAccount(account)">{{ account.accountName }}</td>
         <td class="action" (click)="navigateAccount(account)">
-          <mat-chip-list>
+          <mat-chip-listbox>
             <app-balance-chip [balanceCents]="account.balanceCents"></app-balance-chip>
-          </mat-chip-list>
+          </mat-chip-listbox>
         </td>
         <td class="action">
           <div class="right">
