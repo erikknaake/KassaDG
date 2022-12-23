@@ -4,8 +4,6 @@ import {Router} from "@angular/router";
 import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service";
 import {ErrorLoggerService} from "../../error-logger.service";
 import {IAccount} from "../../../IAccount";
-import {MoneyFormatter} from "../../../MoneyFormatter";
-import distance from "jaro-winkler";
 
 @Component({
   selector: 'app-accounts',
@@ -30,7 +28,7 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<IAccount[]>(this.baseUrl + 'account').subscribe(result => {
-      if(!this.isManaging) {
+      if (!this.isManaging) {
         result = result.filter(x => x.isActive);
       }
       this.allAccounts = this.sortAccounts(result);
@@ -71,18 +69,6 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  sortAccountsBySearchRelevance(accounts: IAccount[], search: string): IAccount[] {
-    return accounts.sort((x, y) => {
-      if (
-        (x.accountName.toLowerCase().indexOf(search.toLowerCase()) < 0 ||
-          distance(x.accountName, search, {caseSensitive: false}) <
-          distance(y.accountName, search, {caseSensitive: false}))) {
-        return 1;
-      }
-      return -1;
-    });
-  }
-
   navigateAccountHistory(id: number) {
     this.router.navigate(['/order-history', {accountId: id}]);
   }
@@ -94,12 +80,12 @@ export class AccountsComponent implements OnInit {
     this.applySearch(search);
   }
 
-  private resetSearch() {
+  resetSearch() {
     this.shownAccounts = this.sortAccounts(this.allAccounts);
   }
 
   private applySearch(search: string) {
-    this.shownAccounts = this.sortAccountsBySearchRelevance(this.allAccounts, search);
+    this.shownAccounts = this.sortAccounts(this.allAccounts.filter(x => x.accountName.toLowerCase().includes(search.toLowerCase())));
   }
 
   deActivateAccount(account: IAccount) {

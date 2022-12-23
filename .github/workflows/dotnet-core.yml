@@ -16,9 +16,9 @@ jobs:
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
         with:
-          key: docker-netcore-cache-[2]-{hash}
+          key: docker-netcore-cache-[3]-{hash}
           restore-keys: |
-            docker-netcore-cache-[2]-
+            docker-netcore-cache-[3]-
       - name: Build Docker image
         run: docker-compose build
       - name: Start Application
