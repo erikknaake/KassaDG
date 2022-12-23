@@ -16,3 +16,8 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+.version {
+  font-size: 0.6em;
+  font-weight: normal;
+}
