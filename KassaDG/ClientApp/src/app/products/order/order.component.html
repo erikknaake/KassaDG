@@ -24,7 +24,7 @@
                 {{basketContentLine.amount}}
               </td>
               <td>
-                {{calculateSubTotal(basketContentLine)}}
+                {{calculateSubTotal(basketContentLine) | formatMoney}}
               </td>
               <td>
                 <div class="table-row-action">
@@ -42,7 +42,7 @@
             <tr>
               <td></td>
               <td>Totaal:</td>
-              <td>{{calculateTotal()}}</td>
+              <td>{{calculateTotal() | formatMoney}}</td>
               <td></td>
             </tr>
             </tfoot>

@@ -9,6 +9,7 @@ import {ErrorLoggerService} from "../../error-logger.service";
 import {IAccount} from "../../../IAccount";
 import {MoneyFormatter} from "../../../MoneyFormatter";
 import {IProduct} from "../../../IProduct";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-order',
@@ -31,12 +32,13 @@ export class OrderComponent implements OnInit {
     private readonly basket: BasketService,
     private readonly router: Router,
     private readonly commitingOrder: CommitingOrderService,
-    private readonly dialog: MatDialog) {
+    private readonly dialog: MatDialog,
+    private readonly snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.router.events.subscribe(next => {
-      if(next instanceof ActivationEnd) {
+      if (next instanceof ActivationEnd) {
         this.basket.clear();
       }
     });
@@ -52,7 +54,7 @@ export class OrderComponent implements OnInit {
   private fetchAccount(id: number) {
     this.http.get<IAccount>(this.baseUrl + 'account/' + id).subscribe(next => {
       this.account = next;
-      if(this.account.balanceCents < 0) {
+      if (this.account.balanceCents < 0) {
         this.warnNegativeCredits();
       }
     }, error => {
@@ -68,7 +70,7 @@ export class OrderComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       this.dialogRef = null;
-      if(!result) {
+      if (!result) {
         this.commitingOrder.isCommitingOrder = true;
         this.router.navigateByUrl('/accounts').then(() => {
           this.commitingOrder.isCommitingOrder = false;
@@ -82,22 +84,24 @@ export class OrderComponent implements OnInit {
   }
 
   calculateSubTotal(basketContentLine: IOrderAmount) {
-    return MoneyFormatter.format(basketContentLine.pricePerPiece * basketContentLine.amount);
+    return basketContentLine.pricePerPiece * basketContentLine.amount;
   }
 
-  calculateTotal(): string {
-    return MoneyFormatter.format(this.basketContents
+  calculateTotal(): number {
+    return this.basketContents
       .map(x => x.amount * x.pricePerPiece)
-      .reduce((prev, cur) => prev + cur, 0)
-    );
-  }
-
-  formatMoney(pricePerPieceCents: number): string {
-    return MoneyFormatter.format(pricePerPieceCents);
+      .reduce((prev, cur) => prev + cur, 0);
   }
 
   navigateAccounts() {
     this.router.navigateByUrl('/accounts');
+  }
+
+  private notifyUserBalanceGoesNegative(deposit: number) {
+    const newAccountBalance = this.account.balanceCents + deposit - this.calculateTotal();
+    if (newAccountBalance < 0) {
+      this.snackbar.open(`Gebruiker ${this.account.accountName} heeft nu een negatief saldo (${MoneyFormatter.format(newAccountBalance)})`, 'Ok', {duration: 5000});
+    }
   }
 
   order() {
@@ -113,12 +117,14 @@ export class OrderComponent implements OnInit {
       accountId: this.account.id,
       deposit: MoneyFormatter.toCents(this.deposit)
     }
+
     this.http.post(this.baseUrl + 'order', finalOrder).subscribe(next => {
       this.commitingOrder.isCommitingOrder = true;
       this.router.navigateByUrl('/accounts').then(() => {
         this.busy = false;
         this.commitingOrder.isCommitingOrder = false;
       });
+      this.notifyUserBalanceGoesNegative(finalOrder.deposit);
       this.basket.clear();
     }, error => {
       this.busy = false;
@@ -141,7 +147,7 @@ interface IOrderPost {
 }
 
 interface IFinalOrder {
-  orderCommandLines : IOrderPost[];
+  orderCommandLines: IOrderPost[];
   accountId: number;
   deposit?: number;
 }
