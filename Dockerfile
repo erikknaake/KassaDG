@@ -21,10 +21,13 @@ FROM alpine:3.17.0
 RUN apk add --update libstdc++ libintl && \
     apk add --no-cache libgcc && \
     mkdir /Persistence && \
+    mkdir /Logs && \
+    chmod +rw /Logs && \
     touch /Persistence/KassaDG.db && chmod +rw /Persistence/KassaDG.db 
 ENV ASPNETCORE_URLS=http://+:80  
 ENV DATABASE_CAN_BE_RESET=true
 ENV DbFile=/Persistence/KassaDG.db
+ENV LogFilePath=/Logs/KassaDG.txt
 COPY --from=builder /app/KassaDG/bin/Release/net7.0/linux-musl-x64/publish/ ./
 
 EXPOSE 80

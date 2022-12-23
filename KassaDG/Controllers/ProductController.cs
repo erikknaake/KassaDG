@@ -31,7 +31,7 @@ namespace KassaDG.Controllers
         }
 
         [HttpPost("updateStock")]
-        public void UpdateStock(UpdateStockCommand updateStockCommand)
+        public IActionResult UpdateStock(UpdateStockCommand updateStockCommand)
         {
             foreach (var updateStockCommandLine in updateStockCommand.StockToUpdate)
             {
@@ -41,6 +41,7 @@ namespace KassaDG.Controllers
                         .AmountInStock = updateStockCommandLine.NewAmount;
             }
             Repository.SaveChanges();
+            return Ok();
         }
     }
 }

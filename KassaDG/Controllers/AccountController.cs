@@ -34,13 +34,10 @@ namespace KassaDG.Controllers
         [HttpPatch("{id:int}/name")]
         public IActionResult ChangeName([FromRoute] int id, [FromBody] UpdateAccountNameModel update)
         {
-            return ExecuteWithUniqueProtection(() =>
-            {
-                var account = FindAccountById(id);
-                account.AccountName = update.Name;
-                Repository.SaveChanges();
-            });
-            
+            var account = FindAccountById(id);
+            account.AccountName = update.Name;
+            Repository.SaveChanges();
+            return Ok();
         }
 
         private Account FindAccountById(int id)

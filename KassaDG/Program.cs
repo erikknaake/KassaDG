@@ -1,3 +1,6 @@
+using Microsoft.Extensions.Logging;
+using Serilog;
+
 namespace KassaDG
 {
     using Microsoft.AspNetCore.Hosting;
@@ -12,6 +15,14 @@ namespace KassaDG
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddSerilog();
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

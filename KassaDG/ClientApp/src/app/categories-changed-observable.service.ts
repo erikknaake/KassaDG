@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsChangedObservableService {
+export class CategoriesChangedObservableService {
 
   private subscribers: voidFn[] = [];
 

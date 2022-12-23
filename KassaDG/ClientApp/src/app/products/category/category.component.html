@@ -39,6 +39,7 @@
     <mat-divider></mat-divider>
     <div class="actions">
       <div *ngIf="!isOrdering" class="expansion-actions">
+        <button mat-raised-button color="warn" (click)="deleteCategory()" *ngIf="category.childrenCategories == null && category.products.length === 0">Verwijder categorie toe <mat-icon>remove_circle_outline</mat-icon></button>
         <button mat-raised-button  color="primary" (click)="navigateCreateProduct()">Voeg product toe <mat-icon>add_circle_outline</mat-icon></button>
         <button mat-raised-button color="accent" (click)="navigateCreateCategory()">Voeg categorie toe <mat-icon>add_circle_outline</mat-icon></button>
       </div>

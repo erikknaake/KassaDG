@@ -5,8 +5,8 @@ import {ProductsChangedObservableService} from "../products-changed-observable.s
 import {BasketService} from "../basket.service";
 import {ICategory, IProduct} from "../../../IProduct";
 import {ErrorLoggerService} from "../../error-logger.service";
-import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service";
-import {MoneyFormatter} from "../../../MoneyFormatter";
+import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service"
+import {CategoriesChangedObservableService} from "../../categories-changed-observable.service";
 
 @Component({
   selector: 'app-category',
@@ -26,10 +26,12 @@ export class CategoryComponent implements OnInit {
               private readonly http: HttpClient,
               private readonly errorLogger: ErrorLoggerService,
               private readonly productsChangedObservableService: ProductsChangedObservableService,
+              private readonly categoriesChangedObservableService: CategoriesChangedObservableService,
               private readonly confirmService: ConfirmDialogService,
               private readonly basket: BasketService) { }
 
   ngOnInit() {
+    console.log('category: ', this.category);
   }
 
   navigateCreateCategory() {
@@ -95,5 +97,14 @@ export class CategoryComponent implements OnInit {
       }
       return -1;
     });
+  }
+
+  deleteCategory() {
+    this.http.delete(`${this.baseUrl}productcategory/${this.category.id}`)
+      .subscribe(next => {
+        this.categoriesChangedObservableService.notify();
+      }, error => {
+        this.errorLogger.log(error);
+      })
   }
 }

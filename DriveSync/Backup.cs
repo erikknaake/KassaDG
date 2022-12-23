@@ -7,10 +7,10 @@ namespace DriveSync
         private BackupFileToDrive _backupFileToDrive;
         private FileCopy _fileCopy;
         
-        public Backup(IConfiguration configuration)
+        public Backup(BackupFileToDrive backupFileToDrive, FileCopy fileCopy)
         {
-            _backupFileToDrive = new BackupFileToDrive(configuration);
-            _fileCopy = new FileCopy();
+            _backupFileToDrive = backupFileToDrive;
+            _fileCopy = fileCopy;
         }
 
         public void BackupFile(string filePath)
