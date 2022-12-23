@@ -15,7 +15,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let order of orders" (click)="navigateOrderHistoryItem(order)">
-        <td>{{order.orderDate | date:'short'}}</td>
+        <td>{{order.orderDate | date:'medium'}}</td>
         <td>{{calculateOrderSpent(order.orderLines) | formatMoney}}</td>
         <td>{{order.deposit | formatMoney}}</td>
       </tr>
