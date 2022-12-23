@@ -25,8 +25,6 @@ jobs:
         run: docker-compose up -d
       - name: Check logs
         run: docker-compose logs
-      - name: Sanity check application online
-        run: sleep 2 && curl http://localhost:5000
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
