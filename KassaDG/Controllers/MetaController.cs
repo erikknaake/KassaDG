@@ -1,4 +1,7 @@
 using System;
+using System.Net;
+using System.Reflection;
+using KassaDG.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,20 +11,18 @@ using Persistence;
 namespace KassaDG.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class MigrateController : ControllerBase
+public class MetaController : ControllerBase
 {
-    
     private readonly KassaDgDbContext _dbContext;
     private readonly IConfiguration _configuration;
 
-    public MigrateController(KassaDgDbContext dbContext, IConfiguration configuration)
+    public MetaController(KassaDgDbContext dbContext, IConfiguration configuration)
     {
         _dbContext = dbContext;
         _configuration = configuration;
     }
 
-    [HttpPost]
+    [HttpPost("[action]")]
     public IActionResult Migrate()
     {
         if (_configuration["DATABASE_CAN_BE_RESET"] == "true")
@@ -33,5 +34,12 @@ public class MigrateController : ControllerBase
         }
         Console.WriteLine("Not deleting and migrating DB");
         return StatusCode(StatusCodes.Status405MethodNotAllowed);
+    }
+
+    [HttpGet("version")]
+    [ProducesResponseType(typeof(VersionModel), StatusCodes.Status200OK)]
+    public IActionResult GetVersion()
+    {
+        return Ok(new VersionModel(Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Version unknown"));
     }
 }
