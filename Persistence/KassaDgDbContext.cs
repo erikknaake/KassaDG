@@ -22,11 +22,11 @@ namespace Persistence
             Console.WriteLine("Init KassaDgDbContext without configuration!");
         }
         
-        public KassaDgDbContext(IConfiguration configuration)
+        public KassaDgDbContext(IConfiguration configuration, Backup backup)
         {
             _backupCountRollover = int.Parse(configuration["BackupCountRollover"]);
             _dbFile = configuration["DbFile"];
-            _backup = new Backup(configuration);
+            _backup = backup;
         }
         
         public DbSet<Product> Products { get; set; }

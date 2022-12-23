@@ -1,7 +1,9 @@
 using System;
+using DriveSync;
 using KassaDG.Middleware;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace KassaDG
 {
@@ -28,6 +30,12 @@ namespace KassaDG
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File(Configuration["LogFilePath"], rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
@@ -42,7 +50,10 @@ namespace KassaDG
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
-            services.AddScoped(x => new KassaDgDbContext(Configuration));
+            services.AddScoped<BackupFileToDrive>();
+            services.AddScoped<FileCopy>();
+            services.AddScoped<Backup>();
+            services.AddScoped(x => new KassaDgDbContext(Configuration, x.GetRequiredService<Backup>()));
             services.AddScoped<AccountRepository, AccountRepository>();
             services.AddScoped<IRepository<Account>, AccountRepository>(x => x.GetService<AccountRepository>());
             services.AddScoped<IRepository<Order>, OrderRepository>();
@@ -97,7 +108,6 @@ namespace KassaDG
                 spa.Options.SourcePath = "ClientApp";
                 if (env.IsDevelopment())
                 {
-                    Console.WriteLine("Starting up angular dev server");
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
