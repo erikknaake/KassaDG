@@ -21,7 +21,7 @@
       <tbody>
         <tr *ngFor="let product of sortProducts(category.products)">
           <td class="conserve-width-medium">{{product.productName}}</td>
-          <td>{{formatMoney(product.pricePerPieceCents)}}</td>
+          <td>{{product.pricePerPieceCents | formatMoney}}</td>
           <td>{{product.amountInStock}}</td>
           <td>
             <div *ngIf="!isOrdering" class="right">
@@ -30,7 +30,7 @@
             </div>
             <div *ngIf="isOrdering">
               <button mat-raised-button color="primary" (click)="addProductToBasket(product)">Toevoegen <mat-icon>add_circle_outline</mat-icon></button>
-              <button mat-raised-button color="accent" (click)="removeProductFromBasket(product)">Verwijderen <mat-icon>remove_circle_outline</mat-icon></button>
+              <button mat-button (click)="removeProductFromBasket(product)">Verwijderen <mat-icon>remove_circle_outline</mat-icon></button>
             </div>
           </td>
         </tr>

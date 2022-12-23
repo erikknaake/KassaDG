@@ -39,6 +39,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chip.component";
 import {MatChipsModule} from "@angular/material/chips";
+import {FormatMoneyPipe} from "./pipes/format-money.pipe";
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import {MatChipsModule} from "@angular/material/chips";
     StockComponent,
     StatisticsComponent,
     BalanceChipComponent,
+    FormatMoneyPipe
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

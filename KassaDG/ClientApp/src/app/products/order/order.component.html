@@ -55,7 +55,7 @@
             </mat-form-field>
           </div>
           <p class="conserve-width-medium"><b>Rekening: </b>{{account?.accountName}}
-            ({{formatMoney(account?.balanceCents)}})</p>
+            ({{ account?.balanceCents | formatMoney}})</p>
           <mat-divider></mat-divider>
         </mat-card-content>
         <mat-card-actions [align]="'end'">

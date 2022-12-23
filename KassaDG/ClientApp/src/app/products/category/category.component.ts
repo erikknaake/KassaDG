@@ -32,11 +32,6 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
   }
 
-  formatMoney(pricePerPieceCents: number): string {
-    return MoneyFormatter.format(pricePerPieceCents);
-  }
-
-
   navigateCreateCategory() {
     this.router.navigate(['/create-category', {id: this.category.id, parent: this.category.categoryName}]);
   }

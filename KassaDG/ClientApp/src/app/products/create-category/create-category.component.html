@@ -1,7 +1,7 @@
 <p *ngIf="parent !== ''">Voeg categorie toe aan {{parent}}</p>
 <p *ngIf="parent === ''">Voeg nieuwe top level categorie toe</p>
 <form>
-  <mat-form-field>
+  <mat-form-field appearance="fill">
     <mat-label>Categorie naam</mat-label>
     <input matInput autofocus type="text" [(ngModel)]="categoryName" name="categoryName"/>
   </mat-form-field>

@@ -26,13 +26,13 @@ jobs:
       - name: Check logs
         run: docker-compose logs
       - name: Sanity check application online
-        run: sleep 2 && curl http://localhost:5002
+        run: sleep 2 && curl http://localhost:5000
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
           working-directory: End2EndTests
           browser: chrome
-          wait-on: 'http://localhost:5002'
+          wait-on: 'http://localhost:5000'
           record: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

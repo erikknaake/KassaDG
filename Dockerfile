@@ -1,7 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS builder
 RUN apk add --update nodejs npm
-# RUN dotnet tool install --global dotnet-ef
-RUN export PATH="$PATH:/root/.dotnet/tools"
 
 WORKDIR /app
 COPY Persistence/Persistence.csproj ./Persistence/Persistence.csproj

@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.OpenApi.Models;
 
 namespace KassaDG
@@ -28,15 +29,15 @@ namespace KassaDG
         {
             services.AddCors(options =>
             {
-                
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.AllowAnyHeader().AllowCredentials().AllowAnyMethod().WithOrigins(Configuration["AllowedOrigins"].Split(";"));
+                    policy.AllowAnyHeader().AllowCredentials().AllowAnyMethod()
+                        .WithOrigins(Configuration["AllowedOrigins"].Split(";"));
                 });
             });
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
@@ -61,7 +62,7 @@ namespace KassaDG
                 var context = serviceScope.ServiceProvider.GetRequiredService<KassaDgDbContext>();
                 context.Database.Migrate();
             }
-            
+
             app.UseMiddleware<ErrorLoggingMiddleware>();
             if (env.IsDevelopment())
             {
@@ -77,8 +78,7 @@ namespace KassaDG
             {
                 app.UseSpaStaticFiles();
             }
-
-            app.UseCors();
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -88,24 +88,25 @@ namespace KassaDG
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            // app.UseSpa(spa =>
-            // {
-            //     // To learn more about options for serving an Angular SPA from ASP.NET Core,
-            //     // see https://go.microsoft.com/fwlink/?linkid=864501
-            //
-            //     spa.Options.SourcePath = "ClientApp";
-            //
-            //     if (env.IsDevelopment())
-            //     {
-            //         spa.UseAngularCliServer(npmScript: "start");
-            //     }
-            // });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
+            if (env.IsDevelopment())
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "KassaDG v1");
+                app.UseSwagger();
+                app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "KassaDG v1"); });
+            }
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+                if (env.IsDevelopment())
+                {
+                    Console.WriteLine("Starting up angular dev server");
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
+            app.UseStaticFiles();
         }
     }
 }

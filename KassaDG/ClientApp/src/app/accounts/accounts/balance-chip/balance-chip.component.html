@@ -2,5 +2,5 @@
   class="balance"
   [ngClass]="{'balance--negative': balanceCents < 0, 'balance--low': balanceCents < 500}"
 >
-  {{ formatMoney(balanceCents) }}
+  {{ balanceCents | formatMoney }}
 </mat-chip-option>

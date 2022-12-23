@@ -14,11 +14,6 @@
   width: 100%;
 }
 
-.products-in-basket > tbody {
-  max-height: 350px;
-  overflow-y: scroll;
-}
-
 .products-in-basket td, .products-in-basket th {
   width: 25%;
 }
@@ -33,5 +28,6 @@ app-products {
 
 .basket {
   overflow-y: scroll;
-  max-height: 500px;
+  max-height: 80vh;
 }
+
