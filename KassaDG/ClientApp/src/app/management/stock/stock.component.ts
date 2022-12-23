@@ -27,6 +27,10 @@ export class StockComponent implements OnInit {
     });
   }
 
+  setAllStockZero() {
+    this.stock.forEach(x => x.amountInStock = 0);
+  }
+
   updateStock() {
     const stockToUpdate: IUpdateStockCommand = {
       stockToUpdate: this.stock.map(x => {
