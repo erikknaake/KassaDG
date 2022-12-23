@@ -1,3 +1,5 @@
+using System;
+
 namespace Persistence
 {
     using System.Linq;
@@ -10,17 +12,18 @@ namespace Persistence
     public class KassaDgDbContext : DbContext
     {
         private readonly Backup _backup;
-        private readonly string _dbFile = "../Persistence/KassaDG.db";
+        private readonly string _dbFile;
         private readonly int _backupCountRollover;
 
         public KassaDgDbContext()
         {
-            
+            Console.WriteLine("Init KassaDgDbContext without configuration!");
         }
         
         public KassaDgDbContext(IConfiguration configuration)
         {
             _backupCountRollover = int.Parse(configuration["BackupCountRollover"]);
+            _dbFile = configuration["DbFile"];
             _backup = new Backup(configuration);
         }
         

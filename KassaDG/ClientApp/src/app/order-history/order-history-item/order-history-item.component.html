@@ -16,14 +16,14 @@
   <tr>
     <td>Storting</td>
     <td></td>
-    <td>{{formatMoney(order?.deposit)}}</td>
+    <td>{{order?.deposit | formatMoney}}</td>
   </tr>
   </tbody>
   <tfoot>
   <tr>
     <td></td>
     <td>Totaal</td>
-    <td>{{calculateTotal()}}</td>
+    <td>{{calculateTotal() | formatMoney}}</td>
   </tr>
   </tfoot>
 </table>

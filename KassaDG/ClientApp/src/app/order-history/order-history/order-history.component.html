@@ -16,20 +16,20 @@
       <tbody>
       <tr *ngFor="let order of orders" (click)="navigateOrderHistoryItem(order)">
         <td>{{order.orderDate | date:'short'}}</td>
-        <td>{{formatMoney(calculateOrderSpent(order.orderLines))}}</td>
-        <td>{{formatMoney(order.deposit)}}</td>
+        <td>{{calculateOrderSpent(order.orderLines) | formatMoney}}</td>
+        <td>{{order.deposit | formatMoney}}</td>
       </tr>
       </tbody>
       <tfoot>
       <tr>
         <td>Totaal</td>
-        <td>{{calculateTotalSpent()}}</td>
-        <td>{{calculateTotalDeposit()}}</td>
+        <td>{{calculateTotalSpent() | formatMoney}}</td>
+        <td>{{calculateTotalDeposit() | formatMoney}}</td>
       </tr>
       <tr>
         <td></td>
         <td>Saldo</td>
-        <td>{{formatMoney(account?.balanceCents)}}</td>
+        <td>{{account?.balanceCents | formatMoney}}</td>
       </tr>
       </tfoot>
     </table>

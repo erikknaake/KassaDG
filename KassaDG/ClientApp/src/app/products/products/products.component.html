@@ -1,5 +1,5 @@
 <app-loading *ngIf="!categories"></app-loading>
-<table *ngIf="categories" aria-labelledby="tableLabel" class='table table-striped'>
+<table *ngIf="categories" aria-labelledby="tableLabel" >
   <tbody>
   <tr *ngFor="let category of categories">
     <app-category [category]="category" [isOrdering]="isOrdering"></app-category>

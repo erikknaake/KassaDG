@@ -1,7 +1,5 @@
-FROM mcr.microsoft.com/dotnet/sdk:3.1-alpine AS builder
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS builder
 RUN apk add --update nodejs npm
-RUN dotnet tool install --global dotnet-ef
-RUN export PATH="$PATH:/root/.dotnet/tools"
 
 WORKDIR /app
 COPY Persistence/Persistence.csproj ./Persistence/Persistence.csproj
@@ -19,10 +17,15 @@ WORKDIR /app/KassaDG
 RUN dotnet publish "KassaDG.csproj" -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true -r linux-musl-x64 --no-restore
 
 
-FROM alpine:3.9.6
-RUN apk add --update libstdc++ libintl
+FROM alpine:3.17.0
+RUN apk add --update libstdc++ libintl && \
+    apk add --no-cache libgcc && \
+    mkdir /Persistence && \
+    touch /Persistence/KassaDG.db && chmod +rw /Persistence/KassaDG.db 
 ENV ASPNETCORE_URLS=http://+:80  
 ENV DATABASE_CAN_BE_RESET=true
-COPY --from=builder /app/KassaDG/bin/Release/netcoreapp3.1/linux-musl-x64/publish/ ./
+ENV DbFile=/Persistence/KassaDG.db
+COPY --from=builder /app/KassaDG/bin/Release/net7.0/linux-musl-x64/publish/ ./
+
 EXPOSE 80
 CMD ["./KassaDG"]

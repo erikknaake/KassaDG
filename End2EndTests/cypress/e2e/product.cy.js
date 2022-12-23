@@ -9,7 +9,7 @@ describe('Create product', () => {
         cy.contains('Beheer Producten').click();
         cy.contains('Voeg categorie toe').click();
         cy.get('input[name="categoryName"]')
-            .type('topLevelCategory');
+            .type('topLevelCategory', {force: true} );
         cy.contains('Toevoegen').click();
         cy.get('app-category mat-expansion-panel mat-panel-title').should('contain', 'topLevelCategory');
         cy.url().should('include', '/products')
@@ -19,8 +19,8 @@ describe('Create product', () => {
         cy.visit('/products');
         cy.get('mat-expansion-panel').contains('Voeg categorie toe').click();
         cy.get('input[name="categoryName"]')
-            .type('nestedCategory');
-        cy.contains('Toevoegen').click();
+            .type('nestedCategory', {force: true} );
+        cy.get('button:visible').contains('Toevoegen').click();
         cy.get('app-category mat-expansion-panel mat-expansion-panel mat-panel-title').should('contain', 'nestedCategory');
         cy.url().should('include', '/products');
     });
@@ -30,11 +30,11 @@ describe('Create product', () => {
         cy.get('mat-expansion-panel mat-expansion-panel').click();
         cy.get('mat-expansion-panel mat-expansion-panel').contains('Voeg product toe').click();
         cy.get('input[name="productName"]')
-            .type('productInNestedCategory');
+            .type('productInNestedCategory', {force: true} );
         cy.get('input[name="pricePerPiece"]')
-            .type('0.8');
+            .type('0.8', {force: true} );
         cy.get('input[name="amountInStock"]')
-            .type('10');
+            .type('10', {force: true} );
         cy.contains('Voeg product toe').click();
         cy.get('app-category mat-expansion-panel mat-expansion-panel tbody>tr')
             .eq(0)

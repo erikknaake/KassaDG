@@ -1,6 +1,6 @@
 <app-loading *ngIf="totalSpent === undefined"></app-loading>
 
-<mat-card *ngIf="totalSpent !== undefined">
+<mat-card appearance="outlined" *ngIf="totalSpent !== undefined">
   <mat-card-header>
     <mat-card-title>Statistieken</mat-card-title>
   </mat-card-header>
@@ -15,15 +15,15 @@
       <tbody>
       <tr>
         <td>Totaal uitgegeven:</td>
-        <td>{{formatMoney(totalSpent)}}</td>
+        <td>{{ totalSpent | formatMoney}}</td>
       </tr>
       <tr>
         <td>Totaal gestort:</td>
-        <td>{{formatMoney(totalDeposit)}}</td>
+        <td>{{totalDeposit | formatMoney }}</td>
       </tr>
       <tr>
         <td>Saldo:</td>
-        <td>{{formatMoney(totalDeposit - totalSpent)}}</td>
+        <td>{{ (totalDeposit - totalSpent) | formatMoney}}</td>
       </tr>
       </tbody>
     </table>
@@ -44,7 +44,7 @@
       <tr *ngFor="let productStatisticItem of productStatistics">
         <td>{{productStatisticItem.productName}}</td>
         <td>{{productStatisticItem.totalOrders}}</td>
-        <td>{{formatMoney(productStatisticItem.totalSpent)}}</td>
+        <td>{{ productStatisticItem.totalSpent | formatMoney}}</td>
       </tr>
       </tbody>
     </table>

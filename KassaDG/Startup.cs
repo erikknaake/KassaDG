@@ -1,3 +1,7 @@
+using System;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.OpenApi.Models;
+
 namespace KassaDG
 {
     using Microsoft.AspNetCore.Builder;
@@ -23,9 +27,17 @@ namespace KassaDG
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader().AllowCredentials().AllowAnyMethod()
+                        .WithOrigins(Configuration["AllowedOrigins"].Split(";"));
+                });
+            });
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
@@ -35,6 +47,11 @@ namespace KassaDG
             services.AddScoped<IRepository<Order>, OrderRepository>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
             services.AddScoped<IRepository<ProductCategory>, ProductCategoryRepository>();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "KassaDG", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +62,8 @@ namespace KassaDG
                 var context = serviceScope.ServiceProvider.GetRequiredService<KassaDgDbContext>();
                 context.Database.Migrate();
             }
-            
+
+            app.UseMiddleware<ErrorLoggingMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,7 +78,7 @@ namespace KassaDG
             {
                 app.UseSpaStaticFiles();
             }
-
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -70,18 +88,25 @@ namespace KassaDG
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "KassaDG v1"); });
+            }
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
-
                 if (env.IsDevelopment())
                 {
+                    Console.WriteLine("Starting up angular dev server");
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+            app.UseStaticFiles();
         }
     }
 }

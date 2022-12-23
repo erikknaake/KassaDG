@@ -2,9 +2,9 @@ name: .NET Core
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, development ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, development ]
 
 jobs:
   build:
@@ -19,33 +19,20 @@ jobs:
           key: docker-netcore-cache-[2]-{hash}
           restore-keys: |
             docker-netcore-cache-[2]-
-      - name: Copy app settings
-        uses: canastro/copy-file-action@master
-        with:
-          source: ./KassaDG/appsettings.example.json
-          target: ./KassaDG/appsettings.json
       - name: Build Docker image
         run: docker-compose build
-      - name: Copy clean db
-        uses: canastro/copy-file-action@master
-        with:
-          source: ./Persistence/KassaDG.db.clean
-          target: ./Persistence/KassaDG.db
-      - name: Unlock db files
-        run: sudo chmod +rw ./Persistence/KassaDG.db.clean && sudo chmod +rw ./Persistence/KassaDG.db
       - name: Start Application
         run: docker-compose up -d
       - name: Check logs
         run: docker-compose logs
       - name: Sanity check application online
-        run: sleep 2 && curl http://localhost:5002
+        run: sleep 2 && curl http://localhost:5000
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         with:
           working-directory: End2EndTests
           browser: chrome
-          wait-on: 'http://localhost:5002'
+          wait-on: 'http://localhost:5000'
           record: false
-          env: CLEAN_DB="../Persistence/KassaDG.db.clean",TARGET_DB="../Persistence/KassaDG.db",CI="true"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

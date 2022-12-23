@@ -62,7 +62,8 @@ export class OrderComponent implements OnInit {
 
   private warnNegativeCredits() {
     this.dialogRef = this.dialog.open(NegativeCreditsDialogComponent, {
-      disableClose: false
+      disableClose: false,
+      hasBackdrop: true,
     });
 
     this.dialogRef.afterClosed().subscribe(result => {

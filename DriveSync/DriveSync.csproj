@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Google.Apis.Drive.v3" Version="1.49.0.2030" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.7" />
+      <PackageReference Include="Google.Apis.Drive.v3" Version="1.57.0.2859" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     </ItemGroup>
 
 </Project>

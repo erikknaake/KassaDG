@@ -40,6 +40,7 @@ describe('Order', () => {
                 .click();
 
             cy.get('mat-expansion-panel mat-expansion-panel')
+                .first()
                 .click();
 
             cy.get('mat-expansion-panel')
@@ -61,7 +62,7 @@ describe('Order', () => {
 
             // Validate saldo
             // 20 - 3.2 = 16.80
-            cy.get('mat-chip').should('contain', '16.8');
+            cy.get('mat-chip-option').should('contain', '16.8');
         });
 
         describe('history', () => {
