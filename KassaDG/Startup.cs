@@ -1,4 +1,5 @@
 using System;
+using KassaDG.Middleware;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.OpenApi.Models;
 
@@ -63,15 +64,9 @@ namespace KassaDG
                 context.Database.Migrate();
             }
 
-            app.UseMiddleware<ErrorLoggingMiddleware>();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+            app
+                .UseMiddleware<ErrorHandlingMiddleware>()
+                .UseMiddleware<ErrorLoggingMiddleware>();
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())

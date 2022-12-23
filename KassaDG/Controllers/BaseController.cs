@@ -34,38 +34,18 @@ namespace KassaDG.Controllers
         [HttpPut]
         public StatusCodeResult Add(T entity)
         {
-            return ExecuteWithUniqueProtection(() =>
-            {
-                Repository.Add(entity);
-                Repository.SaveChanges();
-            });
+            Repository.Add(entity);
+            Repository.SaveChanges();
+            return Ok();
         }
-
-        protected StatusCodeResult ExecuteWithUniqueProtection(Action func)
-        {
-            try
-            {
-                func();
-            }
-            catch (DbUpdateException)
-            {
-#if DEBUG
-                // TODO: get a proper logger
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Exception occured. Returning 409: {e.Message}\n{e.InnerException?.Message}");
-                Console.ResetColor();
-#endif
-                return new StatusCodeResult(409);
-            }
-
-            return new OkResult();
-        }
+        
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public StatusCodeResult Delete(int id)
         {
             Repository.Delete(id);
             Repository.SaveChanges();
+            return Ok();
         }
     }
 }

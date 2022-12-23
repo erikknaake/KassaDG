@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Data.Sqlite;
 
 namespace Persistence
 {
@@ -14,7 +15,8 @@ namespace Persistence
         private readonly Backup _backup;
         private readonly string _dbFile;
         private readonly int _backupCountRollover;
-
+        private const int UniqueConstraintFailed = 19;
+        
         public KassaDgDbContext()
         {
             Console.WriteLine("Init KassaDgDbContext without configuration!");
@@ -58,6 +60,22 @@ namespace Persistence
                 .HasOne(x => x.Account)
                 .WithMany(x => x.Orders)
                 .OnDelete(DeleteBehavior.SetNull);
+        }
+
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (SqliteException e) when(e.SqliteErrorCode == UniqueConstraintFailed)
+            {
+                throw new UniqueViolationException();
+            }
+            catch (DbUpdateException e) when (e.InnerException is SqliteException { SqliteErrorCode: UniqueConstraintFailed })
+            {
+                throw new UniqueViolationException();
+            }
         }
 
         public void Backup()
