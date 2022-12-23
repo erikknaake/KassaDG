@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
@@ -40,6 +40,9 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chip.component";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormatMoneyPipe} from "./pipes/format-money.pipe";
+import {registerLocaleData} from "@angular/common";
+import localeNl from '@angular/common/locales/nl';
+registerLocaleData(localeNl, 'nl');
 
 @NgModule({
   declarations: [
@@ -102,7 +105,9 @@ import {FormatMoneyPipe} from "./pipes/format-money.pipe";
     MatChipsModule
   ],
   providers: [NavGuard,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, autoFocus: 'dialog', disableClose: false}}],
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, autoFocus: 'dialog', disableClose: false}},
+    { provide: LOCALE_ID, useValue: 'nl' }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmDialogComponent,
