@@ -57,6 +57,8 @@ export class AccountsComponent implements OnInit {
       this.router.navigate(['/order', {accountId: account.id}]);
     } else if (!this.isManaging) {
       this.errorLogger.openSnackbar('Dit account is gedeactiveerd', 'Ok');
+    } else {
+      this.router.navigate(['/edit-account', {accountId: account.id}]);
     }
   }
 

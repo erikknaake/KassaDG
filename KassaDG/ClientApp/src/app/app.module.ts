@@ -40,8 +40,11 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chip.component";
 import {MatChipsModule} from "@angular/material/chips";
 import {FormatMoneyPipe} from "./pipes/format-money.pipe";
+import {EditAccountComponent} from "./accounts/edit-account/edit-account.component";
+
 import {registerLocaleData} from "@angular/common";
 import localeNl from '@angular/common/locales/nl';
+
 registerLocaleData(localeNl, 'nl');
 
 @NgModule({
@@ -65,7 +68,8 @@ registerLocaleData(localeNl, 'nl');
     StockComponent,
     StatisticsComponent,
     BalanceChipComponent,
-    FormatMoneyPipe
+    FormatMoneyPipe,
+    EditAccountComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -81,6 +85,7 @@ registerLocaleData(localeNl, 'nl');
       {path: '', component: AccountsComponent, pathMatch: 'full'},
       {path: 'accounts', component: AccountsComponent},
       {path: 'create-account', component: CreateAccountComponent},
+      {path: 'edit-account', component: EditAccountComponent},
       {path: 'management', component: ManagementComponent},
       {path: 'manage-accounts', component: ManageAccountsComponent},
       {path: 'products', component: ProductsComponent},
@@ -106,7 +111,7 @@ registerLocaleData(localeNl, 'nl');
   ],
   providers: [NavGuard,
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, autoFocus: 'dialog', disableClose: false}},
-    { provide: LOCALE_ID, useValue: 'nl' }
+    {provide: LOCALE_ID, useValue: 'nl'}
   ],
   bootstrap: [AppComponent],
   entryComponents: [
