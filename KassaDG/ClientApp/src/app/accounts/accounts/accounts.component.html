@@ -27,7 +27,7 @@
         </td>
         <td class="action">
           <div class="right">
-            <button mat-raised-button color="accent" (click)="navigateAccountHistory(account.id)">Geschiedenis
+            <button mat-raised-button (click)="navigateAccountHistory(account.id)">Geschiedenis
               <mat-icon>history</mat-icon>
             </button>
             <button *ngIf="isManaging && account.isActive" mat-raised-button color="warn"
@@ -51,9 +51,7 @@
         <td></td>
         <td></td>
         <td>
-          <button mat-raised-button color="primary" [routerLink]="['/create-account']">Voeg account toe
-            <mat-icon>add_circle_outline</mat-icon>
-          </button>
+          <button mat-raised-button color="primary" [routerLink]="['/create-account']">Voeg account toe <mat-icon>add_circle_outline</mat-icon></button>
         </td>
       </tr>
       </tfoot>

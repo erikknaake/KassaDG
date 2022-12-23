@@ -1,9 +1,10 @@
-<mat-accordion class="category-wrapper">
+<mat-accordion>
   <mat-expansion-panel [expanded]="category.parentCategoryId == null">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{category.categoryName}}
       </mat-panel-title>
+
     </mat-expansion-panel-header>
     <div *ngFor="let categoryLine of sortCategories(category.childrenCategories)">
       <app-category [category]="categoryLine" [isOrdering]="isOrdering"></app-category>

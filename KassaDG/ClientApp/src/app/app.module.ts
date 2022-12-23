@@ -100,7 +100,7 @@ import {MatChipsModule} from "@angular/material/chips";
     MatChipsModule
   ],
   providers: [NavGuard,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false, }}],
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, autoFocus: 'dialog', disableClose: false}}],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmDialogComponent,
