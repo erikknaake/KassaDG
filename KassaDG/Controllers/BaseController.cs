@@ -34,12 +34,20 @@ namespace KassaDG.Controllers
         [HttpPut]
         public StatusCodeResult Add(T entity)
         {
-            try
+            return ExecuteWithUniqueProtection(() =>
             {
                 Repository.Add(entity);
                 Repository.SaveChanges();
+            });
+        }
+
+        protected StatusCodeResult ExecuteWithUniqueProtection(Action func)
+        {
+            try
+            {
+                func();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
 #if DEBUG
                 // TODO: get a proper logger
