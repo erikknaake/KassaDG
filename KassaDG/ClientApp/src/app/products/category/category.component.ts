@@ -99,12 +99,14 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  deleteCategory() {
-    this.http.delete(`${this.baseUrl}productcategory/${this.category.id}`)
-      .subscribe(next => {
-        this.categoriesChangedObservableService.notify();
-      }, error => {
-        this.errorLogger.log(error);
-      })
+  async deleteCategory() {
+    if(await this.confirmService.confirmDialog('Weet je zeker dat je de categorie wilt verwijderen?')) {
+      this.http.delete(`${this.baseUrl}productcategory/${this.category.id}`)
+        .subscribe(next => {
+          this.categoriesChangedObservableService.notify();
+        }, error => {
+          this.errorLogger.log(error);
+        });
+    }
   }
 }

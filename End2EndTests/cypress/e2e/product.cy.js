@@ -2,7 +2,7 @@ describe('Create product', () => {
     before(() => {
         cy.cleanDb();
     });
-
+    
     it('Creates topLevelCategory', () => {
         cy.visit('/');
         cy.contains('Beheer').click();
@@ -64,5 +64,36 @@ describe('Create product', () => {
             cy.contains('Ja').click();
             cy.get('app-category mat-expansion-panel mat-expansion-panel tbody>tr').should('not.exist');
         });
+    });
+
+    describe('Delete category', () => {
+        before(() => {
+            cy.cleanDb();
+            cy.setupProducts();
+            cy.visit('/products');
+        });
+
+        beforeEach(() => {
+            cy
+                .contains('topLevelCategory2')
+                .get('button')
+                .contains('Verwijder categorie')
+                .click();
+        });
+        
+        it('Does not category after prompt', () => {
+            cy.contains('Nee').click();
+            cy
+                .contains('topLevelCategory2')
+                .should('exist');
+        });
+
+        it('Deletes product after prompt', () => {
+            cy.contains('Ja').click();
+            cy
+                .contains('topLevelCategory2')
+                .should('not.exist');
+        });
+
     });
 })
