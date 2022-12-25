@@ -44,6 +44,8 @@ import {EditAccountComponent} from "./accounts/edit-account/edit-account.compone
 
 import {registerLocaleData} from "@angular/common";
 import localeNl from '@angular/common/locales/nl';
+import {BasketComponent} from "./products/basket/basket.component";
+
 
 registerLocaleData(localeNl, 'nl');
 
@@ -69,7 +71,8 @@ registerLocaleData(localeNl, 'nl');
     StatisticsComponent,
     BalanceChipComponent,
     FormatMoneyPipe,
-    EditAccountComponent
+    EditAccountComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

@@ -1,11 +1,7 @@
 <app-loading *ngIf="!categories"></app-loading>
-<table *ngIf="categories" aria-labelledby="tableLabel" >
-  <tbody>
-  <tr *ngFor="let category of categories">
-    <app-category [category]="category" [isOrdering]="isOrdering"></app-category>
-  </tr>
-  </tbody>
-</table>
+<div *ngIf="categories" aria-labelledby="tableLabel" >
+    <app-category [category]="category" [isOrdering]="isOrdering" *ngFor="let category of categories"></app-category>
+</div>
 <div class="right">
   <button *ngIf="!isOrdering" mat-raised-button color="accent" [routerLink]="['/create-category']">Voeg categorie toe <mat-icon>add_circle_outline</mat-icon></button>
 </div>
