@@ -3,3 +3,15 @@
   max-height: 80vh;
 }
 
+.deposit {
+  padding-top: 2%;
+}
+
+.products-in-basket > thead, .products-in-basket > tbody, .products-in-basket > tfoot {
+  display: block;
+  width: 100%;
+}
+
+.products-in-basket td, .products-in-basket th {
+  width: 25%;
+}
