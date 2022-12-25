@@ -1,14 +1,14 @@
 .order {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
   &-left {
     position: fixed;
+    left: 1em;
+    max-width: 30vw
   }
-}
 
-app-products {
-  margin-left: 38%;
+  &-right {
+    position: absolute;
+    max-width: 65vw;
+    right: 1em;
+  }
 }
 
