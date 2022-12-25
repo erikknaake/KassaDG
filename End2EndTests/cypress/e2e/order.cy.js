@@ -122,6 +122,20 @@ describe('Order', () => {
             cy.contains('Ga door').click();
             cy.url().should('include', '/order')
         });
+        
+        it('Informs negative saldo after order', () => {
+            cy.get('mat-expansion-panel')
+                .contains('product1')
+                .parent('tr')
+                .contains('Toevoegen')
+                .click();
+            cy.get('button')
+                .contains('Afrekenen')
+                .click();
+            
+            cy.get('simple-snack-bar')
+                .should('contain', 'heeft nu een negatief saldo');
+        })
 
         it('Prompts when user has negative saldo and leaves', () => {
             cy.visit('/');
@@ -129,6 +143,7 @@ describe('Order', () => {
             cy.contains('Annuleer').click();
             cy.url().should('include', '/account')
         });
+        
         
         it('Searches user', () => {
             cy.visit('/');
