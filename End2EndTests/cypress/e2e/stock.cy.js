@@ -18,4 +18,13 @@ describe('stock', () => {
         cy.get('#mat-input-1').should('have.value', '8');
         cy.get('#mat-input-2').should('have.value', '15');
     });
+
+    it('Reset all stock', () => {
+        cy.visit('/stock');
+
+        cy.contains('Reset voorraad').click();
+        cy.get('#mat-input-0').should('have.value', '0');
+        cy.get('#mat-input-1').should('have.value', '0');
+        cy.get('#mat-input-2').should('have.value', '0');
+    });
 });

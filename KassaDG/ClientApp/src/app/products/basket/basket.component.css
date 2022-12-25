@@ -1,4 +1,5 @@
 .basket {
+  height: 100%;
   overflow-y: scroll;
   max-height: 80vh;
 }

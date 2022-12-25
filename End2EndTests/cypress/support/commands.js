@@ -56,6 +56,11 @@ Cypress.Commands.add('setupProducts', () => {
         ParentCategoryId: 1
     });
 
+    cy.request('PUT', '/productCategory', {
+        CategoryName: 'topLevelCategory2',
+        ParentCategoryId: null
+    });
+    
     cy.request('PUT', '/product', {
         productName: 'product1',
         PricePerPieceCents: 80,
