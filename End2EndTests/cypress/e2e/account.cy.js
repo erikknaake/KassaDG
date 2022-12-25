@@ -25,14 +25,46 @@ describe('Create account', () => {
         cy.url().should('contain', '/accounts');
         cy.should('not.contain', 'cypressTestAccount');
         cy.get('tbody>tr').should('not.exist');
-        
-        cy.contains('Beheer').click();
-        cy.contains('Beheer Accounts').click();
-        cy.contains('Activeer').click();
+    });
 
+    it('Activates account', () => {
+        cy.visit('/manage-accounts');
+        cy.get('tbody>tr').eq(0).contains('Activeer').click();
+        cy.get('tbody>tr').eq(0).should('contain', 'cypressTestAccount');
+        
         cy.contains('Accounts').click();
         cy.url().should('contain', '/accounts');
         cy.get('tbody>tr').eq(0).should('contain', 'cypressTestAccount')
+    });
+    
+    describe('Rename account', () => {
+        before(() => {
+            cy.setupAccount();
+        });
+        
+        beforeEach(() => {
+            cy.visit('/manage-accounts');
+        });
+        
+        it('colides with cypressaccount', () => {
+            cy.contains('seedAccount').click();
+            cy.get('input[name="name"]')
+                .clear()
+                .type('cypressTestAccount');
+            cy.get('button').contains('Bewerk').click();
+            cy.get('simple-snack-bar')
+                .should('contain', 'Accountnamen moeten uniek zijn')
+        });
+
+        it('Renames seedAccount to testAccount', () => {
+            cy.contains('seedAccount').click();
+            cy.get('input[name="name"]')
+                .clear()
+                .type('testAccount');
+            cy.get('button').contains('Bewerk').click();
+            cy.get('tbody>tr').should('contain', 'testAccount');
+        });
+        
     });
     
     describe('Delete accounts', () => {
