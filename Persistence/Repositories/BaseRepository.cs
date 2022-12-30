@@ -5,11 +5,11 @@ namespace Persistence.Repositories
     using Entities;
     using Microsoft.EntityFrameworkCore;
 
-    public class BaseRepository<T> : IRepository<T> where T : class, IBaseEntity
+    public abstract class BaseRepository<T> : IRepository<T> where T : class, IBaseEntity
     {
         private readonly DbSet<T> _dbSet;
 
-        public BaseRepository(KassaDgDbContext dbContext, DbSet<T> dbSet)
+        protected BaseRepository(KassaDgDbContext dbContext, DbSet<T> dbSet)
         {
             DbContext = dbContext;
             _dbSet = dbSet;

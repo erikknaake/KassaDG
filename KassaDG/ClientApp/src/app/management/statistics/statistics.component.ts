@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {ErrorLoggerService} from "../../error-logger.service";
 import {IOrder, IOrderLine} from "../../../IOrder";
 import {FormControl} from "@angular/forms";
-import {MoneyFormatter} from "../../../MoneyFormatter";
 
 @Component({
   selector: 'app-statistics',
@@ -83,10 +82,6 @@ export class StatisticsComponent implements OnInit {
       statisticItem.totalSpent += orderLine.amount * orderLine.productPriceCents;
     }
     return result;
-  }
-
-  formatMoney(cents: number): string {
-    return MoneyFormatter.format(cents);
   }
 }
 

@@ -5,13 +5,13 @@ import {ProductsChangedObservableService} from "../products-changed-observable.s
 import {BasketService} from "../basket.service";
 import {ICategory, IProduct} from "../../../IProduct";
 import {ErrorLoggerService} from "../../error-logger.service";
-import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service";
-import {MoneyFormatter} from "../../../MoneyFormatter";
+import {ConfirmDialogService} from "../../dialogs/confirm-dialog.service"
+import {CategoriesChangedObservableService} from "../../categories-changed-observable.service";
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
 
@@ -26,16 +26,13 @@ export class CategoryComponent implements OnInit {
               private readonly http: HttpClient,
               private readonly errorLogger: ErrorLoggerService,
               private readonly productsChangedObservableService: ProductsChangedObservableService,
+              private readonly categoriesChangedObservableService: CategoriesChangedObservableService,
               private readonly confirmService: ConfirmDialogService,
               private readonly basket: BasketService) { }
 
   ngOnInit() {
+    console.log('category: ', this.category);
   }
-
-  formatMoney(pricePerPieceCents: number): string {
-    return MoneyFormatter.format(pricePerPieceCents);
-  }
-
 
   navigateCreateCategory() {
     this.router.navigate(['/create-category', {id: this.category.id, parent: this.category.categoryName}]);
@@ -100,5 +97,16 @@ export class CategoryComponent implements OnInit {
       }
       return -1;
     });
+  }
+
+  async deleteCategory() {
+    if(await this.confirmService.confirmDialog('Weet je zeker dat je de categorie wilt verwijderen?')) {
+      this.http.delete(`${this.baseUrl}productcategory/${this.category.id}`)
+        .subscribe(next => {
+          this.categoriesChangedObservableService.notify();
+        }, error => {
+          this.errorLogger.log(error);
+        });
+    }
   }
 }

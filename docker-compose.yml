@@ -5,8 +5,12 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    volumes:
-      - ./Persistence/KassaDG.db:/Persistence/KassaDG.db
-      - ./Persistence/KassaDG.db.clean:/Persistence/KassaDG.db.clean
+#    volumes:
+#      - ./Persistence/KassaDG.db:/Persistence/KassaDG.db
+#      - ./Persistence/KassaDG.db.clean:/Persistence/KassaDG.db.clean
     ports:
-    - 5002:80
+    - 5000:80
+    environment:
+      AllowedOrigins: "http://localhost:5000;http://localhost:4200"
+      BackupCountRollover: 100
+      DATABASE_CAN_BE_RESET: "true"

@@ -16,7 +16,8 @@ export class CreateAccountComponent implements OnInit {
   constructor(private readonly http: HttpClient,
               @Inject('BASE_URL') private readonly baseUrl: string,
               private readonly router: Router,
-              private readonly errorLogger: ErrorLoggerService) { }
+              private readonly errorLogger: ErrorLoggerService) {
+  }
 
   ngOnInit() {
   }
@@ -30,7 +31,7 @@ export class CreateAccountComponent implements OnInit {
     this.http.put(this.baseUrl + "account", account).subscribe(result => {
       this.router.navigateByUrl("accounts")
     }, error => {
-      if(error.status === 409) {
+      if (error.status === 409) {
         this.errorLogger.openSnackbar("Accountnamen moeten uniek zijn", "Ok");
       } else {
         this.errorLogger.log(error)

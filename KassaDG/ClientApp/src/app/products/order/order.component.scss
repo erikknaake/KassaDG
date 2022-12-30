@@ -1,0 +1,15 @@
+.order {
+  &-left {
+    position: fixed;
+    left: 2em;
+    width: 32vw;
+    height: 80vh;
+  }
+
+  &-right {
+    position: absolute;
+    width: 60vw;
+    right: 2em;
+  }
+}
+

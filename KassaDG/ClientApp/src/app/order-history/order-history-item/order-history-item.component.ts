@@ -37,13 +37,11 @@ export class OrderHistoryItemComponent implements OnInit {
 
   }
 
-  calculateTotal(): string {
-    return MoneyFormatter.format(
-      this.order.orderLines
+  calculateTotal(): number {
+    return this.order.orderLines
         .map(this.calculateSubTotal)
         .reduce((prev, cur) => prev + cur)
-      - this.order.deposit
-    );
+      - this.order.deposit;
   }
 
   getSubTotal(orderLine: IOrderLine): string {
@@ -52,9 +50,5 @@ export class OrderHistoryItemComponent implements OnInit {
 
   calculateSubTotal(orderLine: IOrderLine): number {
     return orderLine.amount * orderLine.productPriceCents;
-  }
-
-  formatMoney(cents: number): string {
-    return MoneyFormatter.format(cents);
   }
 }

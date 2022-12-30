@@ -1,3 +1,5 @@
+using KassaDG.Models;
+
 namespace KassaDG.Controllers
 {
     using System.Linq;
@@ -11,20 +13,31 @@ namespace KassaDG.Controllers
         {
         }
 
-        [HttpPost("{id}/enable")]
-        public void Enable(int id)
+        [HttpPost("{id:int}/enable")]
+        public IActionResult Enable(int id)
         {
             var account = FindAccountById(id);
             account.IsActive = true;
             Repository.SaveChanges();
+            return Ok();
         }
         
-        [HttpPost("{id}/disable")]
-        public void Disable(int id)
+        [HttpPost("{id:int}/disable")]
+        public IActionResult Disable(int id)
         {
             var account = FindAccountById(id);
             account.IsActive = false;
             Repository.SaveChanges();
+            return Ok();
+        }
+        
+        [HttpPatch("{id:int}/name")]
+        public IActionResult ChangeName([FromRoute] int id, [FromBody] UpdateAccountNameModel update)
+        {
+            var account = FindAccountById(id);
+            account.AccountName = update.Name;
+            Repository.SaveChanges();
+            return Ok();
         }
 
         private Account FindAccountById(int id)

@@ -17,3 +17,6 @@ KassaDG/appsettings.Development.json
 
 **/*.mp4
 **/*.zip
+**/.angular
+**/logs
+**/log

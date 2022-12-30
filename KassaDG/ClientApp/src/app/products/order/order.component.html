@@ -3,72 +3,9 @@
 </div>
 <div class="order">
   <div class="order-left">
-    <div class="basket">
-      <mat-card>
-        <mat-card-content>
-          <table aria-labelledby="tableLabel" class='table table-striped products-in-basket'>
-            <thead>
-            <tr>
-              <th>Product</th>
-              <th>Aantal</th>
-              <th>Subtotaal</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let basketContentLine of basketContents">
-              <td class="conserve-width">
-                {{basketContentLine.productName}}
-              </td>
-              <td>
-                {{basketContentLine.amount}}
-              </td>
-              <td>
-                {{calculateSubTotal(basketContentLine)}}
-              </td>
-              <td>
-                <div class="table-row-action">
-                <button mat-raised-button color="primary" (click)="addProductToBasket(basketContentLine.productId)">
-                  <mat-icon>add_circle_outline</mat-icon>
-                </button>
-                <button mat-raised-button color="accent" (click)="removeProductFromBasket(basketContentLine.productId)">
-                  <mat-icon>remove_circle_outline</mat-icon>
-                </button>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-              <td></td>
-              <td>Totaal:</td>
-              <td>{{calculateTotal()}}</td>
-              <td></td>
-            </tr>
-            </tfoot>
-          </table>
-          <mat-divider></mat-divider>
-          <div class="deposit">
-            <mat-form-field>
-              <mat-label>Storting</mat-label>
-              <input matInput type="number" [(ngModel)]="deposit">
-            </mat-form-field>
-          </div>
-          <p class="conserve-width-medium"><b>Rekening: </b>{{account?.accountName}}
-            ({{formatMoney(account?.balanceCents)}})</p>
-          <mat-divider></mat-divider>
-        </mat-card-content>
-        <mat-card-actions [align]="'end'">
-          <button mat-raised-button color="primary" (click)="order()" [disabled]="busy">Afrekenen
-            <mat-icon>check_circle_outline</mat-icon>
-          </button>
-          <button mat-raised-button color="warn" (click)="navigateAccounts()">Annuleren
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
+    <app-basket></app-basket>
   </div>
-  <app-products [isOrdering]="true"></app-products>
+  <div class="order-right">
+    <app-products [isOrdering]="true"></app-products>
+  </div>
 </div>

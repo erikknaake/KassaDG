@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
@@ -13,7 +13,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
-import {MatDialogModule} from '@angular/material/dialog';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 import {NavGuard} from "../NavGaurd";
 import {MatCardModule} from '@angular/material/card';
 import {AccountsComponent} from "./accounts/accounts/accounts.component";
@@ -27,18 +27,27 @@ import {ConfirmDialogComponent} from "./dialogs/confim-dialog/confirm-dialog.com
 import {NegativeCreditsDialogComponent} from "./dialogs/negative-credits-dialog/negative-credits-dialog.component";
 import {OrderHistoryComponent} from "./order-history/order-history/order-history.component";
 import {OrderHistoryItemComponent} from "./order-history/order-history-item/order-history-item.component";
-import {MatChipsModule} from "@angular/material/chips";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import { LoadingComponent } from './loading/loading.component';
+import {LoadingComponent} from './loading/loading.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatPaginatorModule} from "@angular/material/paginator";
-import { ManagementComponent } from './management/management.component';
+import {ManagementComponent} from './management/management.component';
 import {ManageAccountsComponent} from "./accounts/manage-accounts/manage-accounts.component";
 import {StockComponent} from "./management/stock/stock.component";
 import {StatisticsComponent} from "./management/statistics/statistics.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chip.component";
+import {MatChipsModule} from "@angular/material/chips";
+import {FormatMoneyPipe} from "./pipes/format-money.pipe";
+import {EditAccountComponent} from "./accounts/edit-account/edit-account.component";
+
+import {registerLocaleData} from "@angular/common";
+import localeNl from '@angular/common/locales/nl';
+import {BasketComponent} from "./products/basket/basket.component";
+
+
+registerLocaleData(localeNl, 'nl');
 
 @NgModule({
   declarations: [
@@ -61,6 +70,9 @@ import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chi
     StockComponent,
     StatisticsComponent,
     BalanceChipComponent,
+    FormatMoneyPipe,
+    EditAccountComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -76,6 +88,7 @@ import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chi
       {path: '', component: AccountsComponent, pathMatch: 'full'},
       {path: 'accounts', component: AccountsComponent},
       {path: 'create-account', component: CreateAccountComponent},
+      {path: 'edit-account', component: EditAccountComponent},
       {path: 'management', component: ManagementComponent},
       {path: 'manage-accounts', component: ManageAccountsComponent},
       {path: 'products', component: ProductsComponent},
@@ -96,13 +109,18 @@ import {BalanceChipComponent} from "./accounts/accounts/balance-chip/balance-chi
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatChipsModule
   ],
-  providers: [NavGuard],
+  providers: [NavGuard,
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, autoFocus: 'dialog', disableClose: false}},
+    {provide: LOCALE_ID, useValue: 'nl'}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmDialogComponent,
     NegativeCreditsDialogComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+}

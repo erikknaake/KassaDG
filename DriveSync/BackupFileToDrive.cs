@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace DriveSync
 {
     using System;
@@ -13,13 +15,15 @@ namespace DriveSync
 
     public class BackupFileToDrive
     {
-        static string[] Scopes = { DriveService.Scope.DriveFile };
-        static string ApplicationName = "KassaDG";
-        
+        private readonly ILogger<BackupFileToDrive> _logger;
+        private static readonly string[] Scopes = { DriveService.Scope.DriveFile };
+        private const string ApplicationName = "KassaDG";
+
         private readonly string _googleDriveFolderId;
 
-        public BackupFileToDrive(IConfiguration configuration)
+        public BackupFileToDrive(IConfiguration configuration, ILogger<BackupFileToDrive> logger)
         {
+            _logger = logger;
             _googleDriveFolderId = configuration["GoogleDriveUrl"];
         }
         
@@ -34,20 +38,20 @@ namespace DriveSync
                 Parents = new List<string> {_googleDriveFolderId}
             };
             FilesResource.CreateMediaUpload request;
-            using (var stream = new FileStream(filePath,
-                FileMode.Open))
+            using var stream = new FileStream(filePath, FileMode.Open);
+            request = service.Files.Create(fileMetadata, stream, mimeType);
+            request.Fields = "id";
+            try
             {
-                request = service.Files.Create(
-                    fileMetadata, stream, mimeType);
-                request.Fields = "id";
-                try
+                var result = request.Upload();
+                if (result.Exception != null)
                 {
-                    request.Upload();
+                    throw result.Exception;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Exception occured while uploading to drive: {e.Message}\n{e.StackTrace}\n{e.InnerException?.Message}\n{e.InnerException?.StackTrace}");
-                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e, "Something went wrong while uploading to Google Drive");
             }
         }
 
@@ -63,7 +67,7 @@ namespace DriveSync
                 // automatically when the authorization flow completes for the first time.
                 const string credPath = "token.json";
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
+                    GoogleClientSecrets.FromStream(stream).Secrets,
                     Scopes,
                     "user",
                     CancellationToken.None,

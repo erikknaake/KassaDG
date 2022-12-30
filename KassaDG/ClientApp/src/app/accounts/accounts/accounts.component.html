@@ -1,10 +1,10 @@
 <app-loading *ngIf="!shownAccounts"></app-loading>
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-content>
     <mat-form-field class="search">
       <mat-label>Zoeken</mat-label>
       <input matInput autofocus type="text" (ngModelChange)="searchChanged($event)" [(ngModel)]="search">
-      <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''; resetSearch()">
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''; resetSearch()">
         <mat-icon>close</mat-icon>
       </button>
       <mat-icon matSuffix *ngIf="!search">search</mat-icon>
@@ -21,13 +21,13 @@
       <tr *ngFor="let account of shownAccounts" class="{{!account.isActive ? 'disabled' : ''}}">
         <td class="content" (click)="navigateAccount(account)">{{ account.accountName }}</td>
         <td class="action" (click)="navigateAccount(account)">
-          <mat-chip-list>
+          <mat-chip-listbox>
             <app-balance-chip [balanceCents]="account.balanceCents"></app-balance-chip>
-          </mat-chip-list>
+          </mat-chip-listbox>
         </td>
         <td class="action">
           <div class="right">
-            <button mat-raised-button color="accent" (click)="navigateAccountHistory(account.id)">Geschiedenis
+            <button mat-button (click)="navigateAccountHistory(account.id)">Geschiedenis
               <mat-icon>history</mat-icon>
             </button>
             <button *ngIf="isManaging && account.isActive" mat-raised-button color="warn"
@@ -51,9 +51,7 @@
         <td></td>
         <td></td>
         <td>
-          <button mat-raised-button color="primary" [routerLink]="['/create-account']">Voeg account toe
-            <mat-icon>add_circle_outline</mat-icon>
-          </button>
+          <button mat-raised-button color="primary" [routerLink]="['/create-account']" class="addAccount">Voeg account toe <mat-icon>add_circle_outline</mat-icon></button>
         </td>
       </tr>
       </tfoot>

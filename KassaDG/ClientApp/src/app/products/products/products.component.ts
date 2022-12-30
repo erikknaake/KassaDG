@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProductsChangedObservableService} from "../products-changed-observable.service";
 import {ICategory} from "../../../IProduct";
+import {CategoriesChangedObservableService} from "../../categories-changed-observable.service";
 
 @Component({
   selector: 'app-products',
@@ -17,8 +18,11 @@ export class ProductsComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     @Inject('BASE_URL') private readonly baseUrl: string,
-    private readonly productsChangedObservableService: ProductsChangedObservableService) {
+    private readonly productsChangedObservableService: ProductsChangedObservableService,
+    private readonly categoriesChangedObservableService: CategoriesChangedObservableService,
+    ) {
     productsChangedObservableService.subscribe(() => {this.ngOnInit()});
+    categoriesChangedObservableService.subscribe(() => {this.ngOnInit()});
   }
 
   ngOnInit() {

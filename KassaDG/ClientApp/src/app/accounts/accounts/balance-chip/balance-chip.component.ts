@@ -1,5 +1,4 @@
 import {Component, Input} from "@angular/core";
-import {MoneyFormatter} from "../../../../MoneyFormatter";
 
 @Component({
   selector: 'app-balance-chip',
@@ -12,10 +11,6 @@ export class BalanceChipComponent {
   balanceCents: number;
 
   constructor() {
-  }
-
-  formatMoney(balanceCents: number): string {
-    return MoneyFormatter.format(balanceCents);
   }
 
 }

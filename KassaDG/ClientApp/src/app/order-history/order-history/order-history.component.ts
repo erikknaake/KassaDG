@@ -50,25 +50,19 @@ export class OrderHistoryComponent implements OnInit {
     });
   }
 
-  formatMoney(balanceCents: number): string {
-    return MoneyFormatter.format(balanceCents);
-  }
-
-  calculateTotalDeposit(): string {
-    return this.formatMoney(this.orders
-      .map(x => x.deposit).reduce((prev, cur) => prev + cur, 0)
-    );
+  calculateTotalDeposit(): number {
+    return this.orders
+      .map(x => x.deposit).reduce((prev, cur) => prev + cur, 0);
   }
 
   calculateOrderSpent(orderLines: IOrderLine[]): number {
     return orderLines.map(x => x.amount * x.productPriceCents).reduce((prev, cur) => prev + cur, 0);
   }
 
-  calculateTotalSpent(): string {
-    return this.formatMoney(this.orders
+  calculateTotalSpent(): number {
+    return this.orders
       .map(x => this.calculateOrderSpent(x.orderLines))
-      .reduce((prev, cur) => prev + cur, 0)
-    );
+      .reduce((prev, cur) => prev + cur, 0);
   }
 
   private static orderOrdersByDate(orders: IOrder[]): IOrder[] {

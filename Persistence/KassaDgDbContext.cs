@@ -1,3 +1,6 @@
+using System;
+using Microsoft.Data.Sqlite;
+
 namespace Persistence
 {
     using System.Linq;
@@ -10,18 +13,20 @@ namespace Persistence
     public class KassaDgDbContext : DbContext
     {
         private readonly Backup _backup;
-        private readonly string _dbFile = "../Persistence/KassaDG.db";
+        private readonly string _dbFile;
         private readonly int _backupCountRollover;
-
+        private const int UniqueConstraintFailed = 19;
+        
         public KassaDgDbContext()
         {
-            
+            Console.WriteLine("Init KassaDgDbContext without configuration!");
         }
         
-        public KassaDgDbContext(IConfiguration configuration)
+        public KassaDgDbContext(IConfiguration configuration, Backup backup)
         {
             _backupCountRollover = int.Parse(configuration["BackupCountRollover"]);
-            _backup = new Backup(configuration);
+            _dbFile = configuration["DbFile"];
+            _backup = backup;
         }
         
         public DbSet<Product> Products { get; set; }
@@ -55,6 +60,22 @@ namespace Persistence
                 .HasOne(x => x.Account)
                 .WithMany(x => x.Orders)
                 .OnDelete(DeleteBehavior.SetNull);
+        }
+
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (SqliteException e) when(e.SqliteErrorCode == UniqueConstraintFailed)
+            {
+                throw new UniqueViolationException();
+            }
+            catch (DbUpdateException e) when (e.InnerException is SqliteException { SqliteErrorCode: UniqueConstraintFailed })
+            {
+                throw new UniqueViolationException();
+            }
         }
 
         public void Backup()

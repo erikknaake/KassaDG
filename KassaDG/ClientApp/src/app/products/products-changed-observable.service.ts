@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 
-type voidFn = () => void;
-
 @Injectable({
   providedIn: 'root'
 })

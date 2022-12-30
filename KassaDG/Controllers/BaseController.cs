@@ -1,15 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Entities;
+using Persistence.Repositories;
+
 namespace KassaDG.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Persistence.Entities;
-    using Persistence.Repositories;
-
     [ApiController]
     [Route("[controller]")]
-    public abstract class BaseController<T>: ControllerBase where T : IBaseEntity
+    public abstract class BaseController<T> : ControllerBase where T : IBaseEntity
     {
         protected readonly IRepository<T> Repository;
 
@@ -17,13 +18,13 @@ namespace KassaDG.Controllers
         {
             Repository = repository;
         }
-        
+
         [HttpGet("{id}")]
         public T Get(int id)
         {
             return Repository.Get().Single(x => x.Id == id);
         }
-        
+
         [HttpGet]
         public IEnumerable<T> Get()
         {
@@ -33,23 +34,18 @@ namespace KassaDG.Controllers
         [HttpPut]
         public StatusCodeResult Add(T entity)
         {
-            try
-            {
-                Repository.Add(entity);
-                Repository.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                return new StatusCodeResult(409);
-            }
-            return new OkResult();
+            Repository.Add(entity);
+            Repository.SaveChanges();
+            return Ok();
         }
+        
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public StatusCodeResult Delete(int id)
         {
             Repository.Delete(id);
             Repository.SaveChanges();
+            return Ok();
         }
     }
 }

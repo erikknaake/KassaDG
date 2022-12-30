@@ -1,8 +1,13 @@
 <app-loading *ngIf="!stock"></app-loading>
 
-<mat-card *ngIf="stock">
+<mat-card appearance="outlined" *ngIf="stock">
   <mat-card-header>
     <mat-card-title>Voorraad</mat-card-title>
+    <mat-card-subtitle>
+      <button mat-raised-button color="accent" (click)="setAllStockZero()" title="Zet alle voorraad op 0">Reset
+        voorraad
+      </button>
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <table aria-labelledby="tableLabel" class='table table-striped'>
@@ -33,7 +38,4 @@
       </tfoot>
     </table>
   </mat-card-content>
-  <!--  <mat-card-actions>-->
-  <!--    -->
-  <!--  </mat-card-actions>-->
 </mat-card>

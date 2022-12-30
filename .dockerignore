@@ -1,6 +1,5 @@
 **/bin/
 **/obj/
-**/KassaDG.db
 **/node_modules/
 **/dist/
 **/.idea/
@@ -8,3 +7,5 @@
 **/.github/
 **/*.example
 **/*.sh
+**/*.db*
+**/appsettings*.json
